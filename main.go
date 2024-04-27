@@ -4,16 +4,19 @@ import (
 	"log"
 
 	"github.com/enuesaa/leadblend/pkg/cli"
+	"github.com/enuesaa/leadblend/pkg/repository"
 	"github.com/spf13/cobra"
 )
 
 func main() {
+	repos := repository.New()
+
 	app := &cobra.Command{
 		Use:     "leadblend",
 		Short:   "",
 		Version: "0.0.1",
 	}
-	app.AddCommand(cli.CreateServeCmd())
+	app.AddCommand(cli.CreateServeCmd(repos))
 
 	// disable default
 	app.SetHelpCommand(&cobra.Command{Hidden: true})

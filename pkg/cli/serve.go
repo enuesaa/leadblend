@@ -1,10 +1,11 @@
 package cli
 
 import (
+	"github.com/enuesaa/leadblend/pkg/repository"
 	"github.com/spf13/cobra"
 )
 
-func CreateServeCmd() *cobra.Command {
+func CreateServeCmd(repos repository.Repos) *cobra.Command {
 	var cmd = &cobra.Command{
 		Use:   "serve",
 		Short: "serve",
