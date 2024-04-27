@@ -1,7 +1,30 @@
 package main
 
-import "fmt"
+import (
+	"log"
+
+	"github.com/enuesaa/leadblend/pkg/cli"
+	"github.com/spf13/cobra"
+)
 
 func main() {
-	fmt.Println("hey")
+	app := &cobra.Command{
+		Use:     "leadblend",
+		Short:   "",
+		Version: "0.0.1",
+	}
+	app.AddCommand(cli.CreateServeCmd())
+
+	// disable default
+	app.SetHelpCommand(&cobra.Command{Hidden: true})
+	app.CompletionOptions.DisableDefaultCmd = true
+	app.SilenceErrors = true
+	app.SilenceUsage = true
+	app.PersistentFlags().SortFlags = false
+	app.PersistentFlags().BoolP("help", "", false, "Show help information")
+	app.PersistentFlags().BoolP("version", "", false, "Show version")
+
+	if err := app.Execute(); err != nil {
+		log.Fatalf("Error: %s", err.Error())
+	}
 }
