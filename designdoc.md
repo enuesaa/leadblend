@@ -1,7 +1,10 @@
 # designdoc
-テキストを組み替えるイメージ
+- markdownベースのテキスト管理ツール
+- .leadblend 配下にデータを配置
+- graphとかexportできる
+
 
 ```bash
-leadblend # markdown ファイルをimport & editor を起動
-leadblend export # markdown ファイルをexport
+leadblend # editor を起動
 ```
+
