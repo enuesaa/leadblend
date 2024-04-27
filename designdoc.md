@@ -1,7 +1,7 @@
 # designdoc
+テキストを組み替えるイメージ
 
 ```bash
-leadblend # editor を起動
-leadblend import # markdown ファイルをimport
+leadblend # markdown ファイルをimport & editor を起動
 leadblend export # markdown ファイルをexport
 ```
