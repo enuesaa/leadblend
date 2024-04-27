@@ -1,3 +1,3 @@
-module github.com/enuesaa/datablend
+module github.com/enuesaa/leadblend
 
 go 1.22.0
