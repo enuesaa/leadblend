@@ -1,8 +1,8 @@
 # designdoc
 - markdownベースのテキスト管理ツール
-- .leadblend 配下にデータを配置
-- graphとかexportできる
-
+- event sourcing
+- realtime app (using websocket)
+- db から db へデータをトランスファーできる (backupもこれで行う)
 
 ```bash
 leadblend # editor を起動
