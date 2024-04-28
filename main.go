@@ -17,8 +17,6 @@ func main() {
 		Version: "0.0.1",
 	}
 	app.AddCommand(cli.CreateServeCmd(repos))
-	app.AddCommand(cli.CreatePocCmd(repos))
-	app.AddCommand(cli.CreateArchiveCmd(repos))
 
 	// disable default
 	app.SetHelpCommand(&cobra.Command{Hidden: true})
