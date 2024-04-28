@@ -4,5 +4,6 @@
 # editor
 .vscode
 
-*.zip
-.a
+*.leadblend.zip
+.*.leadblend
+
