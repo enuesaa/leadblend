@@ -15,8 +15,14 @@ func CreateServeCmd(repos repository.Repos) *cobra.Command {
 		Use:   "serve",
 		Short: "serve",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			if err := usecase.OpenPkg(repos); err != nil {
+			pkgs, err := usecase.FindLocalPkgs(repos)
+			if err != nil {
 				return err
+			}
+			for _, pkg := range pkgs {
+				if err := usecase.OpenPkg(repos, pkg); err != nil {
+					return err
+				}
 			}
 
 			app := echo.New()
