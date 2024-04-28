@@ -20,25 +20,37 @@ CREATE TABLE islands (
   updated DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE grassdefs (
-  id            INTEGER PRIMARY KEY,
-  planet_id     INTEGER NOT NULL,
-  key           VARCHAR(255) NOT NULL,
-  default_value TEXT NOT NULL,
-  created       DATETIME DEFAULT CURRENT_TIMESTAMP,
-  updated       DATETIME DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE resource_defs (
+  id          INTEGER PRIMARY KEY,
+  planet_id   INTEGER NOT NULL,
+  created     DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated     DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE grasses (
-  id        INTEGER PRIMARY KEY,
-  island_id INTEGER NOT NULL,
-  key       VARCHAR(255) NOT NULL,
-  value     TEXT NOT NULL,
-  created   DATETIME DEFAULT CURRENT_TIMESTAMP,
-  updated   DATETIME DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE attr_defs (
+  id          INTEGER PRIMARY KEY,
+  resource_def_id INTEGER NOT NULL,
+  key         VARCHAR(255) NOT NULL,
+  value       TEXT NOT NULL,
+  created     DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated     DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- resources
+CREATE TABLE resources (
+  id          INTEGER PRIMARY KEY,
+  island_id   INTEGER NOT NULL,
+  created     DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated     DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE attrs (
+  id          INTEGER PRIMARY KEY,
+  resource_id INTEGER NOT NULL,
+  key         VARCHAR(255) NOT NULL,
+  value       TEXT NOT NULL,
+  created     DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated     DATETIME DEFAULT CURRENT_TIMESTAMP
+);
 
 CREATE TABLE comets (
   id      INTEGER PRIMARY KEY,
@@ -47,6 +59,6 @@ CREATE TABLE comets (
   updated DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-- planet
-- island ... name, content, tags, resources
-- comet ... trash or memo
+-- - planet
+-- - island ... name, content, tags, resources
+-- - comet ... trash or memo
