@@ -3,6 +3,7 @@ package cli
 import (
 	"github.com/enuesaa/leadblend/pkg/controller"
 	"github.com/enuesaa/leadblend/pkg/repository"
+	"github.com/enuesaa/leadblend/pkg/usecase"
 	"github.com/enuesaa/leadblend/ui"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -14,6 +15,10 @@ func CreateServeCmd(repos repository.Repos) *cobra.Command {
 		Use:   "serve",
 		Short: "serve",
 		RunE: func(cmd *cobra.Command, args []string) error {
+			if err := usecase.OpenPkg(repos); err != nil {
+				return err
+			}
+
 			app := echo.New()
 			app.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
 				Format: "method=${method}, uri=${uri}, status=${status}\n",
