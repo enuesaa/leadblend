@@ -8,3 +8,6 @@
 leadblend # editor を起動
 ```
 
+- space ... アーカイブファイルと1対1
+- planet ... name, content, tags, resources
+- comet ... trash or memo
