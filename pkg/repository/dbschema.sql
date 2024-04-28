@@ -20,25 +20,11 @@ CREATE TABLE islands (
   updated DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE resource_defs (
-  id          INTEGER PRIMARY KEY,
-  planet_id   INTEGER NOT NULL,
-  created     DATETIME DEFAULT CURRENT_TIMESTAMP,
-  updated     DATETIME DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE attr_defs (
-  id          INTEGER PRIMARY KEY,
-  resource_def_id INTEGER NOT NULL,
-  key         VARCHAR(255) NOT NULL,
-  value       TEXT NOT NULL,
-  created     DATETIME DEFAULT CURRENT_TIMESTAMP,
-  updated     DATETIME DEFAULT CURRENT_TIMESTAMP
-);
-
 CREATE TABLE resources (
   id          INTEGER PRIMARY KEY,
-  island_id   INTEGER NOT NULL,
+  name        VARCHAR(10) NOT NULL,
+  planet_id   INTEGER, -- if set, this record means default.
+  island_id   INTEGER,
   created     DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated     DATETIME DEFAULT CURRENT_TIMESTAMP
 );
@@ -46,7 +32,7 @@ CREATE TABLE resources (
 CREATE TABLE attrs (
   id          INTEGER PRIMARY KEY,
   resource_id INTEGER NOT NULL,
-  key         VARCHAR(255) NOT NULL,
+  key         VARCHAR(255) NOT NULL, -- if key starts with _, this record means system attr.
   value       TEXT NOT NULL,
   created     DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated     DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -55,10 +41,7 @@ CREATE TABLE attrs (
 CREATE TABLE comets (
   id      INTEGER PRIMARY KEY,
   value   TEXT NOT NULL,
+  status  VARCHAR(10) NOT NULL,
   created DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-
--- - planet
--- - island ... name, content, tags, resources
--- - comet ... trash or memo
