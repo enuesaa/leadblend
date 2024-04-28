@@ -16,6 +16,7 @@ CREATE TABLE islands (
   id      INTEGER PRIMARY KEY,
   name    VARCHAR(255) NOT NULL,
   content TEXT NOT NULL,
+  priority INTEGER, -- if value is 0, this record is default island.
   created DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated DATETIME DEFAULT CURRENT_TIMESTAMP
 );
@@ -23,8 +24,7 @@ CREATE TABLE islands (
 CREATE TABLE resources (
   id          INTEGER PRIMARY KEY,
   name        VARCHAR(10) NOT NULL,
-  planet_id   INTEGER, -- if set, this record means default.
-  island_id   INTEGER,
+  island_id   INTEGER NOT NULL,
   created     DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated     DATETIME DEFAULT CURRENT_TIMESTAMP
 );
