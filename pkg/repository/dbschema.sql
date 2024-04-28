@@ -1,47 +1,62 @@
-CREATE TABLE spaces (
-  id      INTEGER PRIMARY KEY,
-  name    VARCHAR(255) NOT NULL UNIQUE,
-  created DATETIME DEFAULT CURRENT_TIMESTAMP,
-  updated DATETIME DEFAULT CURRENT_TIMESTAMP
-);
-
 CREATE TABLE planets (
-  id      INTEGER PRIMARY KEY,
+  id      VARCHAR(36) PRIMARY KEY,
   name    VARCHAR(255) NOT NULL UNIQUE,
+  comment TEXT NOT NULL,
   created DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE islands (
-  id      INTEGER PRIMARY KEY,
+  id      VARCHAR(36) PRIMARY KEY,
   name    VARCHAR(255) NOT NULL,
   content TEXT NOT NULL,
-  priority INTEGER, -- if value is 0, this record is default island.
+  comment TEXT NOT NULL,
   created DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE resources (
-  id          INTEGER PRIMARY KEY,
+CREATE TABLE islandtags (
+  id        VARCHAR(36) PRIMARY KEY,
+  island_id VARCHAR(36) NOT NULL,
+  key       VARCHAR(10) NOT NULL,
+  value     VARCHAR(255) NOT NULL,
+  created   DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated   DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE patterns (
+  id          VARCHAR(36) PRIMARY KEY,
   name        VARCHAR(10) NOT NULL,
-  island_id   INTEGER NOT NULL,
+  priority    INTEGER,
   created     DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated     DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE attrs (
-  id          INTEGER PRIMARY KEY,
-  resource_id INTEGER NOT NULL,
-  key         VARCHAR(255) NOT NULL, -- if key starts with _, this record means system attr.
-  value       TEXT NOT NULL,
-  created     DATETIME DEFAULT CURRENT_TIMESTAMP,
-  updated     DATETIME DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE traits (
+  id         VARCHAR(36) PRIMARY KEY,
+  pattern_id VARCHAR(36) NOT NULL,
+  path       VARCHAR(255) NOT NULL,
+  type       VARCHAR(10) NOT NULL,
+  default    TEXT NOT NULL, -- json format
+  required   BOOLEAN NOT NULL,
+  created    DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated    DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE comets (
-  id      INTEGER PRIMARY KEY,
-  value   TEXT NOT NULL,
-  status  VARCHAR(10) NOT NULL,
-  created DATETIME DEFAULT CURRENT_TIMESTAMP,
-  updated DATETIME DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE stones (
+  id         VARCHAR(36) PRIMARY KEY,
+  pattern_id VARCHAR(36),
+  island_id  VARCHAR(36), -- if null, consider this record as comet.
+  value      TEXT NOT NULL,
+  created    DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated    DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE histories (
+  id       VARCHAR(36) PRIMARY KEY,
+  resource VARCHAR(36) NOT NULL,
+  comment  TEXT NOT NULL,
+  created  DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated  DATETIME DEFAULT CURRENT_TIMESTAMP
 );
