@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"github.com/enuesaa/leadblend/pkg/controller"
 	"github.com/enuesaa/leadblend/pkg/repository"
 	"github.com/enuesaa/leadblend/ui"
 	"github.com/labstack/echo/v4"
@@ -21,7 +22,11 @@ func CreateServeCmd(repos repository.Repos) *cobra.Command {
 				AllowOrigins: []string{"http://localhost:3001"},
 			}))
 
-			// ui
+			api := app.Group("api")
+			api.Use(controller.HandleData)
+			api.Use(controller.HandleError)
+			api.GET("/spaces", controller.ListSpaces)
+
 			app.Any("/*", ui.Serve)
 
 			return app.Start(":3000")
