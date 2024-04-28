@@ -4,3 +4,49 @@ CREATE TABLE spaces (
   created DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE planets (
+  id      INTEGER PRIMARY KEY,
+  name    VARCHAR(255) NOT NULL UNIQUE,
+  created DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE islands (
+  id      INTEGER PRIMARY KEY,
+  name    VARCHAR(255) NOT NULL,
+  content TEXT NOT NULL,
+  created DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE grassdefs (
+  id            INTEGER PRIMARY KEY,
+  planet_id     INTEGER NOT NULL,
+  key           VARCHAR(255) NOT NULL,
+  default_value TEXT NOT NULL,
+  created       DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated       DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE grasses (
+  id        INTEGER PRIMARY KEY,
+  island_id INTEGER NOT NULL,
+  key       VARCHAR(255) NOT NULL,
+  value     TEXT NOT NULL,
+  created   DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated   DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- resources
+
+CREATE TABLE comets (
+  id      INTEGER PRIMARY KEY,
+  value   TEXT NOT NULL,
+  created DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+- planet
+- island ... name, content, tags, resources
+- comet ... trash or memo
