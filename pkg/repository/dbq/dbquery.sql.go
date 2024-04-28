@@ -9,70 +9,243 @@ import (
 	"context"
 )
 
-const createSpace = `-- name: CreateSpace :one
-INSERT INTO spaces (
-  name
+const createIsland = `-- name: CreateIsland :one
+INSERT INTO islands (
+  name, content, comment
 ) VALUES (
-  ?
+  ?, ?, ?
 )
-RETURNING id, name, created, updated
+RETURNING id, name, content, comment, created, updated
 `
 
-func (q *Queries) CreateSpace(ctx context.Context, name string) (Space, error) {
-	row := q.db.QueryRowContext(ctx, createSpace, name)
-	var i Space
+type CreateIslandParams struct {
+	Name    string
+	Content string
+	Comment string
+}
+
+func (q *Queries) CreateIsland(ctx context.Context, arg CreateIslandParams) (Island, error) {
+	row := q.db.QueryRowContext(ctx, createIsland, arg.Name, arg.Content, arg.Comment)
+	var i Island
 	err := row.Scan(
 		&i.ID,
 		&i.Name,
+		&i.Content,
+		&i.Comment,
 		&i.Created,
 		&i.Updated,
 	)
 	return i, err
 }
 
-const deleteSpace = `-- name: DeleteSpace :exec
-DELETE FROM spaces
+const createIslandTag = `-- name: CreateIslandTag :one
+INSERT INTO island_tags (
+  island_id, key, value
+) VALUES (
+  ?, ?, ?
+)
+RETURNING id, island_id, "key", value, created, updated
+`
+
+type CreateIslandTagParams struct {
+	IslandID string
+	Key      string
+	Value    string
+}
+
+func (q *Queries) CreateIslandTag(ctx context.Context, arg CreateIslandTagParams) (IslandTag, error) {
+	row := q.db.QueryRowContext(ctx, createIslandTag, arg.IslandID, arg.Key, arg.Value)
+	var i IslandTag
+	err := row.Scan(
+		&i.ID,
+		&i.IslandID,
+		&i.Key,
+		&i.Value,
+		&i.Created,
+		&i.Updated,
+	)
+	return i, err
+}
+
+const createPlanet = `-- name: CreatePlanet :one
+INSERT INTO planets (
+  name, comment
+) VALUES (
+  ?, ?
+)
+RETURNING id, name, comment, created, updated
+`
+
+type CreatePlanetParams struct {
+	Name    string
+	Comment string
+}
+
+func (q *Queries) CreatePlanet(ctx context.Context, arg CreatePlanetParams) (Planet, error) {
+	row := q.db.QueryRowContext(ctx, createPlanet, arg.Name, arg.Comment)
+	var i Planet
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		&i.Comment,
+		&i.Created,
+		&i.Updated,
+	)
+	return i, err
+}
+
+const deleteIsland = `-- name: DeleteIsland :exec
+DELETE FROM islands
 WHERE name = ?
 `
 
-func (q *Queries) DeleteSpace(ctx context.Context, name string) error {
-	_, err := q.db.ExecContext(ctx, deleteSpace, name)
+func (q *Queries) DeleteIsland(ctx context.Context, name string) error {
+	_, err := q.db.ExecContext(ctx, deleteIsland, name)
 	return err
 }
 
-const getSpace = `-- name: GetSpace :one
-SELECT id, name, created, updated FROM spaces
+const deleteIslandTag = `-- name: DeleteIslandTag :exec
+DELETE FROM island_tags
+WHERE id = ?
+`
+
+func (q *Queries) DeleteIslandTag(ctx context.Context, id string) error {
+	_, err := q.db.ExecContext(ctx, deleteIslandTag, id)
+	return err
+}
+
+const deletePlanet = `-- name: DeletePlanet :exec
+DELETE FROM planets
 WHERE name = ?
 `
 
-func (q *Queries) GetSpace(ctx context.Context, name string) (Space, error) {
-	row := q.db.QueryRowContext(ctx, getSpace, name)
-	var i Space
+func (q *Queries) DeletePlanet(ctx context.Context, name string) error {
+	_, err := q.db.ExecContext(ctx, deletePlanet, name)
+	return err
+}
+
+const getIsland = `-- name: GetIsland :one
+SELECT id, name, content, comment, created, updated FROM islands
+WHERE name = ?
+`
+
+func (q *Queries) GetIsland(ctx context.Context, name string) (Island, error) {
+	row := q.db.QueryRowContext(ctx, getIsland, name)
+	var i Island
 	err := row.Scan(
 		&i.ID,
 		&i.Name,
+		&i.Content,
+		&i.Comment,
 		&i.Created,
 		&i.Updated,
 	)
 	return i, err
 }
 
-const listSpaces = `-- name: ListSpaces :many
-SELECT id, name, created, updated FROM spaces
+const getPlanet = `-- name: GetPlanet :one
+SELECT id, name, comment, created, updated FROM planets
+WHERE name = ?
 `
 
-func (q *Queries) ListSpaces(ctx context.Context) ([]Space, error) {
-	rows, err := q.db.QueryContext(ctx, listSpaces)
+func (q *Queries) GetPlanet(ctx context.Context, name string) (Planet, error) {
+	row := q.db.QueryRowContext(ctx, getPlanet, name)
+	var i Planet
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		&i.Comment,
+		&i.Created,
+		&i.Updated,
+	)
+	return i, err
+}
+
+const listIslandTags = `-- name: ListIslandTags :many
+SELECT id, island_id, "key", value, created, updated FROM island_tags
+`
+
+func (q *Queries) ListIslandTags(ctx context.Context) ([]IslandTag, error) {
+	rows, err := q.db.QueryContext(ctx, listIslandTags)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	var items []Space
+	var items []IslandTag
 	for rows.Next() {
-		var i Space
+		var i IslandTag
+		if err := rows.Scan(
+			&i.ID,
+			&i.IslandID,
+			&i.Key,
+			&i.Value,
+			&i.Created,
+			&i.Updated,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const listIslands = `-- name: ListIslands :many
+SELECT id, name, content, comment, created, updated FROM islands
+`
+
+func (q *Queries) ListIslands(ctx context.Context) ([]Island, error) {
+	rows, err := q.db.QueryContext(ctx, listIslands)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Island
+	for rows.Next() {
+		var i Island
 		if err := rows.Scan(
 			&i.ID,
 			&i.Name,
+			&i.Content,
+			&i.Comment,
+			&i.Created,
+			&i.Updated,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const listPlanets = `-- name: ListPlanets :many
+SELECT id, name, comment, created, updated FROM planets
+`
+
+func (q *Queries) ListPlanets(ctx context.Context) ([]Planet, error) {
+	rows, err := q.db.QueryContext(ctx, listPlanets)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Planet
+	for rows.Next() {
+		var i Planet
+		if err := rows.Scan(
+			&i.ID,
+			&i.Name,
+			&i.Comment,
 			&i.Created,
 			&i.Updated,
 		); err != nil {

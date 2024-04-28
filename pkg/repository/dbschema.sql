@@ -15,7 +15,7 @@ CREATE TABLE islands (
   updated DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE islandtags (
+CREATE TABLE island_tags (
   id        VARCHAR(36) PRIMARY KEY,
   island_id VARCHAR(36) NOT NULL,
   key       VARCHAR(10) NOT NULL,
@@ -34,21 +34,21 @@ CREATE TABLE patterns (
 );
 
 CREATE TABLE traits (
-  id         VARCHAR(36) PRIMARY KEY,
-  pattern_id VARCHAR(36) NOT NULL,
-  path       VARCHAR(255) NOT NULL,
-  type       VARCHAR(10) NOT NULL,
-  default    TEXT NOT NULL, -- json format
-  required   BOOLEAN NOT NULL,
-  created    DATETIME DEFAULT CURRENT_TIMESTAMP,
-  updated    DATETIME DEFAULT CURRENT_TIMESTAMP
+  id            VARCHAR(36) PRIMARY KEY,
+  pattern_id    VARCHAR(36) NOT NULL,
+  path          VARCHAR(255) NOT NULL,
+  type          VARCHAR(10) NOT NULL,
+  default_value TEXT NOT NULL, -- json format
+  required      BOOLEAN NOT NULL,
+  created       DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated       DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE stones (
   id         VARCHAR(36) PRIMARY KEY,
   pattern_id VARCHAR(36),
   island_id  VARCHAR(36), -- if null, consider this record as comet.
-  value      TEXT NOT NULL,
+  data       TEXT NOT NULL,
   created    DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated    DATETIME DEFAULT CURRENT_TIMESTAMP
 );

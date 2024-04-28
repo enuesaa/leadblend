@@ -8,9 +8,64 @@ import (
 	"database/sql"
 )
 
-type Space struct {
-	ID      int64
+type History struct {
+	ID       string
+	Resource string
+	Comment  string
+	Created  sql.NullTime
+	Updated  sql.NullTime
+}
+
+type Island struct {
+	ID      string
 	Name    string
+	Content string
+	Comment string
 	Created sql.NullTime
 	Updated sql.NullTime
+}
+
+type IslandTag struct {
+	ID       string
+	IslandID string
+	Key      string
+	Value    string
+	Created  sql.NullTime
+	Updated  sql.NullTime
+}
+
+type Pattern struct {
+	ID       string
+	Name     string
+	Priority sql.NullInt64
+	Created  sql.NullTime
+	Updated  sql.NullTime
+}
+
+type Planet struct {
+	ID      string
+	Name    string
+	Comment string
+	Created sql.NullTime
+	Updated sql.NullTime
+}
+
+type Stone struct {
+	ID        string
+	PatternID sql.NullString
+	IslandID  sql.NullString
+	Data      string
+	Created   sql.NullTime
+	Updated   sql.NullTime
+}
+
+type Trait struct {
+	ID           string
+	PatternID    string
+	Path         string
+	Type         string
+	DefaultValue string
+	Required     bool
+	Created      sql.NullTime
+	Updated      sql.NullTime
 }
