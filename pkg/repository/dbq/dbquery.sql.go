@@ -11,21 +11,20 @@ import (
 )
 
 const createHistory = `-- name: CreateHistory :one
-INSERT INTO histories (id, resource, comment) VALUES (?, ?, ?) RETURNING id, resource, comment, created, updated
+INSERT INTO histories (resource_id, comment) VALUES (?, ?) RETURNING id, resource_id, comment, created, updated
 `
 
 type CreateHistoryParams struct {
-	ID       string
-	Resource string
-	Comment  string
+	ResourceID string
+	Comment    string
 }
 
 func (q *Queries) CreateHistory(ctx context.Context, arg CreateHistoryParams) (History, error) {
-	row := q.db.QueryRowContext(ctx, createHistory, arg.ID, arg.Resource, arg.Comment)
+	row := q.db.QueryRowContext(ctx, createHistory, arg.ResourceID, arg.Comment)
 	var i History
 	err := row.Scan(
 		&i.ID,
-		&i.Resource,
+		&i.ResourceID,
 		&i.Comment,
 		&i.Created,
 		&i.Updated,
@@ -34,21 +33,21 @@ func (q *Queries) CreateHistory(ctx context.Context, arg CreateHistoryParams) (H
 }
 
 const createIsland = `-- name: CreateIsland :one
-INSERT INTO islands (name, content, comment) VALUES (?, ?, ?) RETURNING id, name, content, comment, created, updated
+INSERT INTO islands (title, content, comment) VALUES (?, ?, ?) RETURNING id, title, content, comment, created, updated
 `
 
 type CreateIslandParams struct {
-	Name    string
+	Title   string
 	Content string
 	Comment string
 }
 
 func (q *Queries) CreateIsland(ctx context.Context, arg CreateIslandParams) (Island, error) {
-	row := q.db.QueryRowContext(ctx, createIsland, arg.Name, arg.Content, arg.Comment)
+	row := q.db.QueryRowContext(ctx, createIsland, arg.Title, arg.Content, arg.Comment)
 	var i Island
 	err := row.Scan(
 		&i.ID,
-		&i.Name,
+		&i.Title,
 		&i.Content,
 		&i.Comment,
 		&i.Created,
@@ -57,45 +56,21 @@ func (q *Queries) CreateIsland(ctx context.Context, arg CreateIslandParams) (Isl
 	return i, err
 }
 
-const createIslandTag = `-- name: CreateIslandTag :one
-INSERT INTO island_tags (island_id, key, value) VALUES (?, ?, ?) RETURNING id, island_id, "key", value, created, updated
-`
-
-type CreateIslandTagParams struct {
-	IslandID string
-	Key      string
-	Value    string
-}
-
-func (q *Queries) CreateIslandTag(ctx context.Context, arg CreateIslandTagParams) (IslandTag, error) {
-	row := q.db.QueryRowContext(ctx, createIslandTag, arg.IslandID, arg.Key, arg.Value)
-	var i IslandTag
-	err := row.Scan(
-		&i.ID,
-		&i.IslandID,
-		&i.Key,
-		&i.Value,
-		&i.Created,
-		&i.Updated,
-	)
-	return i, err
-}
-
 const createPattern = `-- name: CreatePattern :one
-INSERT INTO patterns (name, priority) VALUES (?, ?) RETURNING id, name, priority, created, updated
+INSERT INTO patterns (title, priority) VALUES (?, ?) RETURNING id, title, priority, created, updated
 `
 
 type CreatePatternParams struct {
-	Name     string
+	Title    string
 	Priority sql.NullInt64
 }
 
 func (q *Queries) CreatePattern(ctx context.Context, arg CreatePatternParams) (Pattern, error) {
-	row := q.db.QueryRowContext(ctx, createPattern, arg.Name, arg.Priority)
+	row := q.db.QueryRowContext(ctx, createPattern, arg.Title, arg.Priority)
 	var i Pattern
 	err := row.Scan(
 		&i.ID,
-		&i.Name,
+		&i.Title,
 		&i.Priority,
 		&i.Created,
 		&i.Updated,
@@ -125,24 +100,34 @@ func (q *Queries) CreatePlanet(ctx context.Context, arg CreatePlanetParams) (Pla
 	return i, err
 }
 
+const createResource = `-- name: CreateResource :one
+INSERT INTO resources (id, marker) VALUES (?, ?) RETURNING id, marker
+`
+
+type CreateResourceParams struct {
+	ID     string
+	Marker string
+}
+
+func (q *Queries) CreateResource(ctx context.Context, arg CreateResourceParams) (Resource, error) {
+	row := q.db.QueryRowContext(ctx, createResource, arg.ID, arg.Marker)
+	var i Resource
+	err := row.Scan(&i.ID, &i.Marker)
+	return i, err
+}
+
 const createStone = `-- name: CreateStone :one
-INSERT INTO stones (id, pattern_id, island_id, data) VALUES (?, ?, ?, ?) RETURNING id, pattern_id, island_id, data, created, updated
+INSERT INTO stones (pattern_id, island_id, data) VALUES (?, ?, ?) RETURNING id, pattern_id, island_id, data, created, updated
 `
 
 type CreateStoneParams struct {
-	ID        string
-	PatternID sql.NullString
-	IslandID  sql.NullString
+	PatternID sql.NullInt64
+	IslandID  sql.NullInt64
 	Data      string
 }
 
 func (q *Queries) CreateStone(ctx context.Context, arg CreateStoneParams) (Stone, error) {
-	row := q.db.QueryRowContext(ctx, createStone,
-		arg.ID,
-		arg.PatternID,
-		arg.IslandID,
-		arg.Data,
-	)
+	row := q.db.QueryRowContext(ctx, createStone, arg.PatternID, arg.IslandID, arg.Data)
 	var i Stone
 	err := row.Scan(
 		&i.ID,
@@ -155,12 +140,36 @@ func (q *Queries) CreateStone(ctx context.Context, arg CreateStoneParams) (Stone
 	return i, err
 }
 
+const createTag = `-- name: CreateTag :one
+INSERT INTO tags (resource_id, key, value) VALUES (?, ?, ?) RETURNING id, resource_id, "key", value, created, updated
+`
+
+type CreateTagParams struct {
+	ResourceID string
+	Key        string
+	Value      string
+}
+
+func (q *Queries) CreateTag(ctx context.Context, arg CreateTagParams) (Tag, error) {
+	row := q.db.QueryRowContext(ctx, createTag, arg.ResourceID, arg.Key, arg.Value)
+	var i Tag
+	err := row.Scan(
+		&i.ID,
+		&i.ResourceID,
+		&i.Key,
+		&i.Value,
+		&i.Created,
+		&i.Updated,
+	)
+	return i, err
+}
+
 const createTrait = `-- name: CreateTrait :one
 INSERT INTO traits (pattern_id, path, type, default_value, required) VALUES (?, ?, ?, ?, ?) RETURNING id, pattern_id, path, type, default_value, required, created, updated
 `
 
 type CreateTraitParams struct {
-	PatternID    string
+	PatternID    int64
 	Path         string
 	Type         string
 	DefaultValue string
@@ -193,35 +202,26 @@ const deleteHistory = `-- name: DeleteHistory :exec
 DELETE FROM histories WHERE id = ?
 `
 
-func (q *Queries) DeleteHistory(ctx context.Context, id string) error {
+func (q *Queries) DeleteHistory(ctx context.Context, id int64) error {
 	_, err := q.db.ExecContext(ctx, deleteHistory, id)
 	return err
 }
 
 const deleteIsland = `-- name: DeleteIsland :exec
-DELETE FROM islands WHERE name = ?
+DELETE FROM islands WHERE id = ?
 `
 
-func (q *Queries) DeleteIsland(ctx context.Context, name string) error {
-	_, err := q.db.ExecContext(ctx, deleteIsland, name)
-	return err
-}
-
-const deleteIslandTag = `-- name: DeleteIslandTag :exec
-DELETE FROM island_tags WHERE id = ?
-`
-
-func (q *Queries) DeleteIslandTag(ctx context.Context, id string) error {
-	_, err := q.db.ExecContext(ctx, deleteIslandTag, id)
+func (q *Queries) DeleteIsland(ctx context.Context, id int64) error {
+	_, err := q.db.ExecContext(ctx, deleteIsland, id)
 	return err
 }
 
 const deletePattern = `-- name: DeletePattern :exec
-DELETE FROM patterns WHERE name = ?
+DELETE FROM patterns WHERE id = ?
 `
 
-func (q *Queries) DeletePattern(ctx context.Context, name string) error {
-	_, err := q.db.ExecContext(ctx, deletePattern, name)
+func (q *Queries) DeletePattern(ctx context.Context, id int64) error {
+	_, err := q.db.ExecContext(ctx, deletePattern, id)
 	return err
 }
 
@@ -234,12 +234,30 @@ func (q *Queries) DeletePlanet(ctx context.Context, name string) error {
 	return err
 }
 
+const deleteResource = `-- name: DeleteResource :exec
+DELETE FROM resources WHERE id = ?
+`
+
+func (q *Queries) DeleteResource(ctx context.Context, id string) error {
+	_, err := q.db.ExecContext(ctx, deleteResource, id)
+	return err
+}
+
 const deleteStone = `-- name: DeleteStone :exec
 DELETE FROM stones WHERE id = ?
 `
 
-func (q *Queries) DeleteStone(ctx context.Context, id string) error {
+func (q *Queries) DeleteStone(ctx context.Context, id int64) error {
 	_, err := q.db.ExecContext(ctx, deleteStone, id)
+	return err
+}
+
+const deleteTag = `-- name: DeleteTag :exec
+DELETE FROM tags WHERE id = ?
+`
+
+func (q *Queries) DeleteTag(ctx context.Context, id int64) error {
+	_, err := q.db.ExecContext(ctx, deleteTag, id)
 	return err
 }
 
@@ -247,21 +265,38 @@ const deleteTrait = `-- name: DeleteTrait :exec
 DELETE FROM traits WHERE id = ?
 `
 
-func (q *Queries) DeleteTrait(ctx context.Context, id string) error {
+func (q *Queries) DeleteTrait(ctx context.Context, id int64) error {
 	_, err := q.db.ExecContext(ctx, deleteTrait, id)
 	return err
 }
 
-const getIsland = `-- name: GetIsland :one
-SELECT id, name, content, comment, created, updated FROM islands WHERE name = ?
+const getHistorys = `-- name: GetHistorys :one
+SELECT id, resource_id, comment, created, updated FROM histories WHERE id = ?
 `
 
-func (q *Queries) GetIsland(ctx context.Context, name string) (Island, error) {
-	row := q.db.QueryRowContext(ctx, getIsland, name)
+func (q *Queries) GetHistorys(ctx context.Context, id int64) (History, error) {
+	row := q.db.QueryRowContext(ctx, getHistorys, id)
+	var i History
+	err := row.Scan(
+		&i.ID,
+		&i.ResourceID,
+		&i.Comment,
+		&i.Created,
+		&i.Updated,
+	)
+	return i, err
+}
+
+const getIsland = `-- name: GetIsland :one
+SELECT id, title, content, comment, created, updated FROM islands WHERE id = ?
+`
+
+func (q *Queries) GetIsland(ctx context.Context, id int64) (Island, error) {
+	row := q.db.QueryRowContext(ctx, getIsland, id)
 	var i Island
 	err := row.Scan(
 		&i.ID,
-		&i.Name,
+		&i.Title,
 		&i.Content,
 		&i.Comment,
 		&i.Created,
@@ -271,15 +306,15 @@ func (q *Queries) GetIsland(ctx context.Context, name string) (Island, error) {
 }
 
 const getPattern = `-- name: GetPattern :one
-SELECT id, name, priority, created, updated FROM patterns WHERE name = ?
+SELECT id, title, priority, created, updated FROM patterns WHERE id = ?
 `
 
-func (q *Queries) GetPattern(ctx context.Context, name string) (Pattern, error) {
-	row := q.db.QueryRowContext(ctx, getPattern, name)
+func (q *Queries) GetPattern(ctx context.Context, id int64) (Pattern, error) {
+	row := q.db.QueryRowContext(ctx, getPattern, id)
 	var i Pattern
 	err := row.Scan(
 		&i.ID,
-		&i.Name,
+		&i.Title,
 		&i.Priority,
 		&i.Created,
 		&i.Updated,
@@ -304,11 +339,22 @@ func (q *Queries) GetPlanet(ctx context.Context, name string) (Planet, error) {
 	return i, err
 }
 
+const getResource = `-- name: GetResource :one
+SELECT id, marker FROM resources WHERE id = ?
+`
+
+func (q *Queries) GetResource(ctx context.Context, id string) (Resource, error) {
+	row := q.db.QueryRowContext(ctx, getResource, id)
+	var i Resource
+	err := row.Scan(&i.ID, &i.Marker)
+	return i, err
+}
+
 const getStone = `-- name: GetStone :one
 SELECT id, pattern_id, island_id, data, created, updated FROM stones WHERE id = ?
 `
 
-func (q *Queries) GetStone(ctx context.Context, id string) (Stone, error) {
+func (q *Queries) GetStone(ctx context.Context, id int64) (Stone, error) {
 	row := q.db.QueryRowContext(ctx, getStone, id)
 	var i Stone
 	err := row.Scan(
@@ -322,11 +368,29 @@ func (q *Queries) GetStone(ctx context.Context, id string) (Stone, error) {
 	return i, err
 }
 
+const getTag = `-- name: GetTag :one
+SELECT id, resource_id, "key", value, created, updated FROM tags WHERE id = ?
+`
+
+func (q *Queries) GetTag(ctx context.Context, id int64) (Tag, error) {
+	row := q.db.QueryRowContext(ctx, getTag, id)
+	var i Tag
+	err := row.Scan(
+		&i.ID,
+		&i.ResourceID,
+		&i.Key,
+		&i.Value,
+		&i.Created,
+		&i.Updated,
+	)
+	return i, err
+}
+
 const getTrait = `-- name: GetTrait :one
 SELECT id, pattern_id, path, type, default_value, required, created, updated FROM traits WHERE id = ?
 `
 
-func (q *Queries) GetTrait(ctx context.Context, id string) (Trait, error) {
+func (q *Queries) GetTrait(ctx context.Context, id int64) (Trait, error) {
 	row := q.db.QueryRowContext(ctx, getTrait, id)
 	var i Trait
 	err := row.Scan(
@@ -343,7 +407,7 @@ func (q *Queries) GetTrait(ctx context.Context, id string) (Trait, error) {
 }
 
 const listHistories = `-- name: ListHistories :many
-SELECT id, resource, comment, created, updated FROM histories
+SELECT id, resource_id, comment, created, updated FROM histories
 `
 
 func (q *Queries) ListHistories(ctx context.Context) ([]History, error) {
@@ -357,7 +421,7 @@ func (q *Queries) ListHistories(ctx context.Context) ([]History, error) {
 		var i History
 		if err := rows.Scan(
 			&i.ID,
-			&i.Resource,
+			&i.ResourceID,
 			&i.Comment,
 			&i.Created,
 			&i.Updated,
@@ -375,42 +439,8 @@ func (q *Queries) ListHistories(ctx context.Context) ([]History, error) {
 	return items, nil
 }
 
-const listIslandTags = `-- name: ListIslandTags :many
-SELECT id, island_id, "key", value, created, updated FROM island_tags
-`
-
-func (q *Queries) ListIslandTags(ctx context.Context) ([]IslandTag, error) {
-	rows, err := q.db.QueryContext(ctx, listIslandTags)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	var items []IslandTag
-	for rows.Next() {
-		var i IslandTag
-		if err := rows.Scan(
-			&i.ID,
-			&i.IslandID,
-			&i.Key,
-			&i.Value,
-			&i.Created,
-			&i.Updated,
-		); err != nil {
-			return nil, err
-		}
-		items = append(items, i)
-	}
-	if err := rows.Close(); err != nil {
-		return nil, err
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	return items, nil
-}
-
 const listIslands = `-- name: ListIslands :many
-SELECT id, name, content, comment, created, updated FROM islands
+SELECT id, title, content, comment, created, updated FROM islands
 `
 
 func (q *Queries) ListIslands(ctx context.Context) ([]Island, error) {
@@ -424,7 +454,7 @@ func (q *Queries) ListIslands(ctx context.Context) ([]Island, error) {
 		var i Island
 		if err := rows.Scan(
 			&i.ID,
-			&i.Name,
+			&i.Title,
 			&i.Content,
 			&i.Comment,
 			&i.Created,
@@ -444,7 +474,7 @@ func (q *Queries) ListIslands(ctx context.Context) ([]Island, error) {
 }
 
 const listPatterns = `-- name: ListPatterns :many
-SELECT id, name, priority, created, updated FROM patterns
+SELECT id, title, priority, created, updated FROM patterns
 `
 
 func (q *Queries) ListPatterns(ctx context.Context) ([]Pattern, error) {
@@ -458,7 +488,7 @@ func (q *Queries) ListPatterns(ctx context.Context) ([]Pattern, error) {
 		var i Pattern
 		if err := rows.Scan(
 			&i.ID,
-			&i.Name,
+			&i.Title,
 			&i.Priority,
 			&i.Created,
 			&i.Updated,
@@ -509,6 +539,33 @@ func (q *Queries) ListPlanets(ctx context.Context) ([]Planet, error) {
 	return items, nil
 }
 
+const listResources = `-- name: ListResources :many
+SELECT id, marker FROM resources
+`
+
+func (q *Queries) ListResources(ctx context.Context) ([]Resource, error) {
+	rows, err := q.db.QueryContext(ctx, listResources)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Resource
+	for rows.Next() {
+		var i Resource
+		if err := rows.Scan(&i.ID, &i.Marker); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const listStones = `-- name: ListStones :many
 SELECT id, pattern_id, island_id, data, created, updated FROM stones
 `
@@ -527,6 +584,40 @@ func (q *Queries) ListStones(ctx context.Context) ([]Stone, error) {
 			&i.PatternID,
 			&i.IslandID,
 			&i.Data,
+			&i.Created,
+			&i.Updated,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const listTags = `-- name: ListTags :many
+SELECT id, resource_id, "key", value, created, updated FROM tags
+`
+
+func (q *Queries) ListTags(ctx context.Context) ([]Tag, error) {
+	rows, err := q.db.QueryContext(ctx, listTags)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Tag
+	for rows.Next() {
+		var i Tag
+		if err := rows.Scan(
+			&i.ID,
+			&i.ResourceID,
+			&i.Key,
+			&i.Value,
 			&i.Created,
 			&i.Updated,
 		); err != nil {
