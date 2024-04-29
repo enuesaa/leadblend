@@ -1,14 +1,19 @@
 package cli
 
 import (
+	"context"
+	_ "embed"
+	"fmt"
+	"net/http"
+	"time"
+
 	"github.com/enuesaa/leadblend/pkg/repository"
 	"github.com/spf13/cobra"
-	"net/http"
-	_ "embed"
 
+	"github.com/99designs/gqlgen/graphql/playground"
 	graphql "github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
-	"github.com/99designs/gqlgen/graphql/playground"
+	"github.com/graph-gophers/graphql-transport-ws/graphqlws"
 )
 
 //go:embed query.gql
@@ -24,6 +29,25 @@ func (*Resolver) CreatePlanet(args struct{ Name string }) (*string, error) {
 	id := "a"
 	return &id, nil
 }
+func (*Resolver) SubscribeName(ctx context.Context) <-chan *string {
+    ch := make(chan *string)
+
+	go func() {
+		defer close(ch)
+		for {
+			time.Sleep(1 * time.Second)
+			name := "a"
+			select {
+			case <-ctx.Done():
+				fmt.Println("Subscription Closed")
+				return
+			case ch <- &name:
+			}
+		}
+	}()
+
+    return ch
+}
 
 type Planet struct {}
 func (p Planet) Id() graphql.ID {
@@ -38,9 +62,8 @@ func CreateGraphCmd(repos repository.Repos) *cobra.Command {
 		Use:   "graph",
 		Short: "graph",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			http.Handle("/graphql", &relay.Handler{
-				Schema: graphql.MustParseSchema(schema, &Resolver{}),
-			})
+			s := graphql.MustParseSchema(schema, &Resolver{})
+			http.HandleFunc("/graphql", graphqlws.NewHandlerFunc(s, &relay.Handler{Schema: s}))
 			http.Handle("/graphql/playground", playground.Handler("graph", "/graphql"))
 
 			return http.ListenAndServe(":3000", nil)
