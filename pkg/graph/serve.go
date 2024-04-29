@@ -2,25 +2,18 @@ package graph
 
 import (
 	"context"
-	_ "embed"
 	"encoding/json"
+	"fmt"
 	"net/http"
 
-	"github.com/enuesaa/leadblend/pkg/repository"
-	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
-
 	"github.com/99designs/gqlgen/graphql/playground"
+	"github.com/enuesaa/leadblend/pkg/repository"
+	"github.com/gorilla/websocket"
 	graphql "github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
-
-	"fmt"
-
-	"github.com/gorilla/websocket"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
-
-//go:embed query.gql
-var schema string
 
 func Serve(repos repository.Repos) error {
 	app := echo.New()
@@ -68,9 +61,9 @@ func wshandle(c echo.Context) error {
 				c.Logger().Error(err)
 			}
 		} else {
-			gqschema :=  graphql.MustParseSchema(schema, &Resolver{})
+			gqschema := graphql.MustParseSchema(schema, &Resolver{})
 			type SubscribeMessage struct {
-				Id string `json:"id"`
+				Id      string `json:"id"`
 				Payload struct {
 					Query string `json:"query"`
 				} `json:"payload"`
