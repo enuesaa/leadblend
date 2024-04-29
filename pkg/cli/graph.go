@@ -8,6 +8,7 @@ import (
 
 	graphql "github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
+	"github.com/99designs/gqlgen/graphql/playground"
 )
 
 //go:embed query.gql
@@ -36,6 +37,7 @@ func CreateGraphCmd(repos repository.Repos) *cobra.Command {
 			http.Handle("/graphql", &relay.Handler{
 				Schema: graphql.MustParseSchema(schema, &query{}),
 			})
+			http.Handle("/graphql/playground", playground.Handler("graph", "/graphql"))
 
 			return http.ListenAndServe(":3000", nil)
 		},

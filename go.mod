@@ -11,6 +11,7 @@ require (
 )
 
 require (
+	github.com/99designs/gqlgen v0.17.45 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
