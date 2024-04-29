@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/enuesaa/leadblend/pkg/repository"
-	"github.com/gorilla/websocket"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/spf13/cobra"
@@ -15,6 +14,7 @@ import (
 	"github.com/99designs/gqlgen/graphql/playground"
 	graphql "github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
+	_ "github.com/graph-gophers/graphql-transport-ws/graphqlws"
 )
 
 //go:embed query.gql
@@ -75,33 +75,9 @@ func CreateGraphCmd(repos repository.Repos) *cobra.Command {
 
 			gqschema := graphql.MustParseSchema(schema, &Resolver{})
 			app.POST("/graphql", echo.WrapHandler(&relay.Handler{Schema: gqschema}))
-			app.GET("/graphql", func(c echo.Context) error {
-				upgrader := websocket.Upgrader{}
-				ws, err := upgrader.Upgrade(c.Response(), c.Request(), nil)
-				if err != nil {
-					return err
-				}
-				defer ws.Close()
-
-				// ctx, cancel := context.WithCancel(c.Request().Context())
-				// defer cancel()
-
-				// resolver := Resolver{}
-				// ch := resolver.SubscribeName(ctx)
-
-				// for {
-				// 	select {
-				// 	case <-ctx.Done():
-				// 		return nil
-				// 	case name := <-ch:
-				// 		if err := ws.WriteJSON(map[string]interface{}{"name": *name}); err != nil {
-				// 			return err
-				// 		}
-				// 	}
-				// }
-
-				return nil
-			})
+			// app.Any("/graphql", echo.WrapHandler(
+			// 	graphqlws.NewHandler(gqschema, &relay.Handler{Schema: gqschema}),
+			// ))
 			app.GET("/graphql/playground", echo.WrapHandler(playground.Handler("graphql", "/graphql")))
 
 			return app.Start(":3000")
