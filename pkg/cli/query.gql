@@ -6,7 +6,9 @@ schema {
 type Query {
   planets: [Planet!]!
 }
-type Mutation {}
+type Mutation {
+  createPlanet(name: String!): String
+}
 
 type Planet {
   id: ID!

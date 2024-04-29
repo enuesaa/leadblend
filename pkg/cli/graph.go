@@ -16,17 +16,21 @@ var schema string
 
 type Resolver struct{}
 func (*Resolver) Planets() ([]Planet, error) {
-    list := make([]Planet, 0)
+	list := make([]Planet, 0)
 	list = append(list, Planet{})
 	return list, nil
+}
+func (*Resolver) CreatePlanet(args struct{ Name string }) (*string, error) {
+	id := "a"
+	return &id, nil
 }
 
 type Planet struct {}
 func (p Planet) Id() graphql.ID {
-    return graphql.ID("aaa")
+	return graphql.ID("aaa")
 }
 func (p Planet) Name() string {
-    return "aaaaaa"
+	return "aaaaaa"
 }
 
 func CreateGraphCmd(repos repository.Repos) *cobra.Command {
