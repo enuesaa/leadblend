@@ -22,7 +22,7 @@ func Serve(repos repository.Repos) error {
 	api.Use(controller.HandleError)
 	api.GET("/spaces", controller.ListSpaces)
 	// api.POST("/space/swicth")
-	
+
 	// api.GET("/planets")
 	// api.GET("/planets/:planet_id")
 	// api.GET("/planets/:planet_id/islands")

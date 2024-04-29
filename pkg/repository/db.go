@@ -5,8 +5,8 @@ import (
 	"database/sql"
 	_ "embed"
 	"fmt"
-	"os"
 	_ "modernc.org/sqlite"
+	"os"
 
 	"github.com/enuesaa/leadblend/pkg/repository/dbq"
 )

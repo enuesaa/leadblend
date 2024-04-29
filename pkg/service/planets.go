@@ -2,7 +2,7 @@ package service
 
 import "github.com/enuesaa/leadblend/pkg/repository"
 
-type Planet struct {}
+type Planet struct{}
 
 func NewPlanetService(repos repository.Repos) PlanetService {
 	return PlanetService{

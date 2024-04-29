@@ -41,7 +41,7 @@ func OpenPkg(repos repository.Repos, filename string) error {
 			return err
 		}
 		defer realwriter.Close()
-		if _,  err := io.Copy(realwriter, reader); err != nil {
+		if _, err := io.Copy(realwriter, reader); err != nil {
 			return err
 		}
 	}
