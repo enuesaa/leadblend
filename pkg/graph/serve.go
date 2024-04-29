@@ -10,7 +10,7 @@ import (
 	"github.com/99designs/gqlgen/graphql/playground"
 	graphql "github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
-	_ "github.com/graph-gophers/graphql-transport-ws/graphqlws"
+	"github.com/graph-gophers/graphql-transport-ws/graphqlws"
 )
 
 //go:embed query.gql
@@ -26,10 +26,8 @@ func Serve(repos repository.Repos) error {
 	}))
 
 	gqschema := graphql.MustParseSchema(schema, &Resolver{})
-	app.POST("/graphql", echo.WrapHandler(&relay.Handler{Schema: gqschema}))
-	// app.Any("/graphql", echo.WrapHandler(
-	// 	graphqlws.NewHandler(gqschema, &relay.Handler{Schema: gqschema}),
-	// ))
+	app.Any("/graphql", echo.WrapHandler(graphqlws.NewHandlerFunc(gqschema, &relay.Handler{Schema: gqschema})))
+
 	app.GET("/graphql/playground", echo.WrapHandler(playground.Handler("graphql", "/graphql")))
 
 	return app.Start(":3000")
