@@ -1,19 +1,29 @@
 <script lang="ts">
-	import { fetchNotes } from '$lib/api'
-	import { createQuery } from '@tanstack/svelte-query'
-
-	const notes = createQuery({
-		queryKey: ['notes'],
-		queryFn: fetchNotes
+	import { queryStore, gql, getContextClient } from '@urql/svelte'
+  
+	const todos = queryStore({
+	  client: getContextClient(),
+	  query: gql`
+		query {
+		  todos {
+			id
+			title
+		  }
+		}
+	  `,
 	})
 </script>
-
-{#if $notes.isLoading}
-	<p>読み込み中... </p>
-{:else if $notes.isError}
-	<p>エラーが起きました</p>
-{:else if $notes.isSuccess}
-	{#each $notes.data as note}
-		<p>タイトル: {note.name}</p>
+  
+{#if $todos.fetching}
+	<p>Loading...</p>
+{:else if $todos.error}
+	<p>Oh no... {$todos.error.message}</p>
+{:else}
+	<ul>
+	{#each $todos.data.todos as todo}
+		<li>{todo.title}</li>
 	{/each}
+	</ul>
 {/if}
+
+  

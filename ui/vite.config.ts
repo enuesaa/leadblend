@@ -9,4 +9,7 @@ export default defineConfig({
       '$lib': path.join(__dirname, './src/lib'),
     },
   },
+  optimizeDeps: {
+    exclude: ['@urql/svelte'],
+  },
 })
