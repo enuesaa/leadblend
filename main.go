@@ -16,6 +16,7 @@ func main() {
 		Short:   "",
 		Version: "0.0.1",
 	}
+	app.AddCommand(cli.CreateGraphCmd(repos))
 	app.AddCommand(cli.CreateServeCmd(repos))
 
 	// disable default

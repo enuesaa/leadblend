@@ -4,6 +4,7 @@ go 1.22.0
 
 require (
 	github.com/go-playground/validator/v10 v10.19.0
+	github.com/graph-gophers/graphql-go v1.5.0
 	github.com/labstack/echo/v4 v4.12.0
 	github.com/spf13/cobra v1.8.0
 	modernc.org/sqlite v1.29.8
