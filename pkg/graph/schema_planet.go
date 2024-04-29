@@ -1,7 +1,7 @@
 package graph
 
 import (
-	graphql "github.com/graph-gophers/graphql-go"
+	"github.com/graph-gophers/graphql-go"
 )
 
 type Planet struct{
