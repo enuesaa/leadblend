@@ -1,27 +1,26 @@
 <script lang="ts">
 	import { queryStore, gql, getContextClient } from '@urql/svelte'
   
-	const todos = queryStore({
-	  client: getContextClient(),
-	  query: gql`
-		query {
-		  todos {
-			id
-			title
-		  }
-		}
-	  `,
+	const planets = queryStore({
+		client: getContextClient(),
+		query: gql`
+			query {
+				planets {
+					id
+				}
+			}
+		`,
 	})
 </script>
   
-{#if $todos.fetching}
+{#if $planets.fetching}
 	<p>Loading...</p>
-{:else if $todos.error}
-	<p>Oh no... {$todos.error.message}</p>
+{:else if $planets.error}
+	<p>Oh no... {$planets.error.message}</p>
 {:else}
 	<ul>
-	{#each $todos.data.todos as todo}
-		<li>{todo.title}</li>
+	{#each $planets.data.planets as planet}
+		<li>{planet.id}</li>
 	{/each}
 	</ul>
 {/if}

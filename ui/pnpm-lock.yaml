@@ -5,9 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  '@tanstack/svelte-query':
-    specifier: ^5.32.0
-    version: 5.32.0(svelte@4.2.15)
+  '@urql/svelte':
+    specifier: ^4.1.1
+    version: 4.1.1(svelte@4.2.15)
 
 devDependencies:
   '@sveltejs/adapter-static':
@@ -22,9 +22,6 @@ devDependencies:
   '@types/node':
     specifier: ^20.12.7
     version: 20.12.7
-  '@urql/svelte':
-    specifier: ^4.1.1
-    version: 4.1.1(svelte@4.2.15)
   prettier:
     specifier: ^3.2.5
     version: 3.2.5
@@ -56,7 +53,7 @@ packages:
     peerDependenciesMeta:
       graphql:
         optional: true
-    dev: true
+    dev: false
 
   /@ampproject/remapping@2.3.0:
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
@@ -521,19 +518,6 @@ packages:
       - supports-color
     dev: true
 
-  /@tanstack/query-core@5.32.0:
-    resolution: {integrity: sha512-Z3flEgCat55DRXU5UMwYU1U+DgFZKA3iufyOKs+II7iRAo0uXkeU7PH5e6sOH1CGEag0IpKmZxlUFpCg6roSKw==}
-    dev: false
-
-  /@tanstack/svelte-query@5.32.0(svelte@4.2.15):
-    resolution: {integrity: sha512-qvBVmZzoMbEDj3d4vs2wp3xuO6+y3M+evAr47ibQLfJ7clX0ilIuAYeimlm/gw2gBT2Z8hsPoqa5W1lgAIMyug==}
-    peerDependencies:
-      svelte: ^3.54.0 || ^4.0.0 || ^5.0.0-next.0
-    dependencies:
-      '@tanstack/query-core': 5.32.0
-      svelte: 4.2.15
-    dev: false
-
   /@types/cookie@0.6.0:
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
     dev: true
@@ -558,7 +542,7 @@ packages:
       wonka: 6.3.4
     transitivePeerDependencies:
       - graphql
-    dev: true
+    dev: false
 
   /@urql/svelte@4.1.1(svelte@4.2.15):
     resolution: {integrity: sha512-GqgfTtOB6VkQGEazfNl5UasviWjyEZp15I+rG5bpTDQZJSZgkkGZJF+4CdaNNQVBdnWeQlKOsyXRiadYXfe5Vw==}
@@ -570,7 +554,7 @@ packages:
       wonka: 6.3.4
     transitivePeerDependencies:
       - graphql
-    dev: true
+    dev: false
 
   /acorn@8.11.3:
     resolution: {integrity: sha512-Y9rRfJG5jcKOE0CLisYbojUjIrIEE7AGMzA/Sm4BslANhbS+cDMpgBdcPT91oJ7OuJ9hYJBx59RjbhxVnrF8Xg==}
@@ -1288,7 +1272,7 @@ packages:
 
   /wonka@6.3.4:
     resolution: {integrity: sha512-CjpbqNtBGNAeyNS/9W6q3kSkKE52+FjIj7AkFlLr11s/VWGUu6a2CdYSdGxocIhIVjaW/zchesBQUKPVU69Cqg==}
-    dev: true
+    dev: false
 
   /wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
