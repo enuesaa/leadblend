@@ -4,15 +4,28 @@ import (
 	"github.com/enuesaa/leadblend/pkg/repository"
 	"github.com/spf13/cobra"
 	"net/http"
+	_ "embed"
 
 	graphql "github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
 )
 
-type query struct{}
+//go:embed query.gql
+var schema string
 
-func (query) Hello() string {
-	return "Hello, world!"
+type query struct{}
+func (*query) Planets() ([]Planet, error) {
+    list := make([]Planet, 0)
+	list = append(list, Planet{})
+	return list, nil
+}
+
+type Planet struct {}
+func (p Planet) Id() graphql.ID {
+    return graphql.ID("aaa")
+}
+func (p Planet) Name() string {
+    return "aaaaaa"
 }
 
 func CreateGraphCmd(repos repository.Repos) *cobra.Command {
@@ -20,13 +33,9 @@ func CreateGraphCmd(repos repository.Repos) *cobra.Command {
 		Use:   "graph",
 		Short: "graph",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			s := `
-				type Query {
-						hello: String!
-				}
-			`
-			schema := graphql.MustParseSchema(s, &query{})
-			http.Handle("/query", &relay.Handler{Schema: schema})
+			http.Handle("/graphql", &relay.Handler{
+				Schema: graphql.MustParseSchema(schema, &query{}),
+			})
 
 			return http.ListenAndServe(":3000", nil)
 		},
