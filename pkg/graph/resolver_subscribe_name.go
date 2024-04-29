@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func (*Resolver) SubscribeName(ctx context.Context) <-chan *string {
+func (*Resolver) SubscribeName(ctx context.Context) (<-chan *string, error) {
 	ch := make(chan *string)
 
 	go func() {
@@ -23,5 +23,5 @@ func (*Resolver) SubscribeName(ctx context.Context) <-chan *string {
 		}
 	}()
 
-	return ch
+	return ch, nil
 }

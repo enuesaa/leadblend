@@ -1,6 +1,9 @@
 package graph
 
-func (*Resolver) CreatePlanet(args struct{ Name string }) (*string, error) {
+type CreatePlanetArgs struct {
+	Name string
+}
+func (r *Resolver) CreatePlanet(args CreatePlanetArgs) (*string, error) {
 	id := "a"
 	return &id, nil
 }
