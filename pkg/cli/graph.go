@@ -14,8 +14,8 @@ import (
 //go:embed query.gql
 var schema string
 
-type query struct{}
-func (*query) Planets() ([]Planet, error) {
+type Resolver struct{}
+func (*Resolver) Planets() ([]Planet, error) {
     list := make([]Planet, 0)
 	list = append(list, Planet{})
 	return list, nil
@@ -35,7 +35,7 @@ func CreateGraphCmd(repos repository.Repos) *cobra.Command {
 		Short: "graph",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			http.Handle("/graphql", &relay.Handler{
-				Schema: graphql.MustParseSchema(schema, &query{}),
+				Schema: graphql.MustParseSchema(schema, &Resolver{}),
 			})
 			http.Handle("/graphql/playground", playground.Handler("graph", "/graphql"))
 
