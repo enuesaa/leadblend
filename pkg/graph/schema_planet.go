@@ -7,6 +7,7 @@ import (
 type Planet struct{
 	id string
 	name string
+	comment string
 }
 
 func (p *Planet) Id() graphql.ID {
@@ -14,4 +15,7 @@ func (p *Planet) Id() graphql.ID {
 }
 func (p *Planet) Name() string {
 	return p.name
+}
+func (p *Planet) Comment() string {
+	return p.comment
 }

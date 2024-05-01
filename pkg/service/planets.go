@@ -26,6 +26,14 @@ func (srv *PlanetService) List() ([]dbq.Planet, error) {
 	return query.ListPlanets(context.Background())
 }
 
+func (srv *PlanetService) Get(id string) (dbq.Planet, error) {
+	query, err := srv.repos.DB.Query()
+	if err != nil {
+		return dbq.Planet{}, err
+	}
+	return query.GetPlanet(context.Background(), id)
+}
+
 func (srv *PlanetService) Create(params dbq.CreatePlanetParams) (string, error) {
 	query, err := srv.repos.DB.Query()
 	if err != nil {
