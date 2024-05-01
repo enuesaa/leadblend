@@ -82,6 +82,17 @@ func (srv *PkgService) archive(name string) (*bytes.Buffer, error) {
 	return b, nil
 }
 
+func (srv *PkgService) Close(name string) error {
+	b, err := srv.archive(name)
+	if err != nil {
+		return err
+	}
+	if err := srv.removeUnarchiveDir(); err != nil {
+		return err
+	}
+	return srv.repos.Fs.Create(srv.pkgFilename(name), b.Bytes())
+}
+
 func (srv *PkgService) migrate(name string) error {
 	path := srv.pkgUnarchivedDBFilename(name)
 	if srv.repos.Fs.IsExist(path) {
@@ -100,15 +111,7 @@ func (srv *PkgService) Create(name string) error {
 	if err := srv.migrate(name); err != nil {
 		return err
 	}
-
-	b, err := srv.archive(name)
-	if err != nil {
-		return err
-	}
-	if err := srv.removeUnarchiveDir(); err != nil {
-		return err
-	}
-	return srv.repos.Fs.Create(srv.pkgFilename(name), b.Bytes())
+	return srv.Close(name)
 }
 
 func (srv *PkgService) Open(name string) error {

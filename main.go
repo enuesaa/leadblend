@@ -8,6 +8,7 @@ import (
 
 	"github.com/enuesaa/leadblend/pkg/cli"
 	"github.com/enuesaa/leadblend/pkg/repository"
+	"github.com/enuesaa/leadblend/pkg/usecase"
 	"github.com/spf13/cobra"
 )
 
@@ -25,7 +26,7 @@ func main() {
 		cancelch := make(chan os.Signal, 1)
 		signal.Notify(cancelch, syscall.SIGTERM, syscall.SIGINT)
 		<-cancelch
-		if err := repos.Fs.Remove(".leadblend"); err != nil {
+		if err := usecase.ClosePkg(repos, "main"); err != nil {
 			log.Fatalf("Error: %s", err.Error())
 		}
         os.Exit(0)

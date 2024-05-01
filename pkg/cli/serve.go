@@ -18,12 +18,10 @@ func CreateServeCmd(repos repository.Repos) *cobra.Command {
 			if filename != "" && !strings.HasSuffix(filename, ".leadblend.zip") {
 				return fmt.Errorf("invalid filename.")
 			}
-
 			name := strings.ReplaceAll(filename, ".leadblend.zip", "")
 			if err := usecase.UsePkg(repos, name); err != nil {
 				return err
 			}
-
 			return usecase.Serve(repos)
 		},
 	}
