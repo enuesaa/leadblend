@@ -18,7 +18,13 @@ func Serve(repos repository.Repos) error {
 	}))
 
 	app.POST("/graphql", echo.WrapHandler(&relay.Handler{Schema: gqschema}))
-	app.GET("/graphql", handleSubscribe)
+	app.GET("/graphql", func(c echo.Context) error {
+		subscriber := Subscriber{}
+		if err := subscriber.Init(c.Response(), c.Request()); err != nil {
+			return err
+		}
+		return subscriber.WaitMessage()
+	})
 	app.GET("/graphql/playground", echo.WrapHandler(playground.Handler("graphql", "/graphql")))
 
 	return app.Start(":3000")
