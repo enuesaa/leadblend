@@ -46,14 +46,15 @@ func handleSubscribe(c echo.Context) error {
 		if err := json.Unmarshal(reqbyte, &req); err != nil {
 			return err
 		}
-		if req.Type == "connection_init" {
+		switch req.Type {
+		case "connection_init":
 			res := SubscribeResponse {
 				Type: "connection_ack",
 			}
 			if err := ws.WriteJSON(res); err != nil {
 				return err
 			}
-		} else {
+		case "subscribe":
 			ctx := context.Background()
 			ch, err := gqschema.Subscribe(ctx, req.Payload.Query, "", nil)
 			if err != nil {
@@ -69,6 +70,10 @@ func handleSubscribe(c echo.Context) error {
 				if err := ws.WriteJSON(res); err != nil {
 					return err
 				}
+			}
+		case "complete":
+			if err := ws.Close(); err != nil {
+				return err
 			}
 		}
 	}
