@@ -105,15 +105,17 @@ func (srv *PkgService) RemoveOpened(name string) error {
 }
 
 func (srv *PkgService) Open(name string) error {
-	unarchivedir := fmt.Sprintf(".leadblend/%s", strings.ReplaceAll(name, ".zip", ""))
+	if err := srv.repos.Fs.CreateDir(".leadblend"); err != nil {
+		return err
+	}
 
-	zr, err := zip.OpenReader(name)
+	zr, err := zip.OpenReader(srv.pkgFilename(name))
 	if err != nil {
 		return err
 	}
 	defer zr.Close()
 
-	if err := srv.repos.Fs.CreateDir(unarchivedir); err != nil {
+	if err := srv.repos.Fs.CreateDir(fmt.Sprintf(".leadblend/%s", name)); err != nil {
 		return err
 	}
 
@@ -128,7 +130,7 @@ func (srv *PkgService) Open(name string) error {
 			continue
 		}
 
-		path := filepath.Join(unarchivedir, filepath.Base(f.Name)) // remove parent dir name
+		path := filepath.Join(".leadblend", name, f.Name)
 		realwriter, err := os.Create(path)
 		if err != nil {
 			return err
