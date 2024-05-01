@@ -21,6 +21,7 @@ type Island {
 
 type Mutation {
   createPlanet(name: String!, comment: String!): String
+  createIsland(planetId: String!, title: String!, content: String!, comment: String!): String
 }
 
 type Subscription {

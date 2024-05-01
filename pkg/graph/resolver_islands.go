@@ -19,7 +19,7 @@ func (r *Resolver) Islands(args resolverIslandsArgs) ([]*Island, error) {
 			id: island.ID,
 			planetId: island.PlanetID,
 			title: island.Title,
-			content: island.Title,
+			content: island.Content,
 			comment: island.Comment,
 		})
 	}
