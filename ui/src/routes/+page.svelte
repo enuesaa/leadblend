@@ -1,28 +1,15 @@
 <script lang="ts">
-	import { queryStore, gql, getContextClient } from '@urql/svelte'
-  
-	const planets = queryStore({
-		client: getContextClient(),
-		query: gql`
-			query {
-				planets {
-					id
-				}
-			}
-		`,
-	})
+	import { listPlanets } from '$lib/graphql/planet'
 </script>
-  
-{#if $planets.fetching}
+
+{#if $listPlanets.fetching}
 	<p>Loading...</p>
-{:else if $planets.error}
-	<p>Oh no... {$planets.error.message}</p>
+{:else if $listPlanets.error}
+	<p>Oh no... {$listPlanets.error.message}</p>
 {:else}
 	<ul>
-	{#each $planets.data.planets as planet}
+	{#each $listPlanets.data.listPlanets as planet}
 		<li>{planet.id}</li>
 	{/each}
 	</ul>
 {/if}
-
-  
