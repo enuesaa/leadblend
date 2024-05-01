@@ -33,19 +33,21 @@ func (q *Queries) CreateHistory(ctx context.Context, arg CreateHistoryParams) (H
 }
 
 const createIsland = `-- name: CreateIsland :one
-INSERT INTO islands (id, title, content, comment) VALUES (?, ?, ?, ?) RETURNING id, title, content, comment, created, updated
+INSERT INTO islands (id, planet_id, title, content, comment) VALUES (?, ?, ?, ?, ?) RETURNING id, planet_id, title, content, comment, created, updated
 `
 
 type CreateIslandParams struct {
-	ID      string
-	Title   string
-	Content string
-	Comment string
+	ID       string
+	PlanetID string
+	Title    string
+	Content  string
+	Comment  string
 }
 
 func (q *Queries) CreateIsland(ctx context.Context, arg CreateIslandParams) (Island, error) {
 	row := q.db.QueryRowContext(ctx, createIsland,
 		arg.ID,
+		arg.PlanetID,
 		arg.Title,
 		arg.Content,
 		arg.Comment,
@@ -53,6 +55,7 @@ func (q *Queries) CreateIsland(ctx context.Context, arg CreateIslandParams) (Isl
 	var i Island
 	err := row.Scan(
 		&i.ID,
+		&i.PlanetID,
 		&i.Title,
 		&i.Content,
 		&i.Comment,
@@ -279,7 +282,7 @@ func (q *Queries) GetHistorys(ctx context.Context, id string) (History, error) {
 }
 
 const getIsland = `-- name: GetIsland :one
-SELECT id, title, content, comment, created, updated FROM islands WHERE id = ?
+SELECT id, planet_id, title, content, comment, created, updated FROM islands WHERE id = ?
 `
 
 func (q *Queries) GetIsland(ctx context.Context, id string) (Island, error) {
@@ -287,6 +290,7 @@ func (q *Queries) GetIsland(ctx context.Context, id string) (Island, error) {
 	var i Island
 	err := row.Scan(
 		&i.ID,
+		&i.PlanetID,
 		&i.Title,
 		&i.Content,
 		&i.Comment,
@@ -437,7 +441,7 @@ func (q *Queries) ListHistories(ctx context.Context) ([]History, error) {
 }
 
 const listIslands = `-- name: ListIslands :many
-SELECT id, title, content, comment, created, updated FROM islands
+SELECT id, planet_id, title, content, comment, created, updated FROM islands
 `
 
 func (q *Queries) ListIslands(ctx context.Context) ([]Island, error) {
@@ -451,6 +455,7 @@ func (q *Queries) ListIslands(ctx context.Context) ([]Island, error) {
 		var i Island
 		if err := rows.Scan(
 			&i.ID,
+			&i.PlanetID,
 			&i.Title,
 			&i.Content,
 			&i.Comment,
@@ -471,7 +476,7 @@ func (q *Queries) ListIslands(ctx context.Context) ([]Island, error) {
 }
 
 const listIslandsByTitle = `-- name: ListIslandsByTitle :many
-SELECT id, title, content, comment, created, updated FROM islands where title = ?
+SELECT id, planet_id, title, content, comment, created, updated FROM islands where title = ?
 `
 
 func (q *Queries) ListIslandsByTitle(ctx context.Context, title string) ([]Island, error) {
@@ -485,6 +490,7 @@ func (q *Queries) ListIslandsByTitle(ctx context.Context, title string) ([]Islan
 		var i Island
 		if err := rows.Scan(
 			&i.ID,
+			&i.PlanetID,
 			&i.Title,
 			&i.Content,
 			&i.Comment,

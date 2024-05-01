@@ -18,7 +18,7 @@ SELECT * FROM islands where title = ?;
 -- name: GetIsland :one
 SELECT * FROM islands WHERE id = ?;
 -- name: CreateIsland :one
-INSERT INTO islands (id, title, content, comment) VALUES (?, ?, ?, ?) RETURNING *;
+INSERT INTO islands (id, planet_id, title, content, comment) VALUES (?, ?, ?, ?, ?) RETURNING *;
 -- name: DeleteIsland :exec
 DELETE FROM islands WHERE id = ?;
 

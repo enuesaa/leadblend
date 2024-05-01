@@ -17,12 +17,13 @@ type History struct {
 }
 
 type Island struct {
-	ID      string
-	Title   string
-	Content string
-	Comment string
-	Created sql.NullTime
-	Updated sql.NullTime
+	ID       string
+	PlanetID string
+	Title    string
+	Content  string
+	Comment  string
+	Created  sql.NullTime
+	Updated  sql.NullTime
 }
 
 type Pattern struct {

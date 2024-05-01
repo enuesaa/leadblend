@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func (*Resolver) SubscribeName(ctx context.Context) (<-chan *string, error) {
+func (r *Resolver) SubscribeName(ctx context.Context) (<-chan *string, error) {
 	ch := make(chan *string)
 
 	go func() {

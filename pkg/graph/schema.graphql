@@ -1,11 +1,20 @@
 type Query {
   planets: [Planet!]!
   planet(id: ID, name: String): Planet
+  islands(planetId: ID!): [Island!]!
 }
 
 type Planet {
   id: ID!
   name: String!
+  comment: String!
+}
+
+type Island {
+  id: ID!
+  planetId: String!
+  title: String!
+  content: String!
   comment: String!
 }
 

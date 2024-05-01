@@ -8,6 +8,7 @@ CREATE TABLE planets (
 
 CREATE TABLE islands (
   id      VARCHAR(25) PRIMARY KEY,
+  planet_id VARCHAR(25) NOT NULL,
   title   VARCHAR(255) NOT NULL,
   content TEXT NOT NULL,
   comment TEXT NOT NULL,
