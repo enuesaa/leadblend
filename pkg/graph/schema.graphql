@@ -2,6 +2,7 @@ type Query {
   planets: [Planet!]!
   planet(id: ID, name: String): Planet
   islands(planetId: ID!): [Island!]!
+  island(id: ID): Island
 }
 
 type Planet {

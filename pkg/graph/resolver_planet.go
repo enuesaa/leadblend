@@ -7,12 +7,12 @@ import (
 	"github.com/enuesaa/leadblend/pkg/service"
 )
 
-type QueryPlanetArgs struct {
+type resolverPlanetArgs struct {
 	Id   *string
 	Name *string
 }
 
-func (r *Resolver) Planet(args QueryPlanetArgs) (*Planet, error) {
+func (r *Resolver) Planet(args resolverPlanetArgs) (*Planet, error) {
 	planetSrv := service.NewPlanetService(r.repos)
 
 	var err error

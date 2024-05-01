@@ -5,12 +5,12 @@ import (
 	"github.com/enuesaa/leadblend/pkg/service"
 )
 
-type CreatePlanetArgs struct {
+type resolverCreatePlanetArgs struct {
 	Name    string
 	Comment string
 }
 
-func (r *Resolver) CreatePlanet(args CreatePlanetArgs) (*string, error) {
+func (r *Resolver) CreatePlanet(args resolverCreatePlanetArgs) (*string, error) {
 	planetSrv := service.NewPlanetService(r.repos)
 
 	params := dbq.CreatePlanetParams{
