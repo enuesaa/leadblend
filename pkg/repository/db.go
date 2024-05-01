@@ -13,8 +13,8 @@ import (
 
 type DBRepositoryInterface interface {
 	IsDBExist() bool
-	Migrate(path string) error
-	Open(path string) error
+	Migrate() error
+	Open() error
 	IsOpen() bool
 	Close() error
 	Query() (*dbq.Queries, error)
@@ -42,8 +42,8 @@ func (repo *DBRepository) IsDBExist() bool {
 	return true
 }
 
-func (repo *DBRepository) Migrate(path string) error {
-	db, err := sql.Open("sqlite", repo.dsn(path))
+func (repo *DBRepository) Migrate() error {
+	db, err := sql.Open("sqlite", repo.dsn(repo.dbpath()))
 	if err != nil {
 		return err
 	}
@@ -56,8 +56,8 @@ func (repo *DBRepository) Migrate(path string) error {
 	return nil
 }
 
-func (repo *DBRepository) Open(path string) error {
-	db, err := sql.Open("sqlite", repo.dsn(path))
+func (repo *DBRepository) Open() error {
+	db, err := sql.Open("sqlite", repo.dsn(repo.dbpath()))
 	if err != nil {
 		return err
 	}
@@ -89,7 +89,9 @@ func (repo *DBRepository) checkOpened() error {
 
 func (repo *DBRepository) Query() (*dbq.Queries, error) {
 	if err := repo.checkOpened(); err != nil {
-		return nil, err
+		if err := repo.Open(); err != nil {
+			return nil, err
+		}
 	}
 	return dbq.New(repo.db), nil
 }

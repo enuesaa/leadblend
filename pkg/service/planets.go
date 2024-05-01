@@ -1,8 +1,12 @@
 package service
 
-import "github.com/enuesaa/leadblend/pkg/repository"
+import (
+	"context"
 
-type Planet struct{}
+	"github.com/enuesaa/leadblend/pkg/repository"
+	"github.com/enuesaa/leadblend/pkg/repository/dbq"
+	"github.com/oklog/ulid/v2"
+)
 
 func NewPlanetService(repos repository.Repos) PlanetService {
 	return PlanetService{
@@ -14,6 +18,23 @@ type PlanetService struct {
 	repos repository.Repos
 }
 
-func (srv *PlanetService) List() ([]Planet, error) {
-	return make([]Planet, 0), nil
+func (srv *PlanetService) List() ([]dbq.Planet, error) {
+	query, err := srv.repos.DB.Query()
+	if err != nil {
+		return make([]dbq.Planet, 0), err
+	}
+	return query.ListPlanets(context.Background())
+}
+
+func (srv *PlanetService) Create(params dbq.CreatePlanetParams) (string, error) {
+	query, err := srv.repos.DB.Query()
+	if err != nil {
+		return "", err
+	}
+
+	params.ID = ulid.Make().String()
+	if _, err := query.CreatePlanet(context.Background(), params); err != nil {
+		return "", nil
+	}
+	return params.ID, nil
 }

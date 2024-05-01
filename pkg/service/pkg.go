@@ -98,7 +98,7 @@ func (srv *PkgService) migrate(name string) error {
 	if srv.repos.Fs.IsExist(path) {
 		return nil
 	}
-	return srv.repos.DB.Migrate(path)
+	return srv.repos.DB.Migrate()
 }
 
 func (srv *PkgService) Create(name string) error {

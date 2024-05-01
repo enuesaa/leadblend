@@ -6,5 +6,4 @@ import (
 
 type Resolver struct{
 	repos repository.Repos
-	db string
 }

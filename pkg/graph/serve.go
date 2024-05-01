@@ -20,7 +20,6 @@ func Serve(repos repository.Repos) error {
 
 	gqschema := graphql.MustParseSchema(schema, &Resolver{
 		repos: repos,
-		db: ".leadblend/main/data.db",
 	})
 
 	app.POST("/graphql", echo.WrapHandler(&relay.Handler{Schema: gqschema}))
