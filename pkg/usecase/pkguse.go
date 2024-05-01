@@ -16,8 +16,5 @@ func UsePkg(repos repository.Repos, name string) error {
 			return err
 		}
 	}
-	if err := pkgSrv.RemoveOpened(name); err != nil {
-		return err
-	}
 	return pkgSrv.Open(name)
 }

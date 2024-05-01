@@ -7,7 +7,6 @@ import (
 	"io"
 	"os"
 	"path/filepath"
-	"strings"
 
 	"github.com/enuesaa/leadblend/pkg/repository"
 )
@@ -21,28 +20,27 @@ type PkgService struct {
 	repos repository.Repos
 }
 
-func (srv *PkgService) List() ([]string, error) {
-	list := make([]string, 0)
-
-	filenames, err := srv.repos.Fs.ListFiles(".")
-	if err != nil {
-		return list, err
-	}
-	for _, filename := range filenames {
-		if strings.HasSuffix(filename, ".leadblend.zip") {
-			list = append(list, filename)
-		}
-	}
-
-	return list, nil
-}
-
 func (srv *PkgService) pkgFilename(name string) string {
 	return fmt.Sprintf("%s.leadblend.zip", name)
 }
 
+func (srv *PkgService) pkgUnarchivedDBFilename(name string) string {
+	return fmt.Sprintf(".leadblend/%s/data.db", name)
+}
+
 func (srv *PkgService) unarchivedir() string {
 	return ".leadblend"
+}
+
+func (srv *PkgService) createUnarchiveDir() error {
+	if srv.repos.Fs.IsExist(srv.unarchivedir()) {
+		return nil
+	}
+	return srv.repos.Fs.CreateDir(srv.unarchivedir())
+}
+
+func (srv *PkgService) removeUnarchiveDir() error {
+	return srv.repos.Fs.Remove(srv.unarchivedir())
 }
 
 func (srv *PkgService) IsExist(name string) bool {
@@ -54,7 +52,7 @@ func (srv *PkgService) archive(name string) (*bytes.Buffer, error) {
 	writer := zip.NewWriter(b)
 	defer writer.Close()
 
-	f, err := os.Open(".leadblend/data.db")
+	f, err := os.Open(srv.pkgUnarchivedDBFilename(name))
 	if err != nil {
 		return b, err
 	}
@@ -84,11 +82,22 @@ func (srv *PkgService) archive(name string) (*bytes.Buffer, error) {
 	return b, nil
 }
 
+func (srv *PkgService) migrate(name string) error {
+	path := srv.pkgUnarchivedDBFilename(name)
+	if srv.repos.Fs.IsExist(path) {
+		return nil
+	}
+	return srv.repos.DB.Migrate(path)
+}
+
 func (srv *PkgService) Create(name string) error {
-	if err := srv.repos.Fs.CreateDir(".leadblend"); err != nil {
+	if err := srv.createUnarchiveDir(); err != nil {
 		return err
 	}
-	if err := srv.repos.DB.Migrate(".leadblend/data.db"); err != nil {
+	if err := srv.repos.Fs.CreateDir(fmt.Sprintf(".leadblend/%s", name)); err != nil {
+		return err
+	}
+	if err := srv.migrate(name); err != nil {
 		return err
 	}
 
@@ -96,12 +105,10 @@ func (srv *PkgService) Create(name string) error {
 	if err != nil {
 		return err
 	}
-	srv.repos.Fs.Remove(".leadblend")
+	if err := srv.removeUnarchiveDir(); err != nil {
+		return err
+	}
 	return srv.repos.Fs.Create(srv.pkgFilename(name), b.Bytes())
-}
-
-func (srv *PkgService) RemoveOpened(name string) error {
-	return srv.repos.Fs.Remove(srv.unarchivedir())
 }
 
 func (srv *PkgService) Open(name string) error {
