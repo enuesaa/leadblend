@@ -1,6 +1,6 @@
 type Query {
   planets: [Planet!]!
-  planet(id: ID!): Planet
+  planet(id: ID, name: String): Planet
 }
 
 type Planet {
