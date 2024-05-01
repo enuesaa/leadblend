@@ -1,29 +1,26 @@
 package graph
 
 import (
+	"github.com/enuesaa/leadblend/pkg/repository/dbq"
 	"github.com/graph-gophers/graphql-go"
 )
 
 type Island struct {
-	id       string
-	planetId string
-	title    string
-	content  string
-	comment  string
+	record dbq.Island
 }
 
 func (p *Island) Id() graphql.ID {
-	return graphql.ID(p.id)
+	return graphql.ID(p.record.ID)
 }
 func (p *Island) PlanetId() string {
-	return p.planetId
+	return p.record.PlanetID
 }
 func (p *Island) Title() string {
-	return p.title
+	return p.record.Title
 }
 func (p *Island) Content() string {
-	return p.content
+	return p.record.Content
 }
 func (p *Island) Comment() string {
-	return p.comment
+	return p.record.Comment
 }

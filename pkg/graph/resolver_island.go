@@ -11,13 +11,5 @@ func (r *Resolver) Island(args resolverIslandArgs) (*Island, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	res := Island{
-		id: island.ID,
-		planetId: island.PlanetID,
-		title: island.Title,
-		content: island.Content,
-		comment: island.Comment,
-	}
-	return &res, nil
+	return &Island{island}, nil
 }

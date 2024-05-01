@@ -27,10 +27,5 @@ func (r *Resolver) Planet(args resolverPlanetArgs) (*Planet, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	res := Planet{
-		id:   planet.ID,
-		name: planet.Name,
-	}
-	return &res, nil
+	return &Planet{planet}, nil
 }
