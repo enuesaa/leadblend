@@ -37,5 +37,10 @@ type Mutation {
 }
 
 type Subscription {
-  subscribeName: String
+  subscribeEvent: Event
+}
+
+type Event {
+  page: String!
+  userName: String!
 }

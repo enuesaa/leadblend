@@ -21,5 +21,13 @@ func (r *Resolver) CreatePlanet(args resolverCreatePlanetArgs) (*string, error) 
 	if err != nil {
 		return nil, err
 	}
+
+	go func() {
+		subscribeEventCh <- &Event{
+			page: "planet",
+			userName: "aaa",
+		}
+	}()
+
 	return &id, nil
 }
