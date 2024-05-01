@@ -2,6 +2,9 @@ package main
 
 import (
 	"log"
+	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/enuesaa/leadblend/pkg/cli"
 	"github.com/enuesaa/leadblend/pkg/repository"
@@ -17,6 +20,16 @@ func main() {
 		Version: "0.0.1",
 	}
 	app.AddCommand(cli.CreateServeCmd(repos))
+
+    go func() {
+		cancelch := make(chan os.Signal, 1)
+		signal.Notify(cancelch, syscall.SIGTERM, syscall.SIGINT)
+		<-cancelch
+		if err := repos.Fs.Remove(".leadblend"); err != nil {
+			log.Fatalf("Error: %s", err.Error())
+		}
+        os.Exit(0)
+    }()
 
 	// disable default
 	app.SetHelpCommand(&cobra.Command{Hidden: true})
