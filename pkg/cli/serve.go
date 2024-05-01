@@ -24,7 +24,7 @@ func CreateServeCmd(repos repository.Repos) *cobra.Command {
 			if err := usecase.UsePkg(repos, name); err != nil {
 				return err
 			}
-			return graph.Serve(repos)
+			return graph.New(repos).Serve()
 		},
 	}
 	cmd.Flags().String("file", "", "filename to open")
