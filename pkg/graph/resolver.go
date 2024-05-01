@@ -9,17 +9,11 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
-func New(repos repository.Repos) *Resolver {
-	return &Resolver{
-		repos: repos,
-	}
-}
-
 type Resolver struct{
 	repos repository.Repos
 }
 
-func (r *Resolver) Serve() error {
+func Serve(repos repository.Repos) error {
 	app := echo.New()
 	app.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
 		Format: "method=${method}, uri=${uri}, status=${status}\n",
@@ -28,7 +22,9 @@ func (r *Resolver) Serve() error {
 		AllowOrigins: []string{"http://localhost:3001"},
 	}))
 
-	gqschema := graphql.MustParseSchema(schema, r)
+	gqschema := graphql.MustParseSchema(schema, &Resolver{
+		repos: repos,
+	})
 	app.POST("/graphql", echo.WrapHandler(&relay.Handler{Schema: gqschema}))
 	app.GET("/graphql", func(c echo.Context) error {
 		subscriber := Subscriber{}
