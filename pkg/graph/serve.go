@@ -23,7 +23,13 @@ func Serve(repos repository.Repos) error {
 		if err := subscriber.Init(c.Response(), c.Request()); err != nil {
 			return err
 		}
-		return subscriber.WaitMessage()
+		// To suppress error: `response.WriteHeader on hijacked connection`
+		go func ()  {
+			if err := subscriber.WaitMessage(); err != nil {
+				c.Logger().Errorf("Error: %s", err.Error())
+			}
+		}()
+		return nil
 	})
 	app.GET("/graphql/playground", echo.WrapHandler(playground.Handler("graphql", "/graphql")))
 
