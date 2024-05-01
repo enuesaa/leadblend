@@ -12,7 +12,7 @@ type resolverPlanetArgs struct {
 	Name *string
 }
 
-func (r *Resolver) Planet(args resolverPlanetArgs) (*Planet, error) {
+func (r *Resolver) GetPlanet(args resolverPlanetArgs) (*Planet, error) {
 	planetSrv := service.NewPlanetService(r.repos)
 
 	var err error

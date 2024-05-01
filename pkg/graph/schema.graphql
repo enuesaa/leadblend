@@ -1,10 +1,10 @@
 type Query {
-  planets: [Planet!]!
-  planet(id: ID, name: String): Planet
-  islands(planetId: ID!): [Island!]!
-  island(id: ID): Island
-  stones(): [Stone!]!
-  stone(id: ID): Stone
+  listPlanets: [Planet!]!
+  getPlanet(id: ID, name: String): Planet
+  listIslands(planetId: ID!): [Island!]!
+  getIsland(id: ID): Island
+  listStones(): [Stone!]!
+  getStone(id: ID): Stone
 }
 
 type Planet {

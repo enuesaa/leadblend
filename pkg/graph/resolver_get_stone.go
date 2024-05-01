@@ -7,7 +7,7 @@ type resolverStoneArgs struct {
 	Id *string
 }
 
-func (r *Resolver) Stone(args resolverStoneArgs) (*Stone, error) {
+func (r *Resolver) GetStone(args resolverStoneArgs) (*Stone, error) {
 	stoneSrv := service.NewStoneService(r.repos)
 	stone, err := stoneSrv.Get(*args.Id)
 	if err != nil {

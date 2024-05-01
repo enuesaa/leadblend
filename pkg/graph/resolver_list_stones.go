@@ -2,7 +2,7 @@ package graph
 
 import "github.com/enuesaa/leadblend/pkg/service"
 
-func (r *Resolver) Stones() ([]*Stone, error) {
+func (r *Resolver) ListStones() ([]*Stone, error) {
 	list := make([]*Stone, 0)
 
 	stoneSrv := service.NewStoneService(r.repos)

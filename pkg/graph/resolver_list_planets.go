@@ -4,7 +4,7 @@ import (
 	"github.com/enuesaa/leadblend/pkg/service"
 )
 
-func (r *Resolver) Planets() ([]*Planet, error) {
+func (r *Resolver) ListPlanets() ([]*Planet, error) {
 	list := make([]*Planet, 0)
 
 	planetSrv := service.NewPlanetService(r.repos)
