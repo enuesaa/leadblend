@@ -3,6 +3,8 @@ type Query {
   planet(id: ID, name: String): Planet
   islands(planetId: ID!): [Island!]!
   island(id: ID): Island
+  stones(): [Stone!]!
+  stone(id: ID): Stone
 }
 
 type Planet {
@@ -17,6 +19,13 @@ type Island {
   title: String!
   content: String!
   comment: String!
+}
+
+type Stone {
+  id: ID!
+  patternId: String
+  islandId: String
+  data: String!
 }
 
 type Mutation {

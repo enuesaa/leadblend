@@ -37,9 +37,9 @@ CREATE TABLE traits (
 
 CREATE TABLE stones (
   id         VARCHAR(25) PRIMARY KEY,
-  pattern_id INTEGER,
-  island_id  INTEGER, -- if null, consider this record as comet.
-  data       TEXT NOT NULL,
+  pattern_id VARCHAR(25),
+  island_id  VARCHAR(25), -- if null, consider this record as comet.
+  data       TEXT NOT NULL, -- json format
   created    DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated    DATETIME DEFAULT CURRENT_TIMESTAMP
 );

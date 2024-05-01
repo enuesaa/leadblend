@@ -44,8 +44,8 @@ type Planet struct {
 
 type Stone struct {
 	ID        string
-	PatternID sql.NullInt64
-	IslandID  sql.NullInt64
+	PatternID sql.NullString
+	IslandID  sql.NullString
 	Data      string
 	Created   sql.NullTime
 	Updated   sql.NullTime

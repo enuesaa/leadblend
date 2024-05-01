@@ -117,8 +117,8 @@ INSERT INTO stones (id, pattern_id, island_id, data) VALUES (?, ?, ?, ?) RETURNI
 
 type CreateStoneParams struct {
 	ID        string
-	PatternID sql.NullInt64
-	IslandID  sql.NullInt64
+	PatternID sql.NullString
+	IslandID  sql.NullString
 	Data      string
 }
 
