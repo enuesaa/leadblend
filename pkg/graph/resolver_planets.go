@@ -2,7 +2,6 @@ package graph
 
 import (
 	"context"
-	"fmt"
 )
 
 func (r *Resolver) Planets() ([]*Planet, error) {
@@ -23,7 +22,7 @@ func (r *Resolver) Planets() ([]*Planet, error) {
 
 	for _, planet := range planets {
 		list = append(list, &Planet{
-			id: fmt.Sprintf("%d", planet.ID),
+			id: planet.ResourceID,
 			name: planet.Name,
 		})
 	}

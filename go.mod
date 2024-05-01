@@ -4,6 +4,7 @@ go 1.22.0
 
 require (
 	github.com/99designs/gqlgen v0.17.45
+	github.com/google/uuid v1.6.0
 	github.com/gorilla/websocket v1.5.0
 	github.com/graph-gophers/graphql-go v1.5.0
 	github.com/labstack/echo/v4 v4.12.0
@@ -14,7 +15,6 @@ require (
 require (
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
-	github.com/google/uuid v1.6.0 // indirect
 	github.com/hashicorp/golang-lru/v2 v2.0.7 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/labstack/gommon v0.4.2 // indirect

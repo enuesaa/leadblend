@@ -9,63 +9,63 @@ import (
 )
 
 type History struct {
+	ID       int64
+	Resource string
+	Comment  string
+	Created  sql.NullTime
+	Updated  sql.NullTime
+}
+
+type Island struct {
 	ID         int64
 	ResourceID string
+	Title      string
+	Content    string
 	Comment    string
 	Created    sql.NullTime
 	Updated    sql.NullTime
 }
 
-type Island struct {
-	ID      int64
-	Title   string
-	Content string
-	Comment string
-	Created sql.NullTime
-	Updated sql.NullTime
-}
-
 type Pattern struct {
-	ID       int64
-	Title    string
-	Priority sql.NullInt64
-	Created  sql.NullTime
-	Updated  sql.NullTime
-}
-
-type Planet struct {
-	ID      int64
-	Name    string
-	Comment string
-	Created sql.NullTime
-	Updated sql.NullTime
-}
-
-type Resource struct {
-	ID     string
-	Marker string
-}
-
-type Stone struct {
-	ID        int64
-	PatternID sql.NullInt64
-	IslandID  sql.NullInt64
-	Data      string
-	Created   sql.NullTime
-	Updated   sql.NullTime
-}
-
-type Tag struct {
 	ID         int64
 	ResourceID string
-	Key        string
-	Value      string
+	Title      string
+	Priority   sql.NullInt64
 	Created    sql.NullTime
 	Updated    sql.NullTime
 }
 
+type Planet struct {
+	ID         int64
+	ResourceID string
+	Name       string
+	Comment    string
+	Created    sql.NullTime
+	Updated    sql.NullTime
+}
+
+type Stone struct {
+	ID         int64
+	ResourceID string
+	PatternID  sql.NullInt64
+	IslandID   sql.NullInt64
+	Data       string
+	Created    sql.NullTime
+	Updated    sql.NullTime
+}
+
+type Tag struct {
+	ID       int64
+	Resource string
+	Key      string
+	Value    string
+	Created  sql.NullTime
+	Updated  sql.NullTime
+}
+
 type Trait struct {
 	ID           int64
+	ResourceID   string
 	PatternID    int64
 	Path         string
 	Type         string
