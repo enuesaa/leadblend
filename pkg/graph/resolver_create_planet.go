@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/enuesaa/leadblend/pkg/repository/dbq"
-	"github.com/google/uuid"
+	"github.com/oklog/ulid/v2"
 )
 
 type CreatePlanetArgs struct {
@@ -20,9 +20,9 @@ func (r *Resolver) CreatePlanet(args CreatePlanetArgs) (*string, error) {
 		return nil, err
 	}
 
-	id := uuid.NewString()
+	id := ulid.Make().String()
 	record := dbq.CreatePlanetParams{
-		ResourceID: id,
+		ID: id,
 		Name: args.Name,
 	}
 	if _, err := query.CreatePlanet(context.Background(), record); err != nil {

@@ -1,9 +1,11 @@
 -- name: ListPlanets :many
 SELECT * FROM planets;
 -- name: GetPlanet :one
+SELECT * FROM planets WHERE id = ?;
+-- name: GetPlanetByName :one
 SELECT * FROM planets WHERE name = ?;
 -- name: CreatePlanet :one
-INSERT INTO planets (resource_id, name, comment) VALUES (?, ?, ?) RETURNING *;
+INSERT INTO planets (id, name, comment) VALUES (?, ?, ?) RETURNING *;
 -- name: DeletePlanet :exec
 DELETE FROM planets WHERE name = ?;
 
@@ -11,10 +13,12 @@ DELETE FROM planets WHERE name = ?;
 
 -- name: ListIslands :many
 SELECT * FROM islands;
+-- name: ListIslandsByTitle :many
+SELECT * FROM islands where title = ?;
 -- name: GetIsland :one
 SELECT * FROM islands WHERE id = ?;
 -- name: CreateIsland :one
-INSERT INTO islands (resource_id, title, content, comment) VALUES (?, ?, ?, ?) RETURNING *;
+INSERT INTO islands (id, title, content, comment) VALUES (?, ?, ?, ?) RETURNING *;
 -- name: DeleteIsland :exec
 DELETE FROM islands WHERE id = ?;
 
@@ -24,7 +28,7 @@ SELECT * FROM patterns;
 -- name: GetPattern :one
 SELECT * FROM patterns WHERE id = ?;
 -- name: CreatePattern :one
-INSERT INTO patterns (resource_id, title, priority) VALUES (?, ?, ?) RETURNING *;
+INSERT INTO patterns (id, title, priority) VALUES (?, ?, ?) RETURNING *;
 -- name: DeletePattern :exec
 DELETE FROM patterns WHERE id = ?;
 
@@ -35,7 +39,7 @@ SELECT * FROM traits;
 -- name: GetTrait :one
 SELECT * FROM traits WHERE id = ?;
 -- name: CreateTrait :one
-INSERT INTO traits (resource_id, pattern_id, path, type, default_value, required) VALUES (?, ?, ?, ?, ?, ?) RETURNING *;
+INSERT INTO traits (id, pattern_id, path, type, default_value, required) VALUES (?, ?, ?, ?, ?, ?) RETURNING *;
 -- name: DeleteTrait :exec
 DELETE FROM traits WHERE id = ?;
 
@@ -46,7 +50,7 @@ SELECT * FROM stones;
 -- name: GetStone :one
 SELECT * FROM stones WHERE id = ?;
 -- name: CreateStone :one
-INSERT INTO stones (resource_id, pattern_id, island_id, data) VALUES (?, ?, ?, ?) RETURNING *;
+INSERT INTO stones (id, pattern_id, island_id, data) VALUES (?, ?, ?, ?) RETURNING *;
 -- name: DeleteStone :exec
 DELETE FROM stones WHERE id = ?;
 

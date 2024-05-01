@@ -9,7 +9,7 @@ import (
 )
 
 type History struct {
-	ID       int64
+	ID       string
 	Resource string
 	Comment  string
 	Created  sql.NullTime
@@ -17,45 +17,41 @@ type History struct {
 }
 
 type Island struct {
-	ID         int64
-	ResourceID string
-	Title      string
-	Content    string
-	Comment    string
-	Created    sql.NullTime
-	Updated    sql.NullTime
+	ID      string
+	Title   string
+	Content string
+	Comment string
+	Created sql.NullTime
+	Updated sql.NullTime
 }
 
 type Pattern struct {
-	ID         int64
-	ResourceID string
-	Title      string
-	Priority   sql.NullInt64
-	Created    sql.NullTime
-	Updated    sql.NullTime
+	ID       string
+	Title    string
+	Priority sql.NullInt64
+	Created  sql.NullTime
+	Updated  sql.NullTime
 }
 
 type Planet struct {
-	ID         int64
-	ResourceID string
-	Name       string
-	Comment    string
-	Created    sql.NullTime
-	Updated    sql.NullTime
+	ID      string
+	Name    string
+	Comment string
+	Created sql.NullTime
+	Updated sql.NullTime
 }
 
 type Stone struct {
-	ID         int64
-	ResourceID string
-	PatternID  sql.NullInt64
-	IslandID   sql.NullInt64
-	Data       string
-	Created    sql.NullTime
-	Updated    sql.NullTime
+	ID        string
+	PatternID sql.NullInt64
+	IslandID  sql.NullInt64
+	Data      string
+	Created   sql.NullTime
+	Updated   sql.NullTime
 }
 
 type Tag struct {
-	ID       int64
+	ID       string
 	Resource string
 	Key      string
 	Value    string
@@ -64,8 +60,7 @@ type Tag struct {
 }
 
 type Trait struct {
-	ID           int64
-	ResourceID   string
+	ID           string
 	PatternID    int64
 	Path         string
 	Type         string

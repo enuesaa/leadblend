@@ -1,6 +1,5 @@
 CREATE TABLE planets (
-  id      INTEGER PRIMARY KEY,
-  resource_id VARCHAR(25) NOT NULL UNIQUE,
+  id      VARCHAR(25) PRIMARY KEY,
   name    VARCHAR(25) NOT NULL UNIQUE,
   comment TEXT NOT NULL,
   created DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -8,8 +7,7 @@ CREATE TABLE planets (
 );
 
 CREATE TABLE islands (
-  id      INTEGER PRIMARY KEY,
-  resource_id VARCHAR(25) NOT NULL UNIQUE,
+  id      VARCHAR(25) PRIMARY KEY,
   title   VARCHAR(255) NOT NULL,
   content TEXT NOT NULL,
   comment TEXT NOT NULL,
@@ -18,8 +16,7 @@ CREATE TABLE islands (
 );
 
 CREATE TABLE patterns (
-  id       INTEGER PRIMARY KEY,
-  resource_id VARCHAR(25) NOT NULL UNIQUE,
+  id       VARCHAR(25) PRIMARY KEY,
   title    VARCHAR(255) NOT NULL,
   priority INTEGER DEFAULT NULL,
   created  DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -27,8 +24,7 @@ CREATE TABLE patterns (
 );
 
 CREATE TABLE traits (
-  id            INTEGER PRIMARY KEY,
-  resource_id   VARCHAR(25) NOT NULL UNIQUE,
+  id            VARCHAR(25) PRIMARY KEY,
   pattern_id    INTEGER NOT NULL,
   path          VARCHAR(255) NOT NULL,
   type          VARCHAR(10) NOT NULL,
@@ -39,8 +35,7 @@ CREATE TABLE traits (
 );
 
 CREATE TABLE stones (
-  id         INTEGER PRIMARY KEY,
-  resource_id VARCHAR(25) NOT NULL UNIQUE,
+  id         VARCHAR(25) PRIMARY KEY,
   pattern_id INTEGER,
   island_id  INTEGER, -- if null, consider this record as comet.
   data       TEXT NOT NULL,
@@ -49,7 +44,7 @@ CREATE TABLE stones (
 );
 
 CREATE TABLE tags (
-  id       INTEGER PRIMARY KEY,
+  id       VARCHAR(25) PRIMARY KEY,
   resource VARCHAR(25) NOT NULL UNIQUE, -- format: `<table-name>:<resource-id>`
   key      VARCHAR(10) NOT NULL,
   value    VARCHAR(255) NOT NULL,
@@ -58,7 +53,7 @@ CREATE TABLE tags (
 );
 
 CREATE TABLE histories (
-  id       INTEGER PRIMARY KEY,
+  id       VARCHAR(25) PRIMARY KEY,
   resource VARCHAR(36) NOT NULL,
   comment  TEXT NOT NULL,
   created  DATETIME DEFAULT CURRENT_TIMESTAMP,

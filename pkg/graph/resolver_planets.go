@@ -22,7 +22,7 @@ func (r *Resolver) Planets() ([]*Planet, error) {
 
 	for _, planet := range planets {
 		list = append(list, &Planet{
-			id: planet.ResourceID,
+			id: planet.ID,
 			name: planet.Name,
 		})
 	}
