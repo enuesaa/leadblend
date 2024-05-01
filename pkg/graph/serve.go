@@ -3,6 +3,7 @@ package graph
 import (
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/enuesaa/leadblend/pkg/repository"
+	"github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -17,10 +18,15 @@ func Serve(repos repository.Repos) error {
 		AllowOrigins: []string{"http://localhost:3001"},
 	}))
 
+	gqschema := graphql.MustParseSchema(schema, &Resolver{
+		repos: repos,
+		db: ".leadblend/main/data.db",
+	})
+
 	app.POST("/graphql", echo.WrapHandler(&relay.Handler{Schema: gqschema}))
 	app.GET("/graphql", func(c echo.Context) error {
 		subscriber := Subscriber{}
-		if err := subscriber.Init(c.Response(), c.Request()); err != nil {
+		if err := subscriber.Init(c.Response(), c.Request(), gqschema); err != nil {
 			return err
 		}
 		// To suppress error: `response.WriteHeader on hijacked connection`

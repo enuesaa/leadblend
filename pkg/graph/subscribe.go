@@ -27,9 +27,10 @@ type SubscribeResponseMsg struct {
 
 type Subscriber struct {
 	ws *websocket.Conn
+	gqschema *graphql.Schema
 }
 
-func (s *Subscriber) Init(w http.ResponseWriter, r *http.Request) error {
+func (s *Subscriber) Init(w http.ResponseWriter, r *http.Request, gqschema *graphql.Schema) error {
 	headers := http.Header{}
 	headers.Add("Sec-Websocket-Protocol", "graphql-transport-ws")
 
@@ -39,6 +40,7 @@ func (s *Subscriber) Init(w http.ResponseWriter, r *http.Request) error {
 		return err
 	}
 	s.ws = ws
+	s.gqschema = gqschema
 
 	return nil
 }
@@ -89,7 +91,7 @@ func (s *Subscriber) sendAwk() error {
 
 func (s *Subscriber) subscribe(req SubscribeRequestMsg) error {
 	ctx := context.Background()
-	ch, err := gqschema.Subscribe(ctx, req.Payload.Query, "", nil)
+	ch, err := s.gqschema.Subscribe(ctx, req.Payload.Query, "", nil)
 	if err != nil {
 		return err
 	}

@@ -1,3 +1,10 @@
 package graph
 
-type Resolver struct{}
+import (
+	"github.com/enuesaa/leadblend/pkg/repository"
+)
+
+type Resolver struct{
+	repos repository.Repos
+	db string
+}
