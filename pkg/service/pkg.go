@@ -36,6 +36,34 @@ func (srv *PkgService) List() ([]string, error) {
 	return list, nil
 }
 
+func (srv *PkgService) pkgFilename(name string) string {
+	return fmt.Sprintf("%s.leadblend.zip", name)
+}
+
+func (srv *PkgService) unarchivedir() string {
+	return ".leadblend"
+}
+
+func (srv *PkgService) IsExist(name string) bool {
+	return srv.repos.Fs.IsExist(srv.pkgFilename(name))
+}
+
+func (srv *PkgService) Create(name string) error {
+	// todo
+	f, err := os.Create(srv.pkgFilename(name))
+	if err != nil {
+		return err
+	}
+	writer := zip.NewWriter(f)
+	defer writer.Close()
+
+	return writer.Flush()
+}
+
+func (srv *PkgService) RemoveOpened(name string) error {
+	return srv.repos.Fs.Remove(srv.unarchivedir())
+}
+
 func (srv *PkgService) Open(filename string) error {
 	unarchivedir := fmt.Sprintf(".leadblend/%s", strings.ReplaceAll(filename, ".zip", ""))
 
