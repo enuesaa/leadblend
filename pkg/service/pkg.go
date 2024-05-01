@@ -49,35 +49,54 @@ func (srv *PkgService) IsExist(name string) bool {
 	return srv.repos.Fs.IsExist(srv.pkgFilename(name))
 }
 
-func (srv *PkgService) Create(name string) error {
-	if err := srv.repos.Fs.CreateDir(".leadblend"); err != nil {
-		return err
-	}
-	// defer srv.repos.Fs.Remove(".leadblend")
-	if err := srv.repos.DB.Migrate("./.leadblend/data.db"); err != nil {
-		return err
-	}
-
+func (srv *PkgService) archive(name string) (*bytes.Buffer, error) {
 	b := bytes.NewBuffer([]byte{})
 	writer := zip.NewWriter(b)
 	defer writer.Close()
 
-	writerf, err := writer.Create("data.db")
+	f, err := os.Open(".leadblend/data.db")
 	if err != nil {
-		return err
-	}
-	f, err := os.Open("./.leadblend/data.db")
-	if err != nil {
-		return err
+		return b, err
 	}
 	defer f.Close()
 
-	if _, err = io.Copy(writerf, f); err != nil {
-		return err
+	fileInfo, err := f.Stat()
+    if err != nil {
+		return b, err
+    }
+    header, err := zip.FileInfoHeader(fileInfo)
+    if err != nil {
+		return b, err
+    }
+    header.Name = "data.db"
+	header.Method = zip.Deflate
+
+    writerf, err := writer.CreateHeader(header)
+    if err != nil {
+		return b, err
+    }
+    if _, err = io.Copy(writerf, f); err != nil {
+		return b, err
 	}
 	if err := writer.Flush(); err != nil {
+		return b, err
+	}
+	return b, nil
+}
+
+func (srv *PkgService) Create(name string) error {
+	if err := srv.repos.Fs.CreateDir(".leadblend"); err != nil {
 		return err
 	}
+	if err := srv.repos.DB.Migrate(".leadblend/data.db"); err != nil {
+		return err
+	}
+
+	b, err := srv.archive(name)
+	if err != nil {
+		return err
+	}
+	srv.repos.Fs.Remove(".leadblend")
 	return srv.repos.Fs.Create(srv.pkgFilename(name), b.Bytes())
 }
 
