@@ -50,3 +50,11 @@ func (srv *IslandService) Create(params dbq.CreateIslandParams) (string, error) 
 	}
 	return params.ID, nil
 }
+
+func (srv *IslandService) Delete(id string) error {
+	query, err := srv.repos.DB.Query()
+	if err != nil {
+		return err
+	}
+	return query.DeleteIsland(context.Background(), id)
+}
