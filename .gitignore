@@ -6,3 +6,5 @@
 
 *.leadblend.zip
 .leadblend
+
+*.db

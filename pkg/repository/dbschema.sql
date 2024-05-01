@@ -46,7 +46,7 @@ CREATE TABLE stones (
 CREATE TABLE resources (
   id     VARCHAR(36) PRIMARY KEY,
   marker VARCHAR(25) NOT NULL UNIQUE -- format: `stones:id`
-)
+);
 
 CREATE TABLE tags (
   id          INTEGER PRIMARY KEY,
