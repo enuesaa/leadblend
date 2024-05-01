@@ -17,13 +17,13 @@ func UsePkg(repos repository.Repos, name string) error {
 		}
 	}
 
-	if err := pkgSrv.RemoveOpened(name); err != nil {
-		return err
-	}
+	// if err := pkgSrv.RemoveOpened(name); err != nil {
+	// 	return err
+	// }
 
-	if err := pkgSrv.Open(name); err != nil {
-		return err
-	}
+	// if err := pkgSrv.Open(name); err != nil {
+	// 	return err
+	// }
 
 	return nil
 }

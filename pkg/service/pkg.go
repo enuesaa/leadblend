@@ -2,6 +2,7 @@ package service
 
 import (
 	"archive/zip"
+	"bytes"
 	"fmt"
 	"io"
 	"os"
@@ -49,25 +50,45 @@ func (srv *PkgService) IsExist(name string) bool {
 }
 
 func (srv *PkgService) Create(name string) error {
-	// todo
-	f, err := os.Create(srv.pkgFilename(name))
+	if err := srv.repos.Fs.CreateDir(".leadblend"); err != nil {
+		return err
+	}
+	// defer srv.repos.Fs.Remove(".leadblend")
+	if err := srv.repos.DB.Migrate("./.leadblend/data.db"); err != nil {
+		return err
+	}
+
+	b := bytes.NewBuffer([]byte{})
+	writer := zip.NewWriter(b)
+	defer writer.Close()
+
+	writerf, err := writer.Create("data.db")
 	if err != nil {
 		return err
 	}
-	writer := zip.NewWriter(f)
-	defer writer.Close()
+	f, err := os.Open("./.leadblend/data.db")
+	if err != nil {
+		return err
+	}
+	defer f.Close()
 
-	return writer.Flush()
+	if _, err = io.Copy(writerf, f); err != nil {
+		return err
+	}
+	if err := writer.Flush(); err != nil {
+		return err
+	}
+	return srv.repos.Fs.Create(srv.pkgFilename(name), b.Bytes())
 }
 
 func (srv *PkgService) RemoveOpened(name string) error {
 	return srv.repos.Fs.Remove(srv.unarchivedir())
 }
 
-func (srv *PkgService) Open(filename string) error {
-	unarchivedir := fmt.Sprintf(".leadblend/%s", strings.ReplaceAll(filename, ".zip", ""))
+func (srv *PkgService) Open(name string) error {
+	unarchivedir := fmt.Sprintf(".leadblend/%s", strings.ReplaceAll(name, ".zip", ""))
 
-	zr, err := zip.OpenReader(filename)
+	zr, err := zip.OpenReader(name)
 	if err != nil {
 		return err
 	}

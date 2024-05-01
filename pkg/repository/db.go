@@ -13,8 +13,8 @@ import (
 
 type DBRepositoryInterface interface {
 	IsDBExist() bool
-	Migrate() error
-	Open() error
+	Migrate(path string) error
+	Open(path string) error
 	IsOpen() bool
 	Close() error
 	Query() (*dbq.Queries, error)
@@ -28,11 +28,11 @@ type DBRepository struct {
 }
 
 func (repo *DBRepository) dbpath() string {
-	return "aa.db"
+	return "./leadblend/data.db"
 }
 
-func (repo *DBRepository) dsn() string {
-	return fmt.Sprintf("file:%s?_fk=1", repo.dbpath())
+func (repo *DBRepository) dsn(path string) string {
+	return fmt.Sprintf("file:%s?_fk=1", path)
 }
 
 func (repo *DBRepository) IsDBExist() bool {
@@ -42,8 +42,8 @@ func (repo *DBRepository) IsDBExist() bool {
 	return true
 }
 
-func (repo *DBRepository) Migrate() error {
-	db, err := sql.Open("sqlite", repo.dsn())
+func (repo *DBRepository) Migrate(path string) error {
+	db, err := sql.Open("sqlite", repo.dsn(path))
 	if err != nil {
 		return err
 	}
@@ -56,8 +56,8 @@ func (repo *DBRepository) Migrate() error {
 	return nil
 }
 
-func (repo *DBRepository) Open() error {
-	db, err := sql.Open("sqlite", repo.dsn())
+func (repo *DBRepository) Open(path string) error {
+	db, err := sql.Open("sqlite", repo.dsn(path))
 	if err != nil {
 		return err
 	}
