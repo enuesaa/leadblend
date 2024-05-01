@@ -11,22 +11,21 @@ import (
 )
 
 type SubscribeRequestMsg struct {
-	Type    string `json:"type"`
-	Id      string `json:"id"`
+	Type    string                     `json:"type"`
+	Id      string                     `json:"id"`
 	Payload SubscribeRequestMsgPayload `json:"payload"`
 }
 type SubscribeRequestMsgPayload struct {
 	Query string `json:"query"`
 }
 type SubscribeResponseMsg struct {
-	Type    string `json:"type"`
-	Id      string `json:"id,omitempty"`
+	Type    string            `json:"type"`
+	Id      string            `json:"id,omitempty"`
 	Payload *graphql.Response `json:"payload,omitempty"`
 }
 
-
 type Subscriber struct {
-	ws *websocket.Conn
+	ws       *websocket.Conn
 	gqschema *graphql.Schema
 }
 
@@ -84,7 +83,7 @@ func (s *Subscriber) Send(msg interface{}) error {
 }
 
 func (s *Subscriber) sendAwk() error {
-	return s.Send(SubscribeResponseMsg {
+	return s.Send(SubscribeResponseMsg{
 		Type: "connection_ack",
 	})
 }
@@ -97,10 +96,10 @@ func (s *Subscriber) subscribe(req SubscribeRequestMsg) error {
 	}
 	for {
 		data, _ := <-ch
-		res := SubscribeResponseMsg {
-			Type: "next",
+		res := SubscribeResponseMsg{
+			Type:    "next",
 			Payload: data.(*graphql.Response),
-			Id: req.Id,
+			Id:      req.Id,
 		}
 		if err := s.checkWsConn(); err != nil {
 			break

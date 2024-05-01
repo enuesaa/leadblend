@@ -22,15 +22,15 @@ func main() {
 	}
 	app.AddCommand(cli.CreateServeCmd(repos))
 
-    go func() {
+	go func() {
 		cancelch := make(chan os.Signal, 1)
 		signal.Notify(cancelch, syscall.SIGTERM, syscall.SIGINT)
 		<-cancelch
 		if err := usecase.ClosePkg(repos, "main"); err != nil {
 			log.Fatalf("Error: %s", err.Error())
 		}
-        os.Exit(0)
-    }()
+		os.Exit(0)
+	}()
 
 	// disable default
 	app.SetHelpCommand(&cobra.Command{Hidden: true})

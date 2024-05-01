@@ -10,7 +10,7 @@ type Planet {
 }
 
 type Mutation {
-  createPlanet(name: String!): String
+  createPlanet(name: String!, comment: String!): String
 }
 
 type Subscription {

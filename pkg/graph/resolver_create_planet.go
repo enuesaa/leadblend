@@ -6,13 +6,16 @@ import (
 )
 
 type CreatePlanetArgs struct {
-	Name string
+	Name    string
+	Comment string
 }
+
 func (r *Resolver) CreatePlanet(args CreatePlanetArgs) (*string, error) {
 	planetSrv := service.NewPlanetService(r.repos)
 
 	params := dbq.CreatePlanetParams{
-		Name: args.Name,
+		Name:    args.Name,
+		Comment: args.Comment,
 	}
 	id, err := planetSrv.Create(params)
 	if err != nil {

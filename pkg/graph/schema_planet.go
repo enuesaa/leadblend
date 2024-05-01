@@ -4,9 +4,9 @@ import (
 	"github.com/graph-gophers/graphql-go"
 )
 
-type Planet struct{
-	id string
-	name string
+type Planet struct {
+	id      string
+	name    string
 	comment string
 }
 

@@ -9,7 +9,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
-type Resolver struct{
+type Resolver struct {
 	repos repository.Repos
 }
 
@@ -32,7 +32,7 @@ func Serve(repos repository.Repos) error {
 			return err
 		}
 		// To suppress error: `response.WriteHeader on hijacked connection`
-		go func ()  {
+		go func() {
 			if err := subscriber.WaitMessage(); err != nil {
 				c.Logger().Errorf("Error: %s", err.Error())
 			}

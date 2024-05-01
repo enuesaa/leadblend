@@ -11,7 +11,6 @@ import (
 	"github.com/enuesaa/leadblend/pkg/repository"
 )
 
-
 func NewPkgService(repos repository.Repos) PkgService {
 	return PkgService{repos: repos}
 }
@@ -59,21 +58,21 @@ func (srv *PkgService) archive(name string) (*bytes.Buffer, error) {
 	defer f.Close()
 
 	fileInfo, err := f.Stat()
-    if err != nil {
+	if err != nil {
 		return b, err
-    }
-    header, err := zip.FileInfoHeader(fileInfo)
-    if err != nil {
+	}
+	header, err := zip.FileInfoHeader(fileInfo)
+	if err != nil {
 		return b, err
-    }
-    header.Name = "data.db"
+	}
+	header.Name = "data.db"
 	header.Method = zip.Deflate
 
-    writerf, err := writer.CreateHeader(header)
-    if err != nil {
+	writerf, err := writer.CreateHeader(header)
+	if err != nil {
 		return b, err
-    }
-    if _, err = io.Copy(writerf, f); err != nil {
+	}
+	if _, err = io.Copy(writerf, f); err != nil {
 		return b, err
 	}
 	if err := writer.Flush(); err != nil {

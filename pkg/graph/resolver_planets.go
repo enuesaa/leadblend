@@ -15,7 +15,7 @@ func (r *Resolver) Planets() ([]*Planet, error) {
 
 	for _, planet := range planets {
 		list = append(list, &Planet{
-			id: planet.ID,
+			id:   planet.ID,
 			name: planet.Name,
 		})
 	}
