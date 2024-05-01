@@ -1,8 +1,6 @@
 package service
 
 import (
-	"context"
-
 	"github.com/enuesaa/leadblend/pkg/repository"
 	"github.com/enuesaa/leadblend/pkg/repository/dbq"
 	"github.com/oklog/ulid/v2"
@@ -19,37 +17,24 @@ type PlanetService struct {
 }
 
 func (srv *PlanetService) List() ([]dbq.Planet, error) {
-	query, err := srv.repos.DB.Query()
-	if err != nil {
-		return make([]dbq.Planet, 0), err
-	}
-	return query.ListPlanets(context.Background())
+	query := srv.repos.DB.Query()
+	return query.ListPlanets(ctx())
 }
 
 func (srv *PlanetService) Get(id string) (dbq.Planet, error) {
-	query, err := srv.repos.DB.Query()
-	if err != nil {
-		return dbq.Planet{}, err
-	}
-	return query.GetPlanet(context.Background(), id)
+	query := srv.repos.DB.Query()
+	return query.GetPlanet(ctx(), id)
 }
 
 func (srv *PlanetService) GetByName(name string) (dbq.Planet, error) {
-	query, err := srv.repos.DB.Query()
-	if err != nil {
-		return dbq.Planet{}, err
-	}
-	return query.GetPlanetByName(context.Background(), name)
+	query := srv.repos.DB.Query()
+	return query.GetPlanetByName(ctx(), name)
 }
 
 func (srv *PlanetService) Create(params dbq.CreatePlanetParams) (string, error) {
-	query, err := srv.repos.DB.Query()
-	if err != nil {
-		return "", err
-	}
-
+	query := srv.repos.DB.Query()
 	params.ID = ulid.Make().String()
-	if _, err := query.CreatePlanet(context.Background(), params); err != nil {
+	if _, err := query.CreatePlanet(ctx(), params); err != nil {
 		return "", nil
 	}
 	return params.ID, nil

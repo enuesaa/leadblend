@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/enuesaa/leadblend/pkg/graph"
 	"github.com/enuesaa/leadblend/pkg/repository"
 	"github.com/enuesaa/leadblend/pkg/usecase"
 	"github.com/spf13/cobra"
@@ -24,7 +23,7 @@ func CreateServeCmd(repos repository.Repos) *cobra.Command {
 			if err := usecase.UsePkg(repos, name); err != nil {
 				return err
 			}
-			return graph.Serve(repos)
+			return usecase.Serve(repos)
 		},
 	}
 	cmd.Flags().String("file", "", "filename to open")

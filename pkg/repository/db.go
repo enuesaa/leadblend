@@ -15,9 +15,8 @@ type DBRepositoryInterface interface {
 	IsDBExist() bool
 	Migrate() error
 	Open() error
-	IsOpen() bool
 	Close() error
-	Query() (*dbq.Queries, error)
+	Query() *dbq.Queries
 }
 
 //go:embed dbschema.sql
@@ -57,16 +56,15 @@ func (repo *DBRepository) Migrate() error {
 }
 
 func (repo *DBRepository) Open() error {
+	if repo.db != nil {
+		return nil
+	}
 	db, err := sql.Open("sqlite", repo.dsn(repo.dbpath()))
 	if err != nil {
 		return err
 	}
 	repo.db = db
 	return nil
-}
-
-func (repo *DBRepository) IsOpen() bool {
-	return repo.db != nil
 }
 
 func (repo *DBRepository) Close() error {
@@ -80,18 +78,6 @@ func (repo *DBRepository) Close() error {
 	return nil
 }
 
-func (repo *DBRepository) checkOpened() error {
-	if repo.db == nil {
-		return fmt.Errorf("db is not opened.")
-	}
-	return nil
-}
-
-func (repo *DBRepository) Query() (*dbq.Queries, error) {
-	if err := repo.checkOpened(); err != nil {
-		if err := repo.Open(); err != nil {
-			return nil, err
-		}
-	}
-	return dbq.New(repo.db), nil
+func (repo *DBRepository) Query() *dbq.Queries {
+	return dbq.New(repo.db)
 }

@@ -8,6 +8,11 @@ import (
 )
 
 func Serve(repos repository.Repos) error {
+	if err := repos.DB.Open(); err != nil {
+		return err
+	}
+	defer repos.DB.Close()
+
 	app := echo.New()
 	app.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
 		Format: "method=${method}, uri=${uri}, status=${status}\n",
