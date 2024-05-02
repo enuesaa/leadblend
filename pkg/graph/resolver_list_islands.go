@@ -5,6 +5,7 @@ import "github.com/enuesaa/leadblend/pkg/service"
 type resolverIslandsArgs struct {
 	PlanetId string
 }
+
 func (r *Resolver) ListIslands(args resolverIslandsArgs) ([]*Island, error) {
 	list := make([]*Island, 0)
 

@@ -7,6 +7,7 @@ import (
 type resolverDeleteStoneArgs struct {
 	Id string
 }
+
 func (r *Resolver) DeleteStone(args resolverDeleteStoneArgs) (*bool, error) {
 	stoneSrv := service.NewStoneService(r.repos)
 

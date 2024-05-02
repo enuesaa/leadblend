@@ -24,7 +24,7 @@ func (r *Resolver) CreatePlanet(args resolverCreatePlanetArgs) (*string, error) 
 
 	go func() {
 		subscribeEventCh <- &Event{
-			page: "planet",
+			page:     "planet",
 			userName: "aaa",
 		}
 	}()

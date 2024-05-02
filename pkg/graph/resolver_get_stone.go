@@ -2,7 +2,6 @@ package graph
 
 import "github.com/enuesaa/leadblend/pkg/service"
 
-
 type resolverStoneArgs struct {
 	Id *string
 }

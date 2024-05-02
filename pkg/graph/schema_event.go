@@ -1,7 +1,7 @@
 package graph
 
 type Event struct {
-	page string
+	page     string
 	userName string
 }
 
