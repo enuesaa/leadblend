@@ -2,11 +2,7 @@
 	import { listPlanets } from '$lib/graphql/planet'
 </script>
 
-{#if $listPlanets.fetching}
-	<p>Loading...</p>
-{:else if $listPlanets.error}
-	<p>Oh no... {$listPlanets.error.message}</p>
-{:else}
+{#if !$listPlanets.fetching && $listPlanets.data !== undefined}
 	<ul>
 	{#each $listPlanets.data.listPlanets as planet}
 		<li>{planet.id}</li>
