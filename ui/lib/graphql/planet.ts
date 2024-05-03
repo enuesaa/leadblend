@@ -1,31 +1,29 @@
-import { queryStore, mutationStore, gql } from '@urql/svelte'
-import { useClient } from '$lib/graphql/client'
-import { derived } from 'svelte/store'
+import { mutationStore, gql } from '@urql/svelte'
+import { client, executeQuery } from '$lib/graphql/client'
 import type { Planet, MutationCreatePlanetArgs } from './types'
+import { createQuery } from '@tanstack/svelte-query'
 
-const listPlanets = queryStore<{listPlanets: Array<Planet>}>({
-  client: useClient(),
-  query: gql`
-    query {
-      listPlanets {
-        id
-        name
-        comment
+export const listPlanets = () => createQuery<Planet[]>({
+  queryKey: ['listPlanets'],
+  queryFn: async () => {
+    const query = gql`
+      query {
+        listPlanets {
+          id
+          name
+          comment
+        }
       }
-    }
-  `,
-})
-
-export const planets = derived(listPlanets, ($listPlanets) => {
-  if ($listPlanets.data === undefined || $listPlanets.data === null) {
-    return []
-  }
-  return $listPlanets.data.listPlanets
+    `
+    const res = await executeQuery(query)
+    return res.data.listPlanets
+  },
+  initialData: [],
 })
 
 export const createPlanet = ({ name, comment }: MutationCreatePlanetArgs) => {
   const result = mutationStore({
-    client: useClient(),
+    client,
     query: gql`
       mutation ($name: String!, $comment: String!) {
         createPlanet(name: $name, comment: $comment)

@@ -1,22 +1,18 @@
-import { queryStore, gql } from '@urql/svelte'
-import { useClient } from '$lib/graphql/client'
-import { derived } from 'svelte/store'
+import { gql, executeQuery } from '$lib/graphql/client'
 import type { Space } from './types'
+import { createQuery } from '@tanstack/svelte-query'
 
-const getCurrentSpace = queryStore<{getCurrentSpace: Space}>({
-  client: useClient(),
-  query: gql`
-    query {
-      getCurrentSpace {
-        name
+export const getCurrentSpace = () => createQuery<Space>({
+  queryKey: ['getCurrentSpace'],
+  queryFn: async () => {
+    const query = gql`
+      query {
+        getCurrentSpace {
+          name
+        }
       }
-    }
-  `
-})
-
-export const currentSpace = derived(getCurrentSpace, ($getCurrentSpace) => {
-  if ($getCurrentSpace.data === undefined) {
-    return {name: ''}
-  }
-  return $getCurrentSpace.data.getCurrentSpace
+    `
+    const res = await executeQuery(query)
+    return res.data.getCurrentSpace
+  },
 })

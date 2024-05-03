@@ -7,7 +7,7 @@
 		"dev": "svelte-kit sync && vite dev --port 3001",
 		"build": "vite build",
 		"format": "prettier --write .",
-    "graphqlgen": "graphql-codegen --config graphql.codegen.ts"
+		"graphqlgen": "graphql-codegen --config graphql.codegen.ts"
 	},
 	"devDependencies": {
 		"@graphql-codegen/cli": "^5.0.2",
@@ -25,6 +25,7 @@
 		"vite": "^5.0.3"
 	},
 	"dependencies": {
+		"@tanstack/svelte-query": "^5.32.1",
 		"@urql/svelte": "^4.1.1"
 	}
 }

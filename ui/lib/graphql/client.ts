@@ -1,10 +1,15 @@
-import { get, writable } from 'svelte/store'
-import { Client, cacheExchange, fetchExchange } from '@urql/svelte'
+import { Client, createRequest, fetchExchange, type OperationResult, type TypedDocumentNode } from '@urql/svelte'
 import { PUBLIC_GRAPHQL_ENDPOINT } from '$env/static/public'
 
-const client = new Client({
+export { gql } from '@urql/svelte'
+
+export const client = new Client({
   url: PUBLIC_GRAPHQL_ENDPOINT,
-  exchanges: [cacheExchange, fetchExchange],
+  exchanges: [fetchExchange],
 })
-export const clientStore = writable<Client>(client)
-export const useClient = () => get(clientStore)
+
+export const executeQuery = async (query: TypedDocumentNode): Promise<OperationResult> => {
+  const request = createRequest(query, {})
+  const res = await client.executeQuery(request, {})
+  return res
+}
