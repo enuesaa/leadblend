@@ -1,8 +1,7 @@
 <script>
-	import { page } from '$app/stores'
-	import { get } from 'svelte/store'
+	import { useParams } from '$lib/page'
 
-	const planetName = get(page).params.planet
+	const { planet: planetName } = useParams()
 </script>
 
 <h3>{planetName}</h3>

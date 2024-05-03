@@ -1,12 +1,20 @@
 <script lang="ts">
 	import './app.css'
-	import { QueryClient, QueryClientProvider } from '@tanstack/svelte-query'
+	import { QueryClientProvider } from '@tanstack/svelte-query'
 	import Header from './Header.svelte'
+	import Comets from './Comets.svelte'
+	import SideMenu from './SideMenu.svelte'
 </script>
 
 <QueryClientProvider>
 	<Header />
-	<main class="container mx-auto">
-		<slot />
+	<Comets />
+	<main class="container mx-auto flex">
+		<div class="flex-none w-20">
+			<SideMenu />
+		</div>
+		<div class="flex-auto">
+			<slot />
+		</div>
 	</main>
 </QueryClientProvider>

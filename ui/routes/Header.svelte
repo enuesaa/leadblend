@@ -3,7 +3,7 @@
 	const space = getCurrentSpace()
 </script>
 
-<header class="container mx-auto pt-2 pb-4">
+<header class="container mx-auto px-2">
 	<a href="/">
 		<h1 class="font-zenkaku text-2xl font-bold">
 			{$space.data?.name}

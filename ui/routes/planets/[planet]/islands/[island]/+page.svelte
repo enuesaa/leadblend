@@ -1,10 +1,7 @@
 <script>
-	import { page } from '$app/stores'
-	import { get } from 'svelte/store'
+	import { useParams } from '$lib/page'
 
-	const params = get(page).params
-	const planetName = params.planet
-	const islandId = params.island
+	const { planet: planetName, island: islandId } = useParams()
 </script>
 
 planet: {planetName} <br />
