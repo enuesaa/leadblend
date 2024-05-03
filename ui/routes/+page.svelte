@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { listPlanets } from '$lib/graphql/planet'
-	import CreatePlanet from './CreatePlanet.svelte'
 	import PlanetLink from './PlanetLink.svelte'
 
 	const planets = listPlanets()
@@ -12,4 +11,4 @@
 	{/each}
 </div>
 
-<CreatePlanet />
+<a href="/create">create planet</a>
