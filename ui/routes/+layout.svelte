@@ -1,7 +1,9 @@
 <script lang="ts">
-	import Header from './Header.svelte'
 	import './app.css'
+	import Header from './Header.svelte'
 </script>
 
 <Header />
-<slot />
+<main class="container mx-auto">
+	<slot />
+</main>
