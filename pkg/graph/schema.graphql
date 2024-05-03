@@ -1,10 +1,15 @@
 type Query {
+  getCurrentSpace(): Space
   listPlanets: [Planet!]!
   getPlanet(id: ID, name: String): Planet
   listIslands(planetId: ID!): [Island!]!
   getIsland(id: ID): Island
   listStones(): [Stone!]!
   getStone(id: ID): Stone
+}
+
+type Space {
+  name: String!
 }
 
 type Planet {
