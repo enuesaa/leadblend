@@ -5,16 +5,12 @@ import (
 	"github.com/enuesaa/leadblend/pkg/service"
 )
 
-func UsePkg(repos repository.Repos, name string) error {
-	if name == "" {
-		name = "main"
-	}
-
+func UsePkg(repos repository.Repos, filename string) error {
 	pkgSrv := service.NewPkgService(repos)
-	if !pkgSrv.IsExist(name) {
-		if err := pkgSrv.Create(name); err != nil {
+	if !pkgSrv.IsExist(filename) {
+		if err := pkgSrv.Create(filename); err != nil {
 			return err
 		}
 	}
-	return pkgSrv.Open(name)
+	return pkgSrv.Open(filename)
 }

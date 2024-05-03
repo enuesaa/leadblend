@@ -19,10 +19,6 @@ type PkgService struct {
 	repos repository.Repos
 }
 
-func (srv *PkgService) pkgFilename(name string) string {
-	return fmt.Sprintf("%s.leadblend", name)
-}
-
 func (srv *PkgService) pkgUnarchivedDBFilename(name string) string {
 	return fmt.Sprintf(".leadblend/%s/data.db", name)
 }
@@ -43,7 +39,7 @@ func (srv *PkgService) removeUnarchiveDir() error {
 }
 
 func (srv *PkgService) IsExist(name string) bool {
-	return srv.repos.Fs.IsExist(srv.pkgFilename(name))
+	return srv.repos.Fs.IsExist(name)
 }
 
 func (srv *PkgService) archive(name string) (*bytes.Buffer, error) {
@@ -89,7 +85,7 @@ func (srv *PkgService) Close(name string) error {
 	if err := srv.removeUnarchiveDir(); err != nil {
 		return err
 	}
-	return srv.repos.Fs.Create(srv.pkgFilename(name), b.Bytes())
+	return srv.repos.Fs.Create(name, b.Bytes())
 }
 
 func (srv *PkgService) migrate(name string) error {
@@ -118,7 +114,7 @@ func (srv *PkgService) Open(name string) error {
 		return err
 	}
 
-	zr, err := zip.OpenReader(srv.pkgFilename(name))
+	zr, err := zip.OpenReader(name)
 	if err != nil {
 		return err
 	}

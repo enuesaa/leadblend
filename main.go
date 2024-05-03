@@ -1,12 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 
-	"github.com/enuesaa/leadblend/pkg/cli"
 	"github.com/enuesaa/leadblend/pkg/repository"
 	"github.com/enuesaa/leadblend/pkg/usecase"
 	"github.com/spf13/cobra"
@@ -19,14 +20,26 @@ func main() {
 		Use:     "leadblend",
 		Short:   "",
 		Version: "0.0.1",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			filename, _ := cmd.Flags().GetString("file")
+
+			if !strings.HasSuffix(filename, ".leadblend") {
+				return fmt.Errorf("invalid filename.")
+			}
+			repos.Using = filename
+			if err := usecase.UsePkg(repos, filename); err != nil {
+				return err
+			}
+			return usecase.Serve(repos)
+		},
 	}
-	app.AddCommand(cli.CreateServeCmd(repos))
+	app.Flags().String("file", "main.leadblend", "filename to open")
 
 	go func() {
 		cancelch := make(chan os.Signal, 1)
 		signal.Notify(cancelch, syscall.SIGTERM, syscall.SIGINT)
 		<-cancelch
-		if err := usecase.ClosePkg(repos, "main"); err != nil {
+		if err := usecase.ClosePkg(repos, "main.leadblend"); err != nil {
 			log.Fatalf("Error: %s", err.Error())
 		}
 		os.Exit(0)

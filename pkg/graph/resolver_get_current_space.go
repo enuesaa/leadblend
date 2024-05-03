@@ -1,5 +1,7 @@
 package graph
 
 func (r *Resolver) GetCurrentSpace() (*Space, error) {
-	return &Space{name: "aaa"}, nil
+	spaceName := r.repos.Using
+
+	return &Space{name: spaceName}, nil
 }
