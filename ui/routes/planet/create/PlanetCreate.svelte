@@ -1,4 +1,6 @@
 <script lang="ts">
+	import CreateButton from '$lib/components/CreateButton.svelte'
+	import TextInput from '$lib/components/TextInput.svelte'
 	import { useCreatePlanet } from '$lib/graphql/planet'
 
 	const createPlanet = useCreatePlanet()
@@ -12,6 +14,6 @@
 	}
 </script>
 
-<input type="text" bind:value={name} />
-<input type="text" bind:value={comment} />
-<button on:click|preventDefault={hanldeClick}>submit</button>
+<TextInput value={name} label='name' />
+<TextInput value={comment} label='comment' />
+<CreateButton {hanldeClick} />

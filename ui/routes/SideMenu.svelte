@@ -6,6 +6,8 @@
 	const planets = listPlanets()
 </script>
 
+<div class="mt-2">PLANET</div>
+
 {#each $planets.data as planet}
 	<SideMenuLink {planet} />
 {/each}

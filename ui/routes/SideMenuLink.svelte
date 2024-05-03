@@ -4,6 +4,13 @@
 	export let planet: Planet
 </script>
 
-<a href={`/planets/${planet.name}`} class="block m-1 px-1 font-zenkaku text-xl font-bold">
+<a href={`/planets/${planet.name}`}>
 	{planet.name}
 </a>
+
+<style lang="postcss">
+	a {
+		border: solid 1px #1a1a1a;
+		@apply block my-1 p-1 font-zenkaku text-xl font-bold h-10;
+	}
+</style>

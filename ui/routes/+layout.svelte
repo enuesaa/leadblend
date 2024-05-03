@@ -9,8 +9,8 @@
 <QueryClientProvider>
 	<Header />
 	<Comets />
-	<main class="container mx-auto flex">
-		<div class="flex-none w-20">
+	<main class="container mx-auto flex gap-9">
+		<div class="flex-none w-28">
 			<SideMenu />
 		</div>
 		<div class="flex-auto">
