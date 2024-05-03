@@ -8,10 +8,11 @@ const getCurrentSpaceQuery = `query {
   }
 }`
 
-export const getCurrentSpace = () => createQuery<Space>({
-  queryKey: [getCurrentSpaceQuery],
-  queryFn: async () => {
-    const res = await runQuery(getCurrentSpaceQuery, {})
-    return res.data.getCurrentSpace
-  },
-})
+export const getCurrentSpace = () =>
+	createQuery<Space>({
+		queryKey: [getCurrentSpaceQuery],
+		queryFn: async () => {
+			const res = await runQuery(getCurrentSpaceQuery, {})
+			return res.data.getCurrentSpace
+		}
+	})

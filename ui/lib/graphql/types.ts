@@ -7,115 +7,115 @@ export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> =
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never }
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string }
-  String: { input: string; output: string }
-  Boolean: { input: boolean; output: boolean }
-  Int: { input: number; output: number }
-  Float: { input: number; output: number }
+	ID: { input: string; output: string }
+	String: { input: string; output: string }
+	Boolean: { input: boolean; output: boolean }
+	Int: { input: number; output: number }
+	Float: { input: number; output: number }
 }
 
 export type Event = {
-  __typename?: 'Event'
-  page: Scalars['String']['output']
-  userName: Scalars['String']['output']
+	__typename?: 'Event'
+	page: Scalars['String']['output']
+	userName: Scalars['String']['output']
 }
 
 export type Island = {
-  __typename?: 'Island'
-  comment: Scalars['String']['output']
-  content: Scalars['String']['output']
-  id: Scalars['ID']['output']
-  planetId: Scalars['String']['output']
-  title: Scalars['String']['output']
+	__typename?: 'Island'
+	comment: Scalars['String']['output']
+	content: Scalars['String']['output']
+	id: Scalars['ID']['output']
+	planetId: Scalars['String']['output']
+	title: Scalars['String']['output']
 }
 
 export type Mutation = {
-  __typename?: 'Mutation'
-  createIsland?: Maybe<Scalars['String']['output']>
-  createPlanet?: Maybe<Scalars['String']['output']>
-  createStone?: Maybe<Scalars['String']['output']>
-  deleteIsland?: Maybe<Scalars['Boolean']['output']>
-  deleteStone?: Maybe<Scalars['Boolean']['output']>
+	__typename?: 'Mutation'
+	createIsland?: Maybe<Scalars['String']['output']>
+	createPlanet?: Maybe<Scalars['String']['output']>
+	createStone?: Maybe<Scalars['String']['output']>
+	deleteIsland?: Maybe<Scalars['Boolean']['output']>
+	deleteStone?: Maybe<Scalars['Boolean']['output']>
 }
 
 export type MutationCreateIslandArgs = {
-  comment: Scalars['String']['input']
-  content: Scalars['String']['input']
-  planetId: Scalars['String']['input']
-  title: Scalars['String']['input']
+	comment: Scalars['String']['input']
+	content: Scalars['String']['input']
+	planetId: Scalars['String']['input']
+	title: Scalars['String']['input']
 }
 
 export type MutationCreatePlanetArgs = {
-  comment: Scalars['String']['input']
-  name: Scalars['String']['input']
+	comment: Scalars['String']['input']
+	name: Scalars['String']['input']
 }
 
 export type MutationCreateStoneArgs = {
-  data: Scalars['String']['input']
+	data: Scalars['String']['input']
 }
 
 export type MutationDeleteIslandArgs = {
-  id: Scalars['ID']['input']
+	id: Scalars['ID']['input']
 }
 
 export type MutationDeleteStoneArgs = {
-  id: Scalars['ID']['input']
+	id: Scalars['ID']['input']
 }
 
 export type Planet = {
-  __typename?: 'Planet'
-  comment: Scalars['String']['output']
-  id: Scalars['ID']['output']
-  name: Scalars['String']['output']
+	__typename?: 'Planet'
+	comment: Scalars['String']['output']
+	id: Scalars['ID']['output']
+	name: Scalars['String']['output']
 }
 
 export type Query = {
-  __typename?: 'Query'
-  getCurrentSpace?: Maybe<Space>
-  getIsland?: Maybe<Island>
-  getPlanet?: Maybe<Planet>
-  getStone?: Maybe<Stone>
-  listIslands: Array<Island>
-  listPlanets: Array<Planet>
-  listStones: Array<Stone>
+	__typename?: 'Query'
+	getCurrentSpace?: Maybe<Space>
+	getIsland?: Maybe<Island>
+	getPlanet?: Maybe<Planet>
+	getStone?: Maybe<Stone>
+	listIslands: Array<Island>
+	listPlanets: Array<Planet>
+	listStones: Array<Stone>
 }
 
 export type QueryGetIslandArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>
+	id?: InputMaybe<Scalars['ID']['input']>
 }
 
 export type QueryGetPlanetArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>
-  name?: InputMaybe<Scalars['String']['input']>
+	id?: InputMaybe<Scalars['ID']['input']>
+	name?: InputMaybe<Scalars['String']['input']>
 }
 
 export type QueryGetStoneArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>
+	id?: InputMaybe<Scalars['ID']['input']>
 }
 
 export type QueryListIslandsArgs = {
-  planetId: Scalars['ID']['input']
+	planetId: Scalars['ID']['input']
 }
 
 export type Space = {
-  __typename?: 'Space'
-  name: Scalars['String']['output']
+	__typename?: 'Space'
+	name: Scalars['String']['output']
 }
 
 export type Stone = {
-  __typename?: 'Stone'
-  data: Scalars['String']['output']
-  id: Scalars['ID']['output']
-  islandId?: Maybe<Scalars['String']['output']>
-  patternId?: Maybe<Scalars['String']['output']>
+	__typename?: 'Stone'
+	data: Scalars['String']['output']
+	id: Scalars['ID']['output']
+	islandId?: Maybe<Scalars['String']['output']>
+	patternId?: Maybe<Scalars['String']['output']>
 }
 
 export type Subscription = {
-  __typename?: 'Subscription'
-  subscribeEvent?: Maybe<Event>
+	__typename?: 'Subscription'
+	subscribeEvent?: Maybe<Event>
 }
 
 export type _Service = {
-  __typename?: '_Service'
-  sdl: Scalars['String']['output']
+	__typename?: '_Service'
+	sdl: Scalars['String']['output']
 }

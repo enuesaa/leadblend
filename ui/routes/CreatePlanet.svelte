@@ -7,7 +7,7 @@
 	let comment: string
 
 	async function hanldeClick() {
-		const data = {name, comment}
+		const data = { name, comment }
 		await $createPlanet.mutateAsync(data)
 	}
 </script>

@@ -4,7 +4,6 @@
 	import Header from './Header.svelte'
 </script>
 
-
 <QueryClientProvider>
 	<Header />
 	<main class="container mx-auto">

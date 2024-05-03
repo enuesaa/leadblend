@@ -1,6 +1,6 @@
 {
-  "compilerOptions": {
-    "allowJs": true,
+	"compilerOptions": {
+		"allowJs": true,
 		"checkJs": true,
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
@@ -9,6 +9,6 @@
 		"sourceMap": true,
 		"strict": true,
 		"moduleResolution": "bundler"
-  },
-  "extends": "./.svelte-kit/tsconfig.json"
+	},
+	"extends": "./.svelte-kit/tsconfig.json"
 }
