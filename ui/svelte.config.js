@@ -8,6 +8,11 @@ const config = {
     adapter: adapter({
       pages: 'dist'
     }),
+    files: {
+      lib: 'lib',
+      routes: 'routes',
+      appTemplate: 'app.html',
+    },
   }
 }
 
