@@ -16,10 +16,10 @@ func CreateServeCmd(repos repository.Repos) *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) error {
 			filename, _ := cmd.Flags().GetString("file")
 
-			if filename != "" && !strings.HasSuffix(filename, ".leadblend.zip") {
+			if filename != "" && !strings.HasSuffix(filename, ".leadblend") {
 				return fmt.Errorf("invalid filename.")
 			}
-			name := strings.ReplaceAll(filename, ".leadblend.zip", "")
+			name := strings.ReplaceAll(filename, ".leadblend", "")
 			if err := usecase.UsePkg(repos, name); err != nil {
 				return err
 			}

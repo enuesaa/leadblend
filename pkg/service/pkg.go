@@ -20,7 +20,7 @@ type PkgService struct {
 }
 
 func (srv *PkgService) pkgFilename(name string) string {
-	return fmt.Sprintf("%s.leadblend.zip", name)
+	return fmt.Sprintf("%s.leadblend", name)
 }
 
 func (srv *PkgService) pkgUnarchivedDBFilename(name string) string {

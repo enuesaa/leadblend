@@ -4,7 +4,7 @@
 # editor
 .vscode
 
-*.leadblend.zip
+*.leadblend
 .leadblend
 
 *.db
