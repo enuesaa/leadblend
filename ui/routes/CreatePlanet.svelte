@@ -1,10 +1,13 @@
 <script lang="ts">
+	import { createPlanet } from '$lib/graphql/planet'
+
 	let name: string
 	let comment: string
 
 	async function hanldeClick() {
 		const data = {name, comment}
 		console.log(data)
+		createPlanet(data)
 		// const res = await fetch('https://example.com', {
 		// 	method: 'POST',
 		// 	body: JSON.stringify(formdata),

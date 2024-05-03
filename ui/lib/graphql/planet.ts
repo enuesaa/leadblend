@@ -1,7 +1,7 @@
-import { queryStore, gql } from '@urql/svelte'
+import { queryStore, mutationStore, gql } from '@urql/svelte'
 import { clientStore } from '$lib/graphql/client'
 import { derived, get } from 'svelte/store'
-import type { Planet } from './types'
+import type { Planet, MutationCreatePlanetArgs } from './types'
 
 const listPlanets = queryStore<{listPlanets: Array<Planet>}>({
   client: get(clientStore),
@@ -22,3 +22,16 @@ export const planets = derived(listPlanets, ($listPlanets) => {
   }
   return $listPlanets.data.listPlanets
 })
+
+export const createPlanet = ({ name, comment }: MutationCreatePlanetArgs) => {
+  const result = mutationStore({
+    client: get(clientStore),
+    query: gql`
+      mutation ($name: String!, $comment: String!) {
+        createPlanet(name: $name, comment: $comment)
+      }
+    `,
+    variables: { name, comment },
+  });
+  console.log(result)
+}

@@ -27,7 +27,7 @@ type DBRepository struct {
 }
 
 func (repo *DBRepository) dbpath() string {
-	return ".leadblend/main/data.db"
+	return ".leadblend/main.leadblend/data.db"
 }
 
 func (repo *DBRepository) dsn(path string) string {
