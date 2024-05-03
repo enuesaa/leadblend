@@ -17,7 +17,7 @@ const listPlanets = queryStore<{listPlanets: Array<Planet>}>({
 })
 
 export const planets = derived(listPlanets, ($listPlanets) => {
-  if ($listPlanets.data === undefined) {
+  if ($listPlanets.data === undefined || $listPlanets.data === null) {
     return []
   }
   return $listPlanets.data.listPlanets
