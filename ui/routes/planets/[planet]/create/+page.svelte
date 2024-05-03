@@ -10,5 +10,5 @@
 <h3>{planetName}: create island</h3>
 
 {#if $planet.data?.id !== undefined}
-	<CreateIsland planetId={$planet.data.id} />	
+	<CreateIsland planetId={$planet.data.id} />
 {/if}

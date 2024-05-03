@@ -4,6 +4,6 @@
 	export let planet: Planet
 </script>
 
-<a href={`/planets/${planet.name}`} class="block m-2 p-2 rounded-lg font-zenkaku text-2xl font-bold">
+<a href={`/planets/${planet.name}`} class="block m-1 px-1 font-zenkaku text-xl font-bold">
 	{planet.name}
 </a>

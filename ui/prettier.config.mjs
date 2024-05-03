@@ -3,7 +3,6 @@ export default {
 	tabWidth: 2,
 	semi: false,
 	singleQuote: true,
-	jsxSingleQuote: true,
 	endOfLine: 'lf',
 	trailingComma: 'none',
 	plugins: ['prettier-plugin-svelte'],

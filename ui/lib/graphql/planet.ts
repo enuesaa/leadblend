@@ -32,9 +32,9 @@ export const getPlanet = (name: string) =>
 	createQuery<Planet>({
 		queryKey: [getPlanetQuery, name],
 		queryFn: async () => {
-			const res = await runQuery(getPlanetQuery, {name})
+			const res = await runQuery(getPlanetQuery, { name })
 			return res.data.getPlanet
-		},
+		}
 	})
 
 const createPlanetQuery = `mutation ($name: String!, $comment: String!) {
