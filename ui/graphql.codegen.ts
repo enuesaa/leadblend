@@ -4,7 +4,7 @@ export default {
   overwrite: true,
   schema: 'http://localhost:3000/graphql',
   generates: {
-    './src/lib/graphql/types.ts': {
+    'lib/graphql/types.ts': {
       plugins: ['typescript'],
     },
   },

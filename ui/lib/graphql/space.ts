@@ -1,17 +1,17 @@
 import { queryStore, gql } from '@urql/svelte'
-import { clientStore } from '$lib/graphql/client'
-import { derived, get } from 'svelte/store'
+import { useClient } from '$lib/graphql/client'
+import { derived } from 'svelte/store'
 import type { Space } from './types'
 
 const getCurrentSpace = queryStore<{getCurrentSpace: Space}>({
-  client: get(clientStore),
+  client: useClient(),
   query: gql`
     query {
       getCurrentSpace {
         name
       }
     }
-  `,
+  `
 })
 
 export const currentSpace = derived(getCurrentSpace, ($getCurrentSpace) => {
