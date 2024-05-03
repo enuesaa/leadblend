@@ -71,6 +71,7 @@ export type Planet = {
 
 export type Query = {
   __typename?: 'Query'
+  getCurrentSpace?: Maybe<Space>
   getIsland?: Maybe<Island>
   getPlanet?: Maybe<Planet>
   getStone?: Maybe<Stone>
@@ -94,6 +95,11 @@ export type QueryGetStoneArgs = {
 
 export type QueryListIslandsArgs = {
   planetId: Scalars['ID']['input']
+}
+
+export type Space = {
+  __typename?: 'Space'
+  name: Scalars['String']['output']
 }
 
 export type Stone = {

@@ -1,9 +1,9 @@
 import { queryStore, gql } from '@urql/svelte'
 import { clientStore } from '$lib/graphql/client'
-import { get } from 'svelte/store'
+import { derived, get } from 'svelte/store'
 import type { Planet } from './types'
 
-export const listPlanets = queryStore<{listPlanets: Array<Planet>}>({
+const listPlanets = queryStore<{listPlanets: Array<Planet>}>({
   client: get(clientStore),
   query: gql`
     query {
@@ -14,4 +14,11 @@ export const listPlanets = queryStore<{listPlanets: Array<Planet>}>({
       }
     }
   `,
+})
+
+export const planets = derived(listPlanets, ($listPlanets) => {
+  if ($listPlanets.data === undefined) {
+    return []
+  }
+  return $listPlanets.data.listPlanets
 })
