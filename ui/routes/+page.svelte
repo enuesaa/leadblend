@@ -1,12 +1,15 @@
 <script lang="ts">
 	import { listPlanets } from '$lib/graphql/planet'
 	import CreatePlanet from './CreatePlanet.svelte'
+	import PlanetLink from './PlanetLink.svelte'
 
 	const planets = listPlanets()
 </script>
 
-<CreatePlanet />
+<div>
+	{#each $planets.data as planet}
+		<PlanetLink planet={planet} />
+	{/each}
+</div>
 
-{#each $planets.data as planet}
-	<li>{planet.id}</li>
-{/each}
+<CreatePlanet />

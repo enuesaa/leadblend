@@ -4,3 +4,5 @@
 
 	const planetName = get(page).params.planet
 </script>
+
+<h3>{planetName}</h3>
