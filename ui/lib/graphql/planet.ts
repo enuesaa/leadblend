@@ -1,7 +1,6 @@
-import { mutationStore, gql } from '@urql/svelte'
-import { client, executeQuery } from '$lib/graphql/client'
+import { gql, executeQuery, executeMutation } from '$lib/graphql/client'
 import type { Planet, MutationCreatePlanetArgs } from './types'
-import { createQuery } from '@tanstack/svelte-query'
+import { createMutation, createQuery } from '@tanstack/svelte-query'
 
 export const listPlanets = () => createQuery<Planet[]>({
   queryKey: ['listPlanets'],
@@ -21,15 +20,14 @@ export const listPlanets = () => createQuery<Planet[]>({
   initialData: [],
 })
 
-export const createPlanet = ({ name, comment }: MutationCreatePlanetArgs) => {
-  const result = mutationStore({
-    client,
-    query: gql`
+export const useCreatePlanet = () => createMutation({
+  mutationFn: async (data: MutationCreatePlanetArgs) => {
+    const query = gql`
       mutation ($name: String!, $comment: String!) {
         createPlanet(name: $name, comment: $comment)
       }
-    `,
-    variables: { name, comment },
-  });
-  console.log(result)
-}
+    `
+    const res = await executeMutation(query, data)
+    return res.data?.createPlanet
+  }
+})

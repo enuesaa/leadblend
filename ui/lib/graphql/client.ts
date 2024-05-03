@@ -13,3 +13,9 @@ export const executeQuery = async (query: TypedDocumentNode): Promise<OperationR
   const res = await client.executeQuery(request, {})
   return res
 }
+
+export const executeMutation = async (query: TypedDocumentNode, variables: Record<string, any>) => {
+  const request = createRequest(query, variables)
+  const res = await client.executeMutation(request, {})
+  return res
+}
