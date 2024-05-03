@@ -3,8 +3,8 @@
 
 	const createPlanet = useCreatePlanet()
 
-	let name: string
-	let comment: string
+	let name: string = ''
+	let comment: string = ''
 
 	async function hanldeClick() {
 		const data = { name, comment }

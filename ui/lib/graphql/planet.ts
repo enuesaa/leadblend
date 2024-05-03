@@ -1,4 +1,4 @@
-import { runQuery, runMutation, cachekey } from '$lib/graphql/client'
+import { runQuery, runMutation } from '$lib/graphql/client'
 import type { Planet, MutationCreatePlanetArgs } from './types'
 import { createMutation, createQuery } from '@tanstack/svelte-query'
 
@@ -12,7 +12,7 @@ const listPlanetsQuery = `query {
 
 export const listPlanets = () =>
 	createQuery<Planet[]>({
-		queryKey: cachekey(listPlanetsQuery),
+		queryKey: [listPlanetsQuery],
 		queryFn: async () => {
 			const res = await runQuery(listPlanetsQuery, {})
 			return res.data.listPlanets

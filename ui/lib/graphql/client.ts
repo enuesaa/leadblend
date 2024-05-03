@@ -17,7 +17,3 @@ export const runMutation = async (query: string, variables: Record<string, any>)
 	const res = await client.executeMutation(request, {})
 	return res
 }
-
-export const cachekey = (query: string, variables: Record<string, any> = {}): string[] => {
-	return [`${query}-${JSON.stringify(variables)}`]
-}
