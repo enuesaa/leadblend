@@ -1,23 +1,18 @@
-import { createMutation, createQuery } from '@tanstack/svelte-query'
-import { que, runMutation, runQuery } from './client'
+import { createMutation } from '@tanstack/svelte-query'
+import { que, runMutation } from './client'
 import type { Comet, MutationCreateCometArgs, MutationDeleteCometArgs } from './types'
 
-const listCometsQuery = `query {
+const listQuery = `query {
   listComets {
     id
     data
   }
 }`
 
-export const listComets = () =>
-	createQuery<Comet[]>({
-		queryKey: [listComets],
-		queryFn: async () => {
-			const res = await runQuery(listCometsQuery, {})
-			return res.data.listComets
-		},
-		initialData: []
-	})
+export const listComets = () => que<Comet[]>(listQuery, {
+	usekey: 'listComets',
+	initialData: [],
+})
 
 const getQuery = `query ($id: ID!) {
   getComet(id: $id) {
