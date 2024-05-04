@@ -19,5 +19,8 @@ func (r *Resolver) CreateComet(args resolverCreateCometArgs) (*string, error) {
 	if err != nil {
 		return nil, err
 	}
+	// list patterns
+	// if pattern matched, append pattern_id to comit.
+
 	return &id, nil
 }
