@@ -1,11 +1,13 @@
 import { runQuery, runMutation } from '$lib/graphql/client'
-import type { Island, MutationCreateIslandArgs } from './types'
+import type { Island, MutationCreateIslandArgs, MutationDeleteIslandArgs } from './types'
 import { createMutation, createQuery } from '@tanstack/svelte-query'
 
 const listIslandsQuery = `query ($planetId: ID!) {
   listIslands (planetId: $planetId) {
     id
-    title
+		planetId
+		title
+		content
     comment
   }
 }`
@@ -22,7 +24,7 @@ export const listIslands = (planetId: string) =>
 
 
 const createIslandQuery = `mutation ($title: String!, $planetId: String!, $content: String!, $comment: String!) {
-  createIsland(title: $title, planetId: $planetId, content: $content, comment: $comment)
+	createIsland(title: $title, planetId: $planetId, content: $content, comment: $comment)
 }`
 
 export const useCreateIsland = () =>
@@ -32,3 +34,16 @@ export const useCreateIsland = () =>
 			return res.data?.createIsland
 		}
 	})
+
+const deleteIslandQuery = `mutation ($id: ID!) {
+	deleteIsland(id: $id)
+}`
+
+export const useDeleteIsland = () =>
+	createMutation({
+		mutationFn: async (data: MutationDeleteIslandArgs) => {
+			const res = await runMutation(deleteIslandQuery, data)
+			return res.data?.deleteIsland
+		}
+	})
+	

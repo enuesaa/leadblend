@@ -1,5 +1,5 @@
 <script lang="ts">
-	import CreateButton from '$lib/components/CreateButton.svelte'
+	import Button from '$lib/components/Button.svelte'
 	import TextInput from '$lib/components/TextInput.svelte'
 	import { useCreateIsland } from '$lib/graphql/island'
 	import { goto } from '$app/navigation'
@@ -12,7 +12,7 @@
 	let content: string = ''
 	let comment: string = ''
 
-	async function hanldeClick() {
+	async function handleClick() {
 		const data = { title, content, comment, planetId: planet.id }
 		await $createPlanet.mutateAsync(data)
 		goto(`/planets/${planet.name}`)
@@ -22,4 +22,4 @@
 <TextInput value={title} label='title' />
 <TextInput value={content} label='content' />
 <TextInput value={comment} label='comment' />
-<CreateButton {hanldeClick} />
+<Button {handleClick} label='Create' />

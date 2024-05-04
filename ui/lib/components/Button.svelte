@@ -1,9 +1,10 @@
 <script lang="ts">
-	export let hanldeClick: () => void
+	export let handleClick: () => void
+	export let label: string = 'Create'
 </script>
 
-<button on:click|preventDefault={hanldeClick}>
-	Create
+<button on:click|preventDefault={handleClick}>
+	{label}
 </button>
 
 <style lang="postcss">

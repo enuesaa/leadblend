@@ -8,5 +8,5 @@
 </script>
 
 {#each $islands.data as island}
-	<div>{island.id}</div>
+	<a href={`/planets/${planet.name}/islands/${island.id}`}>{island.id} {island.title}</a>
 {/each}

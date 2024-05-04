@@ -1,5 +1,5 @@
 <script lang="ts">
-	import CreateButton from '$lib/components/CreateButton.svelte'
+	import Button from '$lib/components/Button.svelte'
 	import TextInput from '$lib/components/TextInput.svelte'
 	import { useCreatePlanet } from '$lib/graphql/planet'
 
@@ -8,7 +8,7 @@
 	let name: string = ''
 	let comment: string = ''
 
-	async function hanldeClick() {
+	async function handleClick() {
 		const data = { name, comment }
 		await $createPlanet.mutateAsync(data)
 	}
@@ -16,4 +16,4 @@
 
 <TextInput value={name} label='name' />
 <TextInput value={comment} label='comment' />
-<CreateButton {hanldeClick} />
+<Button {handleClick} label='Create' />

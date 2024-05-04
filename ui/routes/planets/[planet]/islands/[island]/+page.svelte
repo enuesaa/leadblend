@@ -1,11 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/stores'
-
-	let planetName = $page.params.planet
-	let islandId = $page.params.island
-	$: planetName = $page.params.planet
-	$: islandId = $page.params.island
+	import DataLoader from './DataLoader.svelte'
 </script>
 
-planet: {planetName} <br />
-island: {islandId}
+{#key $page.params}
+	<DataLoader planetName={$page.params.planet} islandId={$page.params.island} />
+{/key}
