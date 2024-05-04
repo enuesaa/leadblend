@@ -31,11 +31,16 @@ export type Island = {
 
 export type Mutation = {
 	__typename?: 'Mutation'
+	createComet?: Maybe<Scalars['String']['output']>
 	createIsland?: Maybe<Scalars['String']['output']>
 	createPlanet?: Maybe<Scalars['String']['output']>
 	createStone?: Maybe<Scalars['String']['output']>
 	deleteIsland?: Maybe<Scalars['Boolean']['output']>
 	deleteStone?: Maybe<Scalars['Boolean']['output']>
+}
+
+export type MutationCreateCometArgs = {
+	data: Scalars['String']['input']
 }
 
 export type MutationCreateIslandArgs = {

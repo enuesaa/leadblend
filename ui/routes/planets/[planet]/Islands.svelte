@@ -8,5 +8,12 @@
 </script>
 
 {#each $islands.data as island}
-	<a href={`/planets/${planet.name}/islands/${island.id}`}>{island.id} {island.title}</a>
+	<a href={`/planets/${planet.name}/islands/${island.id}`}>{island.title}</a>
 {/each}
+
+<style lang="postcss">
+	a {
+		border: solid 1px #1a1a1a;
+		@apply block my-2 p-1 font-zenkaku text-xl font-bold h-10;
+	}
+</style>

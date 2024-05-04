@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { getPlanet } from '$lib/graphql/planet'
+	import PageTitle from '$lib/components/PageTitle.svelte'
+import { getPlanet } from '$lib/graphql/planet'
 	import CreateIsland from './CreateIsland.svelte'
 
 	export let planetName: string
@@ -7,7 +8,7 @@
 	const planet = getPlanet(planetName)
 </script>
 
-<h3>{planetName}: create island</h3>
+<PageTitle title={`${planetName}: create island`} />
 
 {#if $planet.data?.id !== undefined}
 	<CreateIsland planet={$planet.data} />
