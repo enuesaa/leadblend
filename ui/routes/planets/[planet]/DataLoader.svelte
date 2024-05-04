@@ -4,8 +4,7 @@
 	import Islands from './Islands.svelte'
 
 	export let planetName: string
-	const planet = getPlanet(planetName)
-	console.log(planetName)
+	let planet = getPlanet(planetName)
 </script>
 
 <PageTitle title={planetName} />

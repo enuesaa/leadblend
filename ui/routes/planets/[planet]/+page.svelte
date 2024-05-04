@@ -6,4 +6,6 @@
 	$: planetName = $page.params.planet
 </script>
 
-<DataLoader {planetName} />
+{#key planetName}
+	<DataLoader {planetName} />
+{/key}
