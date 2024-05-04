@@ -1,6 +1,6 @@
 import { Client, createRequest, fetchExchange, type OperationResult, gql } from '@urql/svelte'
 import { PUBLIC_GRAPHQL_ENDPOINT } from '$env/static/public'
-import { createMutation, createQuery } from '@tanstack/svelte-query'
+import { createMutation, createQuery, useQueryClient } from '@tanstack/svelte-query'
 
 export const client = new Client({
 	url: PUBLIC_GRAPHQL_ENDPOINT,
@@ -46,6 +46,7 @@ type MutateOptions = {
 }
 export const mutate = <T extends Vars>(query: string, options: Partial<MutateOptions> = {}) => {
 	const usekey = options.usekey ?? ''
+	const queryClient = useQueryClient()
 
 	const creation = 	createMutation({
 		mutationFn: async (data: T) => {
@@ -54,6 +55,7 @@ export const mutate = <T extends Vars>(query: string, options: Partial<MutateOpt
 			if (res.data === undefined || res.data === null) {
 				return res.data
 			}
+			await queryClient.invalidateQueries()
 			if (res.data.hasOwnProperty(usekey)) {
 				return res.data[usekey]
 			}

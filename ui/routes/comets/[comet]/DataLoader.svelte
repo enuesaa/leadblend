@@ -10,7 +10,7 @@
 
 <PageTitle title={`Comet`} />
 
-{#if $comet.data !== undefined}
+{#if $comet.data?.data !== undefined}
 	<div>{$comet.data.data}</div>
 {/if}
 

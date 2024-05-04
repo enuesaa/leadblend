@@ -7,9 +7,11 @@
 </script>
 
 <section class="p-2 m-2 flex gap-3">
-	{#each $comets.data as comet}
-		<CometCard {comet} />
-	{/each}
+	{#if $comets.data !== undefined}
+		{#each $comets.data as comet}
+			<CometCard {comet} />
+		{/each}
+	{/if}
 	<CometCreateCard />
 </section>
 
