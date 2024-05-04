@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/stores'
 
-	let planetName: string, islandId: string
+	let planetName = $page.params.planet
+	let islandId = $page.params.island
 	$: planetName = $page.params.planet
 	$: islandId = $page.params.island
 </script>

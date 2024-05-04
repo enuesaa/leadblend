@@ -1,15 +1,9 @@
 <script lang="ts">
 	import { page } from '$app/stores'
-	import PageTitle from '$lib/components/PageTitle.svelte'
-	import { getPlanet } from '$lib/graphql/planet'
-	import Islands from './Islands.svelte'
+	import DataLoader from './DataLoader.svelte'
 
-	const planetName = $page.params.planet
-	const planet = getPlanet(planetName)
+	let planetName = $page.params.planet
+	$: planetName = $page.params.planet
 </script>
 
-<PageTitle title={planetName} />
-
-{#if $planet.data !== undefined}
-	<Islands planet={$planet.data} />
-{/if}
+<DataLoader {planetName} />
