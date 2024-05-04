@@ -7,6 +7,13 @@ import (
 
 type resolverCreatePatternArgs struct {
 	Title string
+	Traits []resolverCreatePatternTrait
+}
+type resolverCreatePatternTrait struct {
+	Path string
+	Type string
+	DefaultValue string
+	Required bool
 }
 
 func (r *Resolver) CreatePattern(args resolverCreatePatternArgs) (*string, error) {
@@ -20,20 +27,15 @@ func (r *Resolver) CreatePattern(args resolverCreatePatternArgs) (*string, error
 		return nil, err
 	}
 
-	patternSrv.AddTrait(dbq.CreateTraitParams{
-		PatternID: id,
-		Path: "$.a",
-		Type: "string",
-		DefaultValue: "a",
-		Required: true,
-	})
-	patternSrv.AddTrait(dbq.CreateTraitParams{
-		PatternID: id,
-		Path: "$.b",
-		Type: "string",
-		DefaultValue: "b",
-		Required: true,
-	})
+	for _, t := range args.Traits {
+		patternSrv.AddTrait(dbq.CreateTraitParams{
+			PatternID: id,
+			Path: t.Path,
+			Type: t.Type,
+			DefaultValue: t.DefaultValue,
+			Required: t.Required,
+		})
+	}
 
 	return &id, nil
 }

@@ -63,6 +63,7 @@ export type MutationCreateIslandArgs = {
 
 export type MutationCreatePatternArgs = {
   title: Scalars['String']['input'];
+  traits: Array<TraitInput>;
 };
 
 
@@ -175,6 +176,13 @@ export type Trait = {
   path: Scalars['String']['output'];
   required: Scalars['Boolean']['output'];
   type: Scalars['String']['output'];
+};
+
+export type TraitInput = {
+  defaultValue: Scalars['String']['input'];
+  path: Scalars['String']['input'];
+  required: Scalars['Boolean']['input'];
+  type: Scalars['String']['input'];
 };
 
 export type _Service = {

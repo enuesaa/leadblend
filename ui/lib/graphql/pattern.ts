@@ -18,8 +18,8 @@ export const listPatterns = () => get<Pattern[]>(listQuery, {
 	initialData: [],
 })
 
-const createQuery = `mutation ($title: String!) {
-  createPattern(title: $title)
+const createQuery = `mutation ($title: String!, $traits: [TraitInput!]!) {
+  createPattern(title: $title, traits: $traits)
 }`
 export const useCreatePattern = () => mutate<MutationCreatePatternArgs>(createQuery, {
 	usekey: 'createPattern',

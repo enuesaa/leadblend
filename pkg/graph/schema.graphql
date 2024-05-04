@@ -53,6 +53,12 @@ type Trait {
   defaultValue: String!
   required: Boolean!
 }
+input TraitInput {
+  path: String!
+  type: String!
+  defaultValue: String!
+  required: Boolean!
+}
 
 type Mutation {
   createPlanet(name: String!, comment: String!): String
@@ -62,7 +68,7 @@ type Mutation {
   deleteStone(id: ID!): Boolean
   createComet(data: String!): String
   deleteComet(id: ID!): Boolean
-  createPattern(title: String!): String
+  createPattern(title: String!, traits: [TraitInput!]!): String
 }
 
 type Subscription {

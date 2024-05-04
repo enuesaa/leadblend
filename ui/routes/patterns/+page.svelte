@@ -6,7 +6,10 @@
 
 {#if $patterns.data !== undefined}
 	{#each $patterns.data as pattern}
-		<div>{pattern.id}</div>
+	<div class="m-2">
+		<div class="p-2">{pattern.title}</div>
+		<code>{JSON.stringify(pattern.traits)}</code>
+	</div>
 	{/each}
 {/if}
 
