@@ -1,12 +1,20 @@
 <script lang="ts">
 	import './app.css'
-	import { QueryClientProvider } from '@tanstack/svelte-query'
+	import { QueryClient, QueryClientProvider } from '@tanstack/svelte-query'
 	import Header from './Header.svelte'
 	import Comets from './Comets.svelte'
 	import SideMenu from './SideMenu.svelte'
+
+	const queryClient = new QueryClient({
+		defaultOptions: {
+			queries: {
+				staleTime: 0,
+			},
+		},
+	})
 </script>
 
-<QueryClientProvider>
+<QueryClientProvider client={queryClient}>
 	<Header />
 	<Comets />
 	<main class="container mx-auto flex gap-9">
