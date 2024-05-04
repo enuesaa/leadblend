@@ -38,6 +38,8 @@ DELETE FROM patterns WHERE id = ?;
 
 -- name: ListTraits :many
 SELECT * FROM traits;
+-- name: ListTraitsByPatternIds :many
+SELECT * FROM traits WHERE pattern_id IN (sqlc.slice('pattern_ids'));
 -- name: GetTrait :one
 SELECT * FROM traits WHERE id = ?;
 -- name: CreateTrait :one

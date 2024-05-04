@@ -8,9 +8,13 @@ type resolverPatternArgs struct {
 
 func (r *Resolver) GetPattern(args resolverPatternArgs) (*Pattern, error) {
 	patternSrv := service.NewPatternService(r.repos)
-	pattern, err := patternSrv.Get(*args.Id)
+	pattern, err := patternSrv.GetWithTrait(*args.Id)
 	if err != nil {
 		return nil, err
 	}
-	return &Pattern{record: pattern}, nil
+	res := Pattern{
+		record: pattern.Pattern,
+		traits: pattern.Traits,
+	}
+	return &res, nil
 }

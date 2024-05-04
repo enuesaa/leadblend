@@ -8,6 +8,7 @@ package dbq
 import (
 	"context"
 	"database/sql"
+	"strings"
 )
 
 const createHistory = `-- name: CreateHistory :one
@@ -171,7 +172,7 @@ INSERT INTO traits (id, pattern_id, path, type, default_value, required) VALUES 
 
 type CreateTraitParams struct {
 	ID           string
-	PatternID    int64
+	PatternID    string
 	Path         string
 	Type         string
 	DefaultValue string
@@ -719,6 +720,52 @@ SELECT id, pattern_id, path, type, default_value, required, created, updated FRO
 
 func (q *Queries) ListTraits(ctx context.Context) ([]Trait, error) {
 	rows, err := q.db.QueryContext(ctx, listTraits)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Trait
+	for rows.Next() {
+		var i Trait
+		if err := rows.Scan(
+			&i.ID,
+			&i.PatternID,
+			&i.Path,
+			&i.Type,
+			&i.DefaultValue,
+			&i.Required,
+			&i.Created,
+			&i.Updated,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const listTraitsByPatternIds = `-- name: ListTraitsByPatternIds :many
+SELECT id, pattern_id, path, type, default_value, required, created, updated FROM traits WHERE pattern_id IN (/*SLICE:pattern_ids*/?)
+`
+
+func (q *Queries) ListTraitsByPatternIds(ctx context.Context, patternIds []string) ([]Trait, error) {
+	query := listTraitsByPatternIds
+	var queryParams []interface{}
+	if len(patternIds) > 0 {
+		for _, v := range patternIds {
+			queryParams = append(queryParams, v)
+		}
+		query = strings.Replace(query, "/*SLICE:pattern_ids*/?", strings.Repeat(",?", len(patternIds))[1:], 1)
+	} else {
+		query = strings.Replace(query, "/*SLICE:pattern_ids*/?", "NULL", 1)
+	}
+	rows, err := q.db.QueryContext(ctx, query, queryParams...)
 	if err != nil {
 		return nil, err
 	}

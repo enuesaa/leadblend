@@ -6,13 +6,14 @@ func (r *Resolver) ListPatterns() ([]*Pattern, error) {
 	list := make([]*Pattern, 0)
 
 	patternSrv := service.NewPatternService(r.repos)
-	patterns, err := patternSrv.List()
+	patterns, err := patternSrv.ListWithTrait()
 	if err != nil {
 		return list, err
 	}
 	for _, p := range patterns {
 		list = append(list, &Pattern{
-			record: p,
+			record: p.Pattern,
+			traits: p.Traits,
 		})
 	}
 

@@ -62,7 +62,7 @@ type Tag struct {
 
 type Trait struct {
 	ID           string
-	PatternID    int64
+	PatternID    string
 	Path         string
 	Type         string
 	DefaultValue string

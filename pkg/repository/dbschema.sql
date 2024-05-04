@@ -26,7 +26,7 @@ CREATE TABLE patterns (
 
 CREATE TABLE traits (
   id            VARCHAR(25) PRIMARY KEY,
-  pattern_id    INTEGER NOT NULL,
+  pattern_id    VARCHAR(25) NOT NULL,
   path          VARCHAR(255) NOT NULL,
   type          VARCHAR(10) NOT NULL,
   default_value TEXT NOT NULL, -- json format
