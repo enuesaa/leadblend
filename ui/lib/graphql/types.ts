@@ -41,6 +41,7 @@ export type Mutation = {
 	createIsland?: Maybe<Scalars['String']['output']>
 	createPlanet?: Maybe<Scalars['String']['output']>
 	createStone?: Maybe<Scalars['String']['output']>
+	deleteComet?: Maybe<Scalars['Boolean']['output']>
 	deleteIsland?: Maybe<Scalars['Boolean']['output']>
 	deleteStone?: Maybe<Scalars['Boolean']['output']>
 }
@@ -63,6 +64,10 @@ export type MutationCreatePlanetArgs = {
 
 export type MutationCreateStoneArgs = {
 	data: Scalars['String']['input']
+}
+
+export type MutationDeleteCometArgs = {
+	id: Scalars['ID']['input']
 }
 
 export type MutationDeleteIslandArgs = {

@@ -1,6 +1,6 @@
 import { createMutation, createQuery } from '@tanstack/svelte-query'
 import { runMutation, runQuery } from './client'
-import type { Comet, MutationCreateCometArgs } from './types'
+import type { Comet, MutationCreateCometArgs, MutationDeleteCometArgs } from './types'
 
 const listCometsQuery = `query {
   listComets {
@@ -46,3 +46,16 @@ export const useCreateComet = () =>
 			return res.data?.createIsland
 		}
 	})
+
+const deleteCometQuery = `mutation ($id: ID!) {
+  deleteComet(id: $id)
+}`
+
+export const useDeleteComet = () =>
+  createMutation({
+    mutationFn: async (data: MutationDeleteCometArgs) => {
+      const res = await runMutation(deleteCometQuery, data)
+      return res.data?.deleteComet
+    }
+  })
+  
