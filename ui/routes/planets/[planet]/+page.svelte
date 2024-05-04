@@ -4,9 +4,7 @@
 	import { getPlanet } from '$lib/graphql/planet'
 	import Islands from './Islands.svelte'
 
-	let planetName: string
-	$: planetName = $page.params.planet
-
+	const planetName = $page.params.planet
 	const planet = getPlanet(planetName)
 </script>
 

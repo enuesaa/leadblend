@@ -4,7 +4,7 @@
 	export let planet: Planet
 </script>
 
-<a href={`/planets/${planet.name}`}>
+<a href={`/planets/${planet.name}`} data-sveltekit-reload>
 	{planet.name}
 </a>
 
