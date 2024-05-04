@@ -8,6 +8,8 @@ type Query {
   getStone(id: ID): Stone
   listComets(): [Comet!]!
   getComet(id: ID): Comet
+  listPatterns(): [Pattern!]!
+  getPattern(id: ID): Pattern
 }
 
 type Space {
@@ -38,6 +40,18 @@ type Stone {
 type Comet {
   id: ID!
   data: String!
+}
+
+type Pattern {
+  id: ID!
+  title: String!
+  traits: [Trait!]!
+}
+type Trait {
+  path: String!
+  type: String!
+  defaultValue: String!
+  required: Boolean!
 }
 
 type Mutation {
