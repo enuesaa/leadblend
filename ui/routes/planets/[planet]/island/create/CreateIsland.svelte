@@ -19,7 +19,7 @@
 	}
 </script>
 
-<TextInput bind:value={title} label='title' />
-<TextInput bind:value={content} label='content' />
-<TextInput bind:value={comment} label='comment' />
-<Button {handleClick} label='Create' />
+<TextInput bind:value={title} label="title" />
+<TextInput bind:value={content} label="content" />
+<TextInput bind:value={comment} label="comment" />
+<Button {handleClick} label="Create" />

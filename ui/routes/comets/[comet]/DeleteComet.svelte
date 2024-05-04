@@ -7,9 +7,9 @@
 	const deleteComet = useDeleteComet()
 
 	async function handleClick() {
-		await $deleteComet.mutateAsync({id: cometId})
+		await $deleteComet.mutateAsync({ id: cometId })
 		goto('/')
 	}
 </script>
 
-<Button {handleClick} label='Delete' />
+<Button {handleClick} label="Delete" />

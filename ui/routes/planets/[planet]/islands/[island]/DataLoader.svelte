@@ -10,7 +10,7 @@
 	const deleteIsland = useDeleteIsland()
 
 	async function handleClick() {
-		await $deleteIsland.mutateAsync({id: islandId})
+		await $deleteIsland.mutateAsync({ id: islandId })
 		goto(`/planets/${planetName}`)
 	}
 </script>
@@ -18,4 +18,4 @@
 <PageTitle title={planetName} />
 island: {islandId}
 
-<Button {handleClick} label='Delete' />
+<Button {handleClick} label="Delete" />

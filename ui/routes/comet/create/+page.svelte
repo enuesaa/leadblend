@@ -10,12 +10,12 @@
 	let data: string = ''
 
 	async function handleClick() {
-		await $createComet.mutateAsync({data})
+		await $createComet.mutateAsync({ data })
 		goto('/')
 	}
 </script>
 
 <PageTitle title="create comet" />
 
-<TextInput bind:value={data} label='data' />
-<Button {handleClick} label='Create' />
+<TextInput bind:value={data} label="data" />
+<Button {handleClick} label="Create" />

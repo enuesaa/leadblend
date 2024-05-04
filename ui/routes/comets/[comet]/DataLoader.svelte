@@ -7,7 +7,6 @@
 	const comet = getComet(cometId)
 </script>
 
-
 <PageTitle title={`Comet`} />
 
 {#if $comet.data?.data !== undefined}

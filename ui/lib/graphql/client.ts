@@ -8,13 +8,13 @@ export const client = new Client({
 })
 
 const calcCacheKey = (query: string, variables: Record<string, any>): string[] => {
-  return [`${query}-${JSON.stringify(variables)}`]
+	return [`${query}-${JSON.stringify(variables)}`]
 }
 
 type GetOptions = {
-	vars: Record<string, any>;
-	usekey: string;
-	initialData: any;
+	vars: Record<string, any>
+	usekey: string
+	initialData: any
 }
 export const get = <T>(query: string, options: Partial<GetOptions> = {}) => {
 	const vars = options.vars ?? {}
@@ -34,7 +34,7 @@ export const get = <T>(query: string, options: Partial<GetOptions> = {}) => {
 			}
 			return {}
 		},
-		initialData: initialData,
+		initialData: initialData
 	})
 
 	return creation
@@ -42,13 +42,13 @@ export const get = <T>(query: string, options: Partial<GetOptions> = {}) => {
 
 type Vars = Record<string, any>
 type MutateOptions = {
-	usekey: string;
+	usekey: string
 }
 export const mutate = <T extends Vars>(query: string, options: Partial<MutateOptions> = {}) => {
 	const usekey = options.usekey ?? ''
 	const queryClient = useQueryClient()
 
-	const creation = 	createMutation({
+	const creation = createMutation({
 		mutationFn: async (data: T) => {
 			const request = createRequest(gql(query), data)
 			const res = await client.executeMutation(request, {})

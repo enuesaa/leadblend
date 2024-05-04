@@ -1,6 +1,6 @@
 <script lang="ts">
 	import PageTitle from '$lib/components/PageTitle.svelte'
-import { getPlanet } from '$lib/graphql/planet'
+	import { getPlanet } from '$lib/graphql/planet'
 	import CreateIsland from './CreateIsland.svelte'
 
 	export let planetName: string
