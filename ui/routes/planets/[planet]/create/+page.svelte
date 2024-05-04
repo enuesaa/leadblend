@@ -1,9 +1,11 @@
-<script>
+<script lang="ts">
+	import { page } from '$app/stores'
 	import { getPlanet } from '$lib/graphql/planet'
 	import CreateIsland from './CreateIsland.svelte'
-	import { useParams } from '$lib/page'
 
-	const { planet: planetName } = useParams()
+	let planetName: string
+	$: planetName = $page.params.planet
+
 	const planet = getPlanet(planetName)
 </script>
 

@@ -1,7 +1,9 @@
-<script>
-	import { useParams } from '$lib/page'
+<script lang="ts">
+	import { page } from '$app/stores'
 
-	const { planet: planetName, island: islandId } = useParams()
+	let planetName: string, islandId: string
+	$: planetName = $page.params.planet
+	$: islandId = $page.params.island
 </script>
 
 planet: {planetName} <br />
