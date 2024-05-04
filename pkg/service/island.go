@@ -23,6 +23,11 @@ func (srv *IslandService) List() ([]dbq.Island, error) {
 	return query.ListIslands(ctx())
 }
 
+func (srv *IslandService) ListByPlanetId(planetId string) ([]dbq.Island, error) {
+	query := srv.repos.DB.Query()
+	return query.ListIslandsByPlanetId(ctx(), planetId)
+}
+
 func (srv *IslandService) Get(id string) (dbq.Island, error) {
 	query := srv.repos.DB.Query()
 	return query.GetIsland(ctx(), id)

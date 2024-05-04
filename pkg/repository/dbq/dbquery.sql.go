@@ -475,6 +475,41 @@ func (q *Queries) ListIslands(ctx context.Context) ([]Island, error) {
 	return items, nil
 }
 
+const listIslandsByPlanetId = `-- name: ListIslandsByPlanetId :many
+SELECT id, planet_id, title, content, comment, created, updated FROM islands where planet_id = ?
+`
+
+func (q *Queries) ListIslandsByPlanetId(ctx context.Context, planetID string) ([]Island, error) {
+	rows, err := q.db.QueryContext(ctx, listIslandsByPlanetId, planetID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Island
+	for rows.Next() {
+		var i Island
+		if err := rows.Scan(
+			&i.ID,
+			&i.PlanetID,
+			&i.Title,
+			&i.Content,
+			&i.Comment,
+			&i.Created,
+			&i.Updated,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const listIslandsByTitle = `-- name: ListIslandsByTitle :many
 SELECT id, planet_id, title, content, comment, created, updated FROM islands where title = ?
 `

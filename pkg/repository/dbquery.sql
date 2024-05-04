@@ -15,6 +15,8 @@ DELETE FROM planets WHERE name = ?;
 SELECT * FROM islands;
 -- name: ListIslandsByTitle :many
 SELECT * FROM islands where title = ?;
+-- name: ListIslandsByPlanetId :many
+SELECT * FROM islands where planet_id = ?;
 -- name: GetIsland :one
 SELECT * FROM islands WHERE id = ?;
 -- name: CreateIsland :one

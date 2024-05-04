@@ -1,6 +1,10 @@
 package graph
 
-import "github.com/enuesaa/leadblend/pkg/service"
+import (
+	"fmt"
+
+	"github.com/enuesaa/leadblend/pkg/service"
+)
 
 type resolverIslandsArgs struct {
 	PlanetId string
@@ -10,7 +14,8 @@ func (r *Resolver) ListIslands(args resolverIslandsArgs) ([]*Island, error) {
 	list := make([]*Island, 0)
 
 	islandSrv := service.NewIslandService(r.repos)
-	islands, err := islandSrv.List()
+	fmt.Println(args.PlanetId)
+	islands, err := islandSrv.ListByPlanetId(args.PlanetId)
 	if err != nil {
 		return list, err
 	}
