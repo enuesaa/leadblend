@@ -62,6 +62,7 @@ type Mutation {
   deleteStone(id: ID!): Boolean
   createComet(data: String!): String
   deleteComet(id: ID!): Boolean
+  createPattern(title: String!): String
 }
 
 type Subscription {

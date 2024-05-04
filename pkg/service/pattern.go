@@ -86,3 +86,12 @@ func (srv *PatternService) Create(params dbq.CreatePatternParams) (string, error
 	}
 	return params.ID, nil
 }
+
+func (srv *PatternService) AddTrait(params dbq.CreateTraitParams) (string, error) {
+	query := srv.repos.DB.Query()
+	params.ID = ulid.Make().String()
+	if _, err := query.CreateTrait(ctx(), params); err != nil {
+		return "", nil
+	}
+	return params.ID, nil
+}

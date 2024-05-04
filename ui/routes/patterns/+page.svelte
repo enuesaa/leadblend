@@ -9,3 +9,5 @@
 		<div>{pattern.id}</div>
 	{/each}
 {/if}
+
+<a href='/pattern/create'>Create Pattern</a>

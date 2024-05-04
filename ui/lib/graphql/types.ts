@@ -39,6 +39,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   createComet?: Maybe<Scalars['String']['output']>;
   createIsland?: Maybe<Scalars['String']['output']>;
+  createPattern?: Maybe<Scalars['String']['output']>;
   createPlanet?: Maybe<Scalars['String']['output']>;
   createStone?: Maybe<Scalars['String']['output']>;
   deleteComet?: Maybe<Scalars['Boolean']['output']>;
@@ -56,6 +57,11 @@ export type MutationCreateIslandArgs = {
   comment: Scalars['String']['input'];
   content: Scalars['String']['input'];
   planetId: Scalars['String']['input'];
+  title: Scalars['String']['input'];
+};
+
+
+export type MutationCreatePatternArgs = {
   title: Scalars['String']['input'];
 };
 
