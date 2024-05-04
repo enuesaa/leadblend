@@ -1,9 +1,15 @@
 <script>
+	import PageTitle from '$lib/components/PageTitle.svelte'
+	import { getPlanet } from '$lib/graphql/planet'
 	import { useParams } from '$lib/page'
+	import Islands from './Islands.svelte'
 
 	const { planet: planetName } = useParams()
+	const planet = getPlanet(planetName)
 </script>
 
-<h3>{planetName}</h3>
+<PageTitle title={planetName} />
 
-<a href={`/planets/${planetName}/create`}>create</a>
+{#if $planet.data !== undefined}
+	<Islands planet={$planet.data} />
+{/if}
