@@ -1,6 +1,5 @@
-import { runMutation, que } from '$lib/graphql/client'
+import { get, mutate } from '$lib/graphql/client'
 import type { Planet, MutationCreatePlanetArgs } from './types'
-import { createMutation } from '@tanstack/svelte-query'
 
 const listQuery = `query {
   listPlanets {
@@ -10,7 +9,7 @@ const listQuery = `query {
   }
 }`
 
-export const listPlanets = () => que<Planet[]>(listQuery, {
+export const listPlanets = () => get<Planet[]>(listQuery, {
 	usekey: 'listPlanets',
 	initialData: [],
 })
@@ -23,19 +22,14 @@ const getQuery = `query ($name: String!) {
 	}
 }`
 
-export const getPlanet = (name: string) => que<Planet>(getQuery, {
+export const getPlanet = (name: string) => get<Planet>(getQuery, {
 	vars: {name},
 	usekey: 'getPlanet',
 })
 
-const createPlanetQuery = `mutation ($name: String!, $comment: String!) {
+const createQuery = `mutation ($name: String!, $comment: String!) {
   createPlanet(name: $name, comment: $comment)
 }`
-
-export const useCreatePlanet = () =>
-	createMutation({
-		mutationFn: async (data: MutationCreatePlanetArgs) => {
-			const res = await runMutation(createPlanetQuery, data)
-			return res.data?.createPlanet
-		}
-	})
+export const useCreatePlanet = () => mutate<MutationCreatePlanetArgs>(createQuery, {
+	usekey: 'createPlanet',
+})

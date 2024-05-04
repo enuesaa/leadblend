@@ -1,34 +1,22 @@
 import { Client, createRequest, fetchExchange, type OperationResult, gql } from '@urql/svelte'
 import { PUBLIC_GRAPHQL_ENDPOINT } from '$env/static/public'
-import { createQuery } from '@tanstack/svelte-query'
+import { createMutation, createQuery } from '@tanstack/svelte-query'
 
 export const client = new Client({
 	url: PUBLIC_GRAPHQL_ENDPOINT,
 	exchanges: [fetchExchange]
 })
 
-export const runQuery = async (query: string, variables: Record<string, any>): Promise<OperationResult> => {
-	const request = createRequest(gql(query), variables)
-	const res = await client.executeQuery(request, {})
-	return res
-}
-
-export const runMutation = async (query: string, variables: Record<string, any>) => {
-	const request = createRequest(gql(query), variables)
-	const res = await client.executeMutation(request, {})
-	return res
-}
-
 const calcCacheKey = (query: string, variables: Record<string, any>): string[] => {
   return [`${query}-${JSON.stringify(variables)}`]
 }
 
-type QueOptions = {
+type GetOptions = {
 	vars: Record<string, any>;
 	usekey: string;
 	initialData: any;
 }
-export const que = <T>(query: string, options: Partial<QueOptions> = {}) => {
+export const get = <T>(query: string, options: Partial<GetOptions> = {}) => {
 	const vars = options.vars ?? {}
 	const usekey = options.usekey ?? ''
 	const initialData = options.initialData ?? undefined
@@ -47,6 +35,30 @@ export const que = <T>(query: string, options: Partial<QueOptions> = {}) => {
 			return {}
 		},
 		initialData: initialData,
+	})
+
+	return creation
+}
+
+type Vars = Record<string, any>
+type MutateOptions = {
+	usekey: string;
+}
+export const mutate = <T extends Vars>(query: string, options: Partial<MutateOptions> = {}) => {
+	const usekey = options.usekey ?? ''
+
+	const creation = 	createMutation({
+		mutationFn: async (data: T) => {
+			const request = createRequest(gql(query), data)
+			const res = await client.executeMutation(request, {})
+			if (res.data === undefined || res.data === null) {
+				return res.data
+			}
+			if (res.data.hasOwnProperty(usekey)) {
+				return res.data[usekey]
+			}
+			return {}
+		}
 	})
 
 	return creation
