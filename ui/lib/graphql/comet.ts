@@ -19,6 +19,22 @@ export const listComets = () =>
 		initialData: []
 	})
 
+const getCometQuery = `query ($id: ID!) {
+  getComet(id: $id) {
+    id
+    data
+  }
+}`
+
+export const getComet = (id: string) =>
+	createQuery<Comet>({
+		queryKey: [getCometQuery, id],
+		queryFn: async () => {
+			const res = await runQuery(getCometQuery, { id })
+			return res.data.getComet
+		}
+	})
+
 const createCometQuery = `mutation ($data: String!) {
 	createComet(data: $data)
 }`

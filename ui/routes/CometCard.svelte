@@ -4,12 +4,12 @@
 	export let comet: Comet
 </script>
 
-<div>
+<a href={`/comets/${comet.id}`}>
 	{comet.data}
-</div>
+</a>
 
 <style lang="postcss">
-	div {
+	a {
 		border: solid 1px #1a1a1a;
 		@apply p-2 rounded-lg w-40 h-40;
 	}

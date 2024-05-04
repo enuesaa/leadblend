@@ -7,6 +7,7 @@ type Query {
   listStones(): [Stone!]!
   getStone(id: ID): Stone
   listComets(): [Comet!]!
+  getComet(id: ID): Comet
 }
 
 type Space {

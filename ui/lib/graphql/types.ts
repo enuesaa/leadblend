@@ -82,6 +82,7 @@ export type Planet = {
 
 export type Query = {
 	__typename?: 'Query'
+	getComet?: Maybe<Comet>
 	getCurrentSpace?: Maybe<Space>
 	getIsland?: Maybe<Island>
 	getPlanet?: Maybe<Planet>
@@ -90,6 +91,10 @@ export type Query = {
 	listIslands: Array<Island>
 	listPlanets: Array<Planet>
 	listStones: Array<Stone>
+}
+
+export type QueryGetCometArgs = {
+	id?: InputMaybe<Scalars['ID']['input']>
 }
 
 export type QueryGetIslandArgs = {
