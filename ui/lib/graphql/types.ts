@@ -14,6 +14,12 @@ export type Scalars = {
 	Float: { input: number; output: number }
 }
 
+export type Comet = {
+	__typename?: 'Comet'
+	data: Scalars['String']['output']
+	id: Scalars['ID']['output']
+}
+
 export type Event = {
 	__typename?: 'Event'
 	page: Scalars['String']['output']
@@ -80,6 +86,7 @@ export type Query = {
 	getIsland?: Maybe<Island>
 	getPlanet?: Maybe<Planet>
 	getStone?: Maybe<Stone>
+	listComets: Array<Comet>
 	listIslands: Array<Island>
 	listPlanets: Array<Planet>
 	listStones: Array<Stone>

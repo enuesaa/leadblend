@@ -49,6 +49,8 @@ DELETE FROM traits WHERE id = ?;
 
 -- name: ListStones :many
 SELECT * FROM stones;
+-- name: ListComets :many
+SELECT * FROM stones WHERE island_id IS NULL;
 -- name: GetStone :one
 SELECT * FROM stones WHERE id = ?;
 -- name: CreateStone :one

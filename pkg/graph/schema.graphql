@@ -6,6 +6,7 @@ type Query {
   getIsland(id: ID): Island
   listStones(): [Stone!]!
   getStone(id: ID): Stone
+  listComets(): [Comet!]!
 }
 
 type Space {
@@ -30,6 +31,11 @@ type Stone {
   id: ID!
   patternId: String
   islandId: String
+  data: String!
+}
+
+type Comet {
+  id: ID!
   data: String!
 }
 

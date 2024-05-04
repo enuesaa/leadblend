@@ -21,6 +21,11 @@ func (srv *StoneService) List() ([]dbq.Stone, error) {
 	return query.ListStones(ctx())
 }
 
+func (srv *StoneService) ListComets() ([]dbq.Stone, error) {
+	query := srv.repos.DB.Query()
+	return query.ListComets(ctx())
+}
+
 func (srv *StoneService) Get(id string) (dbq.Stone, error) {
 	query := srv.repos.DB.Query()
 	return query.GetStone(ctx(), id)

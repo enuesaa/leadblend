@@ -1,11 +1,15 @@
 <script>
+	import { listComets } from '$lib/graphql/comet'
 	import CometCard from './CometCard.svelte'
 	import CometCreateCard from './CometCreateCard.svelte'
+
+	const comets = listComets()
 </script>
 
 <section class="p-2 m-2 flex gap-3">
-	<CometCard />
-	<CometCard />
+	{#each $comets.data as comet}
+		<CometCard {comet} />
+	{/each}
 	<CometCreateCard />
 </section>
 

@@ -407,6 +407,40 @@ func (q *Queries) GetTrait(ctx context.Context, id string) (Trait, error) {
 	return i, err
 }
 
+const listComets = `-- name: ListComets :many
+SELECT id, pattern_id, island_id, data, created, updated FROM stones WHERE island_id IS NULL
+`
+
+func (q *Queries) ListComets(ctx context.Context) ([]Stone, error) {
+	rows, err := q.db.QueryContext(ctx, listComets)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Stone
+	for rows.Next() {
+		var i Stone
+		if err := rows.Scan(
+			&i.ID,
+			&i.PatternID,
+			&i.IslandID,
+			&i.Data,
+			&i.Created,
+			&i.Updated,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const listHistories = `-- name: ListHistories :many
 SELECT id, resource, comment, created, updated FROM histories
 `
