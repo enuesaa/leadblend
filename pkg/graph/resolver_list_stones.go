@@ -2,11 +2,14 @@ package graph
 
 import "github.com/enuesaa/leadblend/pkg/service"
 
-func (r *Resolver) ListStones() ([]*Stone, error) {
+type resolverStonesArgs struct {
+	IslandId string
+}
+func (r *Resolver) ListStones(args resolverStonesArgs) ([]*Stone, error) {
 	list := make([]*Stone, 0)
 
 	stoneSrv := service.NewStoneService(r.repos)
-	stones, err := stoneSrv.List()
+	stones, err := stoneSrv.ListByIslandId(args.IslandId)
 	if err != nil {
 		return list, err
 	}

@@ -1,6 +1,8 @@
 package service
 
 import (
+	"database/sql"
+
 	"github.com/enuesaa/leadblend/pkg/repository"
 	"github.com/enuesaa/leadblend/pkg/repository/dbq"
 	"github.com/oklog/ulid/v2"
@@ -19,6 +21,11 @@ type StoneService struct {
 func (srv *StoneService) List() ([]dbq.Stone, error) {
 	query := srv.repos.DB.Query()
 	return query.ListStones(ctx())
+}
+
+func (srv *StoneService) ListByIslandId(islandId string) ([]dbq.Stone, error) {
+	query := srv.repos.DB.Query()
+	return query.ListStonesByIslandId(ctx(), sql.NullString{String: islandId})
 }
 
 func (srv *StoneService) ListComets() ([]dbq.Stone, error) {

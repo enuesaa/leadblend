@@ -3,6 +3,7 @@
 	import Button from '$lib/components/Button.svelte'
 	import PageTitle from '$lib/components/PageTitle.svelte'
 	import { useDeleteIsland } from '$lib/graphql/island'
+	import Stones from './Stones.svelte'
 
 	export let planetName: string
 	export let islandId: string
@@ -18,4 +19,8 @@
 <PageTitle title={planetName} />
 island: {islandId}
 
-<Button {handleClick} label="Delete" />
+<Stones {islandId} />
+
+<div>
+	<Button {handleClick} label="Delete" />
+</div>

@@ -680,6 +680,40 @@ func (q *Queries) ListStones(ctx context.Context) ([]Stone, error) {
 	return items, nil
 }
 
+const listStonesByIslandId = `-- name: ListStonesByIslandId :many
+SELECT id, pattern_id, island_id, data, created, updated FROM stones WHERE island_id = ?
+`
+
+func (q *Queries) ListStonesByIslandId(ctx context.Context, islandID sql.NullString) ([]Stone, error) {
+	rows, err := q.db.QueryContext(ctx, listStonesByIslandId, islandID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Stone
+	for rows.Next() {
+		var i Stone
+		if err := rows.Scan(
+			&i.ID,
+			&i.PatternID,
+			&i.IslandID,
+			&i.Data,
+			&i.Created,
+			&i.Updated,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const listTags = `-- name: ListTags :many
 SELECT id, resource, "key", value, created, updated FROM tags
 `

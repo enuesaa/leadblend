@@ -4,7 +4,7 @@ type Query {
   getPlanet(id: ID, name: String): Planet
   listIslands(planetId: ID!): [Island!]!
   getIsland(id: ID): Island
-  listStones(): [Stone!]!
+  listStones(islandId: ID!): [Stone!]!
   getStone(id: ID): Stone
   listComets(): [Comet!]!
   getComet(id: ID): Comet
