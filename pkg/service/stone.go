@@ -1,8 +1,6 @@
 package service
 
 import (
-	"database/sql"
-
 	"github.com/enuesaa/leadblend/pkg/repository"
 	"github.com/enuesaa/leadblend/pkg/repository/dbq"
 	"github.com/oklog/ulid/v2"
@@ -25,7 +23,7 @@ func (srv *StoneService) List() ([]dbq.Stone, error) {
 
 func (srv *StoneService) ListByIslandId(islandId string) ([]dbq.Stone, error) {
 	query := srv.repos.DB.Query()
-	return query.ListStonesByIslandId(ctx(), sql.NullString{String: islandId})
+	return query.ListStonesByIslandId(ctx(), nstr(islandId))
 }
 
 func (srv *StoneService) ListComets() ([]dbq.Stone, error) {
@@ -59,7 +57,7 @@ func (srv *StoneService) Link(id string, islandId string) error {
 
 	params := dbq.UpdateStoneParams{
 		ID: id,
-		IslandID: sql.NullString{String: islandId},
+		IslandID: nstr(islandId),
 	}
 	return query.UpdateStone(ctx(), params)
 }
