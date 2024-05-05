@@ -67,6 +67,7 @@ type Mutation {
   createStone(data: String!): String
   deleteStone(id: ID!): Boolean
   createComet(data: String!): String
+  linkComet(id: ID!, islandId: String!): Boolean
   deleteComet(id: ID!): Boolean
   createPattern(title: String!, traits: [TraitInput!]!): String
 }

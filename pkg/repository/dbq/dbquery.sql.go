@@ -829,3 +829,17 @@ func (q *Queries) ListTraitsByPatternIds(ctx context.Context, patternIds []strin
 	}
 	return items, nil
 }
+
+const updateStone = `-- name: UpdateStone :exec
+UPDATE stones SET island_id = ? WHERE id = ?
+`
+
+type UpdateStoneParams struct {
+	IslandID sql.NullString
+	ID       string
+}
+
+func (q *Queries) UpdateStone(ctx context.Context, arg UpdateStoneParams) error {
+	_, err := q.db.ExecContext(ctx, updateStone, arg.IslandID, arg.ID)
+	return err
+}

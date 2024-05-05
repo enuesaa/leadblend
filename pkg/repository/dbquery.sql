@@ -59,6 +59,8 @@ SELECT * FROM stones WHERE island_id IS NULL;
 SELECT * FROM stones WHERE id = ?;
 -- name: CreateStone :one
 INSERT INTO stones (id, pattern_id, island_id, data) VALUES (?, ?, ?, ?) RETURNING *;
+-- name: UpdateStone :exec
+UPDATE stones SET island_id = ? WHERE id = ?;
 -- name: DeleteStone :exec
 DELETE FROM stones WHERE id = ?;
 

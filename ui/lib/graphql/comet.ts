@@ -1,5 +1,5 @@
 import { get, mutate } from './client'
-import type { Comet, MutationCreateCometArgs, MutationDeleteCometArgs } from './types'
+import type { Comet, MutationCreateCometArgs, MutationDeleteCometArgs, MutationLinkCometArgs } from './types'
 
 const listQuery = `query {
   listComets {
@@ -28,6 +28,13 @@ const createQuery = `mutation ($data: String!) {
 }`
 export const useCreateComet = () => mutate<MutationCreateCometArgs>(createQuery, {
 	usekey: 'createComet',
+})
+
+const linkQuery = `mutation ($id: ID!, $islandId: String!) {
+	linkComet(id: $id, islandId: $islandId)
+}`
+export const useLinkComet = () => mutate<MutationLinkCometArgs>(linkQuery, {
+	usekey: 'linkComet',
 })
 
 const deleteQuery = `mutation ($id: ID!) {

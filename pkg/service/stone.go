@@ -51,6 +51,19 @@ func (srv *StoneService) Create(params dbq.CreateStoneParams) (string, error) {
 	return params.ID, nil
 }
 
+func (srv *StoneService) Link(id string, islandId string) error {
+	query := srv.repos.DB.Query()
+	if _, err := query.GetIsland(ctx(), islandId); err != nil {
+		return err
+	}
+
+	params := dbq.UpdateStoneParams{
+		ID: id,
+		IslandID: sql.NullString{String: islandId},
+	}
+	return query.UpdateStone(ctx(), params)
+}
+
 func (srv *StoneService) Delete(id string) error {
 	query := srv.repos.DB.Query()
 	return query.DeleteStone(ctx(), id)
