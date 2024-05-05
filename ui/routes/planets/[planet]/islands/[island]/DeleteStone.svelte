@@ -9,9 +9,9 @@
 	const deleteStone = useDeleteStone()
 
 	async function handleClick() {
-		await $deleteStone.mutateAsync({id: stoneId})
+		await $deleteStone.mutateAsync({ id: stoneId })
 		goto(`/planets/${planetName}/islands/${islandId}`)
 	}
 </script>
 
-<Button {handleClick} label='Delete' />
+<Button {handleClick} label="Delete" />

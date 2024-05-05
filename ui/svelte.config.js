@@ -7,14 +7,14 @@ const config = {
 	kit: {
 		adapter: adapter({
 			fallback: 'index.html',
-			pages: 'dist'
+			pages: 'dist',
 		}),
 		files: {
 			lib: 'lib',
 			routes: 'routes',
-			appTemplate: 'app.html'
-		}
-	}
+			appTemplate: 'app.html',
+		},
+	},
 }
 
 export default config

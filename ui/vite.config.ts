@@ -6,10 +6,10 @@ export default defineConfig({
 	plugins: [sveltekit()],
 	resolve: {
 		alias: {
-			$lib: path.join(__dirname, './lib')
-		}
+			$lib: path.join(__dirname, './lib'),
+		},
 	},
 	optimizeDeps: {
-		exclude: ['@urql/svelte']
-	}
+		exclude: ['@urql/svelte'],
+	},
 })

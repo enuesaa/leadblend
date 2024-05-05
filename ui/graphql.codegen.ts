@@ -5,10 +5,10 @@ export default {
 	schema: 'http://localhost:3000/graphql',
 	generates: {
 		'lib/graphql/types.ts': {
-			plugins: ['typescript']
-		}
+			plugins: ['typescript'],
+		},
 	},
 	hooks: {
-		afterAllFileWrite: ['prettier --write']
-	}
+		afterAllFileWrite: ['prettier --write'],
+	},
 } satisfies CodegenConfig
