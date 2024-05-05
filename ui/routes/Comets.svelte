@@ -2,21 +2,25 @@
 	import { listComets } from '$lib/graphql/comet'
 	import CometCard from './CometCard.svelte'
 	import CometCreateCard from './CometCreateCard.svelte'
+	import { cometVisible } from '$lib/store/comet'
 
 	const comets = listComets()
 </script>
 
-<section class="p-3 mt-2 pt-1 flex gap-3">
-	{#if $comets.data !== undefined}
-		{#each $comets.data as comet}
-			<CometCard {comet} />
-		{/each}
-	{/if}
-	<CometCreateCard />
-</section>
+{#if $cometVisible}
+	<section>
+		{#if $comets.data !== undefined}
+			{#each $comets.data as comet}
+				<CometCard {comet} />
+			{/each}
+		{/if}
+		<CometCreateCard />
+	</section>
+{/if}
 
-<style>
+<style lang="postcss">
 	section {
-		box-shadow: 0 1px 1px rgba(0,0,0,0.3);
+		box-shadow: 0 0.5px 0.5px rgba(0,0,0,0.3);
+		@apply p-3 mt-2 pt-1 flex gap-3;
 	}
 </style>

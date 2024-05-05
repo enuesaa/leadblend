@@ -29,7 +29,7 @@
 
 <style lang="postcss">
 	main {
-		min-height: calc(100vh - 200px);
+		min-height: 100vh;
 		@apply mx-auto flex gap-6;
 	}
 	.left {
