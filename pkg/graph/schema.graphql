@@ -39,6 +39,7 @@ type Stone {
 
 type Comet {
   id: ID!
+  patternId: String
   data: String!
 }
 

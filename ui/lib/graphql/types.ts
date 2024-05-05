@@ -18,6 +18,7 @@ export type Comet = {
   __typename?: 'Comet';
   data: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  patternId?: Maybe<Scalars['String']['output']>;
 };
 
 export type Event = {

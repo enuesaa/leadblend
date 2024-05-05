@@ -7,15 +7,29 @@
 
 	const createComet = useCreateComet()
 
-	let data: string = ''
+	let fielda: string = ''
+	let fieldb: string = ''
+	let fieldc: string = ''
 
 	async function handleClick() {
-		await $createComet.mutateAsync({ data })
+		const data: any = {}
+		if (fielda !== '') {
+			data.a = fielda
+		}
+		if (fieldb !== '') {
+			data.b = fieldb
+		}
+		if (fieldc !== '') {
+			data.c = fieldc
+		}
+		await $createComet.mutateAsync({ data: JSON.stringify(data) })
 		goto('/')
 	}
 </script>
 
 <PageTitle title="New Comet" />
 
-<TextInput bind:value={data} label="data" />
+<TextInput bind:value={fielda} label="$.a" />
+<TextInput bind:value={fieldb} label="$.b" />
+<TextInput bind:value={fieldc} label="$.c" />
 <Button {handleClick} label="Create" />

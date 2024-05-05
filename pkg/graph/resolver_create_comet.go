@@ -1,6 +1,8 @@
 package graph
 
 import (
+	"fmt"
+
 	"github.com/enuesaa/leadblend/pkg/repository/dbq"
 	"github.com/enuesaa/leadblend/pkg/service"
 )
@@ -11,6 +13,7 @@ type resolverCreateCometArgs struct {
 
 func (r *Resolver) CreateComet(args resolverCreateCometArgs) (*string, error) {
 	stoneSrv := service.NewStoneService(r.repos)
+	patternSrv := service.NewPatternService(r.repos)
 
 	params := dbq.CreateStoneParams{
 		Data: args.Data,
@@ -19,8 +22,10 @@ func (r *Resolver) CreateComet(args resolverCreateCometArgs) (*string, error) {
 	if err != nil {
 		return nil, err
 	}
-	// list patterns
-	// if pattern matched, append pattern_id to comit.
+	if err := patternSrv.Evaluate(id); err != nil {
+		// for debugging purpose.
+		fmt.Printf("Error: %s\n", err.Error())
+	}
 
 	return &id, nil
 }

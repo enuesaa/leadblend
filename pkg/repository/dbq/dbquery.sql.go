@@ -843,3 +843,17 @@ func (q *Queries) UpdateStone(ctx context.Context, arg UpdateStoneParams) error 
 	_, err := q.db.ExecContext(ctx, updateStone, arg.IslandID, arg.ID)
 	return err
 }
+
+const updateStonePatternId = `-- name: UpdateStonePatternId :exec
+UPDATE stones SET pattern_id = ? WHERE id = ?
+`
+
+type UpdateStonePatternIdParams struct {
+	PatternID sql.NullString
+	ID        string
+}
+
+func (q *Queries) UpdateStonePatternId(ctx context.Context, arg UpdateStonePatternIdParams) error {
+	_, err := q.db.ExecContext(ctx, updateStonePatternId, arg.PatternID, arg.ID)
+	return err
+}

@@ -1,6 +1,8 @@
 package service
 
 import (
+	"encoding/json"
+
 	"github.com/enuesaa/leadblend/pkg/repository"
 	"github.com/enuesaa/leadblend/pkg/repository/dbq"
 	"github.com/oklog/ulid/v2"
@@ -94,4 +96,69 @@ func (srv *PatternService) AddTrait(params dbq.CreateTraitParams) (string, error
 		return "", nil
 	}
 	return params.ID, nil
+}
+
+func (srv *PatternService) Evaluate(stoneId string) error {
+	query := srv.repos.DB.Query()
+	stone, err := query.GetStone(ctx(), stoneId)
+	if err != nil {
+		return err
+	}
+	data := stone.Data
+
+
+	var jsondata datatestdata
+	if err := json.Unmarshal([]byte(data), &jsondata); err != nil {
+		// ignore for debugging
+		return nil
+	}
+
+	patterns, err := srv.ListWithTrait()
+	if err != nil {
+		return err
+	}
+	matched := ""
+	for _, pattern := range patterns {
+		if isTraitsMatch(pattern.Traits, jsondata) {
+			// matched
+			matched = pattern.Pattern.ID
+			break
+		}
+	}
+	if matched != "" {
+		err := query.UpdateStonePatternId(ctx(), dbq.UpdateStonePatternIdParams{
+			PatternID: nstr(matched),
+			ID: stoneId,
+		})
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+type datatestdata struct {
+	A string `json:"a"`
+	B string `json:"b"`
+	C string `json:"c"`
+}
+func isTraitsMatch(traits []dbq.Trait, data datatestdata) bool {
+	for _, trait := range traits {
+		if trait.Path == "$.a" {
+			if data.A == "" {
+				return false
+			}
+		}
+		if trait.Path == "$.b" {
+			if data.B == "" {
+				return false
+			}
+		}
+		if trait.Path == "$.c" {
+			if data.C == "" {
+				return false
+			}
+		}
+	}
+	return true
 }

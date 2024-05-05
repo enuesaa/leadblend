@@ -61,6 +61,8 @@ SELECT * FROM stones WHERE id = ?;
 INSERT INTO stones (id, pattern_id, island_id, data) VALUES (?, ?, ?, ?) RETURNING *;
 -- name: UpdateStone :exec
 UPDATE stones SET island_id = ? WHERE id = ?;
+-- name: UpdateStonePatternId :exec
+UPDATE stones SET pattern_id = ? WHERE id = ?;
 -- name: DeleteStone :exec
 DELETE FROM stones WHERE id = ?;
 

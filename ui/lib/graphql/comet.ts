@@ -4,6 +4,7 @@ import type { Comet, MutationCreateCometArgs, MutationDeleteCometArgs, MutationL
 const listQuery = `query {
   listComets {
     id
+    patternId
     data
   }
 }`
@@ -15,6 +16,7 @@ export const listComets = () => get<Comet[]>(listQuery, {
 const getQuery = `query ($id: ID!) {
   getComet(id: $id) {
     id
+    patternId
     data
   }
 }`
