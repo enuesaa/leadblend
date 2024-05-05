@@ -1,8 +1,11 @@
 <script lang="ts">
+	import PageTitle from '$lib/components/PageTitle.svelte'
 	import { listPatterns } from '$lib/graphql/pattern'
 
 	const patterns = listPatterns()
 </script>
+
+<PageTitle title="Patterns" />
 
 {#if $patterns.data !== undefined}
 	{#each $patterns.data as pattern}
