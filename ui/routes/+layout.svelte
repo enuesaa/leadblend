@@ -1,41 +1,15 @@
 <script lang="ts">
 	import './app.css'
-	import { QueryClient, QueryClientProvider } from '@tanstack/svelte-query'
+	import { QueryClientProvider } from '@tanstack/svelte-query'
 	import Header from './Header.svelte'
-	import SideMenu from './SideMenu.svelte'
 	import Comets from './Comets.svelte'
-
-	const queryClient = new QueryClient({
-		defaultOptions: {
-			queries: {
-				staleTime: 0,
-			},
-		},
-	})
+	import LayoutMain from './LayoutMain.svelte'
 </script>
 
-<QueryClientProvider client={queryClient}>
+<QueryClientProvider>
 	<Header />
 	<Comets />
-	<main>
-		<div class="left">
-			<SideMenu />
-		</div>
-		<div class="right">
-			<slot />
-		</div>
-	</main>
+	<LayoutMain>
+		<slot />
+	</LayoutMain>
 </QueryClientProvider>
-
-<style lang="postcss">
-	main {
-		min-height: 100vh;
-		@apply mx-auto flex gap-6;
-	}
-	.left {
-		@apply flex-none w-48 px-5 pt-1 bg-blackgray text-gray;
-	}
-	.right {
-		@apply flex-auto;
-	}
-</style>

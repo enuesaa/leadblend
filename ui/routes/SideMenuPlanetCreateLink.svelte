@@ -2,7 +2,7 @@
 	import Icon from '@iconify/svelte'
 </script>
 
-<a href="/planet/create">
+<a href="/planets/new">
 	<Icon icon="fa-solid:plus" />
 </a>
 

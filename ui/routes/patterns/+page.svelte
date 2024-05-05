@@ -14,4 +14,4 @@
 	</div>
 {/each}
 
-<a href="/pattern/create">Create Pattern</a>
+<a href="/patterns/new">Create Pattern</a>

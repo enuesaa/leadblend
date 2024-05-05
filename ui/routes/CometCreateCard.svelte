@@ -2,7 +2,7 @@
 	import Icon from '@iconify/svelte'
 </script>
 
-<a href="/comet/create">
+<a href="/comets/new">
 	<Icon icon="fa-solid:plus" />
 </a>
 

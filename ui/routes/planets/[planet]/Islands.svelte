@@ -7,11 +7,9 @@
 	const islands = listIslands(planet.id)
 </script>
 
-{#if $islands.data !== undefined}
-	{#each $islands.data as island}
-		<a href={`/planets/${planet.name}/islands/${island.id}`}>{island.title}</a>
-	{/each}
-{/if}
+{#each $islands.data ?? [] as island}
+	<a href={`/planets/${planet.name}/islands/${island.id}`}>{island.title}</a>
+{/each}
 
 <style lang="postcss">
 	a {
