@@ -7,7 +7,6 @@ export default {
 			white: '#fafafa',
 			black: '#1a1a1a',
 			blackgray: '#3a3a3a',
-			blackgrayer: '#4a4a4a',
 			gray: '#cccccc',
 			graywhite: '#dddddd',
 		},

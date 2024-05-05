@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getCurrentSpace } from '$lib/graphql/space'
-	import { cometVisible, showComet, hideComet } from '$lib/store/comet'
+	import HeaderCometToggle from './HeaderCometToggle.svelte'
 
 	const space = getCurrentSpace()
 </script>
@@ -14,14 +14,8 @@
 		</a>
 
 		<div class="flex-auto"></div>
-		<a href="/patterns" class="w-32 font-zenkaku text-lg font-bold">
-			Patterns
-		</a>
-		{#if $cometVisible}
-			<button on:click|preventDefault={hideComet} class="rounded-lg">Comet</button>
-		{:else}
-			<button on:click|preventDefault={showComet} class="rounded-lg">Comet</button>
-		{/if}
+		<HeaderCometToggle />
+		<a href="/patterns" class="inline-block w-20 font-zenkaku text-lg font-bold text-center">Patterns</a>
 	</div>
 </header>
 

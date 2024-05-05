@@ -21,6 +21,7 @@
 <style lang="postcss">
 	section {
 		box-shadow: 0 0.5px 0.5px rgba(0,0,0,0.3);
-		@apply p-3 mt-2 pt-1 flex gap-3;
+		background: rgba(0,0,0,0.1);
+		@apply p-3 pt-3 flex gap-3;
 	}
 </style>

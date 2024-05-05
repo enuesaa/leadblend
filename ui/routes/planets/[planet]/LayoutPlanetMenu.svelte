@@ -13,7 +13,7 @@
 <style lang="postcss">
 	nav {
 		box-shadow: 0 1px 1px 1px rgba(0,0,0,0.3) inset;
-		@apply bg-blackgrayer text-gray w-10/12 py-2 pb-3 rounded-md mb-2;
+		@apply bg-blackgray text-gray w-10/12 py-2 pb-3 rounded-md mb-2;
 	}
 	a {
 		@apply inline-block px-2 ml-1 rounded-lg;

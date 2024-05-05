@@ -10,7 +10,7 @@
 
 <style lang="postcss">
 	a {
-		border: solid 1px #1a1a1a;
-		@apply p-2 rounded-lg w-40 h-40;
+		border: solid 1px;
+		@apply p-2 rounded-lg w-40 h-40 bg-gray border-black;
 	}
 </style>
