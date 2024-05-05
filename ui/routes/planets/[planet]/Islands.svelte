@@ -16,6 +16,6 @@
 <style lang="postcss">
 	a {
 		border: solid 1px #1a1a1a;
-		@apply block my-2 p-1 font-zenkaku text-xl font-bold h-10;
+		@apply block my-2 p-1 font-zenkaku text-xl font-bold h-10 w-3/4;
 	}
 </style>
