@@ -17,12 +17,26 @@
 <QueryClientProvider client={queryClient}>
 	<Header />
 	<Comets />
-	<main class="container mx-auto flex gap-9">
-		<div class="flex-none w-28">
+	<main>
+		<div class="left">
 			<SideMenu />
 		</div>
-		<div class="flex-auto">
+		<div class="right">
 			<slot />
 		</div>
 	</main>
 </QueryClientProvider>
+
+<style lang="postcss">
+	main {
+		min-height: calc(100vh - 200px);
+		@apply container mx-auto flex gap-9;
+	}
+	.left {
+		border-right: solid 1.5px #1a1a1a;
+		@apply flex-none w-40;
+	}
+	.right {
+		@apply flex-auto;
+	}
+</style>

@@ -11,7 +11,7 @@ export default {
 		},
 		fontFamily: {
 			zenkaku: ['Zen Kaku Gothic New', 'sans-serif']
-		}
+		},
 	},
 	darkMode: 'class',
 	plugins: []
