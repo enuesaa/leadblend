@@ -11,7 +11,7 @@
 
 <style lang="postcss">
 	input {
-		@apply w-full bg-grayer block m-2 p-2 font-normal rounded text-black;
+		@apply w-full bg-graywhite block m-2 p-2 font-normal rounded text-black;
 		@apply outline-none;
 	}
 </style>

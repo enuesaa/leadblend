@@ -6,8 +6,9 @@ export default {
 		colors: {
 			white: '#fafafa',
 			black: '#1a1a1a',
+			blackgray: '#3a3a3a',
 			gray: '#cccccc',
-			grayer: '#dddddd'
+			graywhite: '#dddddd',
 		},
 		fontFamily: {
 			zenkaku: ['Zen Kaku Gothic New', 'sans-serif']

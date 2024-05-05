@@ -2,8 +2,8 @@
 	import './app.css'
 	import { QueryClient, QueryClientProvider } from '@tanstack/svelte-query'
 	import Header from './Header.svelte'
-	import Comets from './Comets.svelte'
 	import SideMenu from './SideMenu.svelte'
+	import Comets from './Comets.svelte'
 
 	const queryClient = new QueryClient({
 		defaultOptions: {
@@ -30,11 +30,10 @@
 <style lang="postcss">
 	main {
 		min-height: calc(100vh - 200px);
-		@apply container mx-auto flex gap-9;
+		@apply mx-auto flex gap-9;
 	}
 	.left {
-		border-right: solid 1.5px #1a1a1a;
-		@apply flex-none w-40;
+		@apply flex-none w-48 px-5 pt-1 bg-blackgray text-gray;
 	}
 	.right {
 		@apply flex-auto;
