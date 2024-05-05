@@ -21,7 +21,7 @@
 
 <style lang="postcss">
 	header {
-		box-shadow: 0 0.5px 0.5px rgba(0,0,0,0.3);
+		box-shadow: 0 0.5px 0.5px rgba(0, 0, 0, 0.3);
 		@apply mx-auto px-8 py-1;
 	}
 </style>

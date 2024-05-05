@@ -1,5 +1,4 @@
 <script lang="ts">
-	import PageTitle from '$lib/components/PageTitle.svelte'
 	import { getComet } from '$lib/graphql/comet'
 	import DeleteComet from './DeleteComet.svelte'
 	import LinkComet from './LinkComet.svelte'
@@ -8,10 +7,8 @@
 	const comet = getComet(cometId)
 </script>
 
-<PageTitle title={`Comet`} />
-
-{#if $comet.data?.data !== undefined}
-	<div>{$comet.data.data}</div>
+{#if $comet.data !== undefined}
+	{$comet.data?.data ?? ''}
 {/if}
 
 <LinkComet {cometId} />

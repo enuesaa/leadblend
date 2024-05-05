@@ -15,7 +15,7 @@
 	}
 </script>
 
-<PageTitle title="create comet" />
+<PageTitle title="New Comet" />
 
 <TextInput bind:value={data} label="data" />
 <Button {handleClick} label="Create" />

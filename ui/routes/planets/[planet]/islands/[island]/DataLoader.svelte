@@ -19,7 +19,7 @@
 <PageTitle title={planetName} />
 island: {islandId}
 
-<Stones {islandId} />
+<Stones {islandId} {planetName} />
 
 <div>
 	<Button {handleClick} label="Delete" />

@@ -11,8 +11,6 @@
 	<SideMenuPlanetCreateLink />
 </SubTitle>
 
-{#if $planets.data !== undefined}
-	{#each $planets.data as planet}
-		<SideMenuLink {planet} />
-	{/each}
-{/if}
+{#each $planets.data ?? [] as planet}
+	<SideMenuLink {planet} />
+{/each}

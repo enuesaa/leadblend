@@ -8,11 +8,11 @@ export default {
 			black: '#1a1a1a',
 			blackgray: '#3a3a3a',
 			gray: '#cccccc',
-			graywhite: '#dddddd',
+			graywhite: '#dddddd'
 		},
 		fontFamily: {
 			zenkaku: ['Zen Kaku Gothic New', 'sans-serif']
-		},
+		}
 	},
 	darkMode: 'class',
 	plugins: []

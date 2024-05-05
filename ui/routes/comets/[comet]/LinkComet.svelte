@@ -15,5 +15,5 @@
 	}
 </script>
 
-<TextInput bind:value={islandId} label='Island Id' />
-<Button {handleClick} label='Link' />
+<TextInput bind:value={islandId} label="Island Id" />
+<Button {handleClick} label="Link" />
