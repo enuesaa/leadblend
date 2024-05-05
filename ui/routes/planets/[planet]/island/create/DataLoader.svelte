@@ -8,7 +8,7 @@
 	const planet = getPlanet(planetName)
 </script>
 
-<PageTitle title={`${planetName}: create island`} />
+<PageTitle title="New Island" />
 
 {#if $planet.data?.id !== undefined}
 	<CreateIsland planet={$planet.data} />

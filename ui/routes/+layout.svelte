@@ -30,12 +30,12 @@
 <style lang="postcss">
 	main {
 		min-height: calc(100vh - 200px);
-		@apply mx-auto flex gap-5;
+		@apply mx-auto flex gap-6;
 	}
 	.left {
 		@apply flex-none w-48 px-5 pt-1 bg-blackgray text-gray;
 	}
 	.right {
-		@apply flex-auto pt-1 pl-1;
+		@apply flex-auto;
 	}
 </style>

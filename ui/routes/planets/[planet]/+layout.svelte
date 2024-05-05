@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { page } from '$app/stores'
-	import PlanetMenu from './PlanetMenu.svelte'
+	import LayoutPlanetMenu from './LayoutPlanetMenu.svelte'
 </script>
 
 {#key $page.params}
-	<PlanetMenu planetName={$page.params.planet} />
+	<LayoutPlanetMenu planetName={$page.params.planet} />
 {/key}
 
-<slot />
+<div class="w-10/12">
+	<slot />
+</div>
