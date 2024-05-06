@@ -7,13 +7,16 @@
 	const islands = listIslands(planet.id)
 </script>
 
-{#each $islands.data ?? [] as island}
-	<a href={`/planets/${planet.name}/islands/${island.id}`}>{island.title}</a>
-{/each}
+<section class="pt-3">
+	{#each $islands.data ?? [] as island}
+		<a href={`/planets/${planet.name}/islands/${island.id}`}>{island.title}</a>
+	{/each}
+</section>
 
 <style lang="postcss">
 	a {
-		border: solid 1px #1a1a1a;
-		@apply block my-2 p-1 font-zenkaku text-xl font-bold h-10;
+		border-bottom: solid 1px;
+		@apply block my-3 p-2 ml-2 font-zenkaku text-xl font-bold border-blackgray;
+		@apply hover:bg-grayblack;
 	}
 </style>
