@@ -3,12 +3,12 @@
 	import { useCreateComet } from '$lib/graphql/comet'
 	import { goto } from '$app/navigation'
 	import PageTitle from '$lib/components/PageTitle.svelte'
-	import JsonEditor from './JsonEditor.svelte'
-	import FieldEditor from './FieldEditor.svelte'
+	import JsonEditor from '$lib/components/comet/JsonEditor.svelte'
+	import FieldEditor from '$lib/components/comet/FieldEditor.svelte'
 	import { convertCometData } from '$lib/comet/data'
 	import { convertCometDataToJson } from '$lib/comet/tojson'
 	import { type CometObject } from '$lib/comet/types'
-	import SwitchEditorButton from './SwitchEditorButton.svelte'
+	import SwitchEditorButton from '$lib/components/comet/SwitchEditorButton.svelte'
 	import SubTitle from '$lib/components/SubTitle.svelte'
 
 	const createComet = useCreateComet()
