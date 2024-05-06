@@ -1,5 +1,5 @@
 import { get, mutate } from '$lib/graphql/client'
-import type { Planet, MutationCreatePlanetArgs } from './types'
+import type { Planet, MutationCreatePlanetArgs, MutationDeletePlanetArgs } from './types'
 
 const listQuery = `query {
   listPlanets {
@@ -32,4 +32,12 @@ const createQuery = `mutation ($name: String!, $comment: String!) {
 }`
 export const useCreatePlanet = () => mutate<MutationCreatePlanetArgs>(createQuery, {
 	usekey: 'createPlanet',
+})
+
+
+const deleteQuery = `mutation ($name: String!) {
+  deletePlanet(name: $name)
+}`
+export const useDeletePlanet = () => mutate<MutationDeletePlanetArgs>(deleteQuery, {
+	usekey: 'deletePlanet',
 })

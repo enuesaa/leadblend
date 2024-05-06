@@ -63,6 +63,7 @@ input TraitInput {
 
 type Mutation {
   createPlanet(name: String!, comment: String!): String
+  deletePlanet(name: String!): Boolean
   createIsland(planetId: String!, title: String!, content: String!, comment: String!): String
   deleteIsland(id: ID!): Boolean
   createStone(data: String!): String
