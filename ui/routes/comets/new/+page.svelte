@@ -4,6 +4,7 @@
 	import { useCreateComet } from '$lib/graphql/comet'
 	import { goto } from '$app/navigation'
 	import PageTitle from '$lib/components/PageTitle.svelte'
+	import { convertCometData, type CometObject } from '$lib/comet/data'
 
 	const createComet = useCreateComet()
 
@@ -11,23 +12,10 @@
 
 	let useJsonEditor = false
 	let jsondata: string = '{}'
-	type Field = {path: string, value: any}
-	let fields: Field[] = [] // convert from jsondata
+	let cometdata: CometObject = {type: 'object', values: []}
 
 	function toggleEditor() {
-		try {
-			const parseddata = JSON.parse(jsondata)
-			notice = ''
-			for (const [key, value] of Object.entries(parseddata)) {
-				fields = [...fields, {
-					path: `$.${key}`,
-					value,
-				}]
-			}
-		} catch (err) {
-			notice = 'invalid json format'
-			jsondata = '{}'
-		}
+		cometdata = convertCometData(jsondata)
 		useJsonEditor = !useJsonEditor
 	}
 
@@ -53,8 +41,14 @@
 {#if useJsonEditor}
 	<textarea bind:value={jsondata} />
 {:else}
-	{#each fields as field}
-		<TextInput bind:value={field.value} label={field.path} />		
+	{#each cometdata.values as field}
+		{#if field.type === 'string'}
+			<TextInput bind:value={field.value} />
+		{:else if field.type === 'number'}
+			<input type="number" bind:value={field.value} />
+		{:else if field.type === 'boolean'}
+			<input type="checkbox" bind:checked={field.value} />
+		{/if}
 	{/each}
 {/if}
 <Button {handleClick} label="Create" />
