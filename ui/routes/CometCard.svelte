@@ -11,6 +11,6 @@
 <style lang="postcss">
 	a {
 		border: solid 1px;
-		@apply p-2 rounded-lg w-40 h-40 bg-gray border-black overflow-hidden;
+		@apply p-2 rounded-lg w-40 h-40 bg-gray border-gray overflow-hidden;
 	}
 </style>

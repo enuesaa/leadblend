@@ -2,7 +2,6 @@
 export default {
 	content: ['./{routes,lib}/**/*.{html,js,svelte,ts}', 'app.html'],
 	theme: {
-		extend: {},
 		colors: {
 			white: '#fafafa',
 			black: '#1a1a1a',
