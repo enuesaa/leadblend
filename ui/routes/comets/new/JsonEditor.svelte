@@ -1,19 +1,13 @@
 <script lang="ts">
-	import { convertCometData } from '$lib/comet/data'
-	import { type CometObject } from '$lib/comet/types'
-
-	export let notice: string
-	export let switchEditor: () => void
-
-	let useJsonEditor = false
-	let jsondata: string = '{}'
-	let cometdata: CometObject = {type: 'object', key: '', values: []}
-
-	function handleConvertToFieldEditor() {
-		[cometdata, notice] = convertCometData(jsondata)
-		switchEditor()
-	}
+	export let data: string = '{}'
 </script>
 
-<button on:click|preventDefault={handleConvertToFieldEditor}>use field editor</button>
-<textarea bind:value={jsondata} />
+<textarea bind:value={data} />
+
+<style lang="postcss">
+	textarea {
+		@apply w-3/4 min-h-52;
+		@apply bg-graywhite block m-2 p-2 font-normal rounded text-black;
+		@apply outline-none;
+	}
+</style>

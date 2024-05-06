@@ -5,26 +5,55 @@
 	import PageTitle from '$lib/components/PageTitle.svelte'
 	import JsonEditor from './JsonEditor.svelte'
 	import FieldEditor from './FieldEditor.svelte'
+	import { convertCometData } from '$lib/comet/data'
+	import { convertCometDataToJson } from '$lib/comet/tojson'
+	import { type CometObject } from '$lib/comet/types'
+	import SwitchEditorButton from './SwitchEditorButton.svelte'
+	import SubTitle from '$lib/components/SubTitle.svelte'
 
 	const createComet = useCreateComet()
 
 	let notice: string = ''
+	let data: CometObject = {type: 'object', key: '', values: []}
+	let jsondata: string = '{}'
 	let useJsonEditor = false
 
+	function handleSwitchToFieldEditor() {
+		[data, notice] = convertCometData(jsondata)
+		useJsonEditor = false
+	}
+	function handleSwitchToJsonEditor() {
+		jsondata = convertCometDataToJson(data)
+		useJsonEditor = true
+	}
+
 	async function handleClick() {
-		await $createComet.mutateAsync({ data: '{}' })
+		jsondata = convertCometDataToJson(data)
+		await $createComet.mutateAsync({ data: jsondata })
 		goto('/')
 	}
 </script>
 
 <PageTitle title="New Comet" />
 
-<div>{notice}</div>
+<SubTitle title='Data'>
+	{#if useJsonEditor}
+		<SwitchEditorButton label='Use Field Editor' handle={handleSwitchToFieldEditor} />
+	{:else}
+		<SwitchEditorButton label='Use JSON Editor' handle={handleSwitchToJsonEditor} />		
+	{/if}
+</SubTitle>
 
 {#if useJsonEditor}
-	<JsonEditor bind:notice={notice} switchEditor={() => useJsonEditor = false } />
+	<JsonEditor bind:data={jsondata} />
 {:else}
-	<FieldEditor bind:notice={notice} switchEditor={() => useJsonEditor = true } />
+	<FieldEditor bind:data={data} />
 {/if}
 
-<Button {handleClick} label="Create" />
+<div>
+	{notice}
+</div>
+
+<section class="mt-5 p-3">
+	<Button {handleClick} label="Create" />
+</section>

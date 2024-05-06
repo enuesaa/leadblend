@@ -1,24 +1,11 @@
 <script lang="ts">
 	import TextInput from '$lib/components/TextInput.svelte'
 	import { type CometObject } from '$lib/comet/types'
-	import { convertCometDataToJson } from '$lib/comet/tojson'
 
-	export let notice: string
-	export let switchEditor: () => void
-
-	let jsondata: string = '{}'
-	let cometdata: CometObject = {type: 'object', key: '', values: []}
-
-	function handleConvertToJsonEditor() {
-		notice = ''
-		jsondata = convertCometDataToJson(cometdata)
-		switchEditor()
-	}
+	export let data: CometObject
 </script>
 
-<button on:click|preventDefault={handleConvertToJsonEditor}>use json editor</button>
-
-{#each cometdata.values as field}
+{#each data.values as field}
 	{#if field.type === 'string'}
 		<TextInput bind:value={field.value} label={field.key} />
 	{:else if field.type === 'number'}
