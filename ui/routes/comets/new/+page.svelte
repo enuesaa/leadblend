@@ -5,6 +5,7 @@
 	import { goto } from '$app/navigation'
 	import PageTitle from '$lib/components/PageTitle.svelte'
 	import { convertCometData, type CometObject } from '$lib/comet/data'
+	import { convertCometDataToJson } from '$lib/comet/tojson'
 
 	const createComet = useCreateComet()
 
@@ -16,7 +17,13 @@
 
 	function handleConvertToFieldEditor() {
 		[cometdata, notice] = convertCometData(jsondata)
-		useJsonEditor = !useJsonEditor
+		useJsonEditor = false
+	}
+
+	function handleConvertToJsonEditor() {
+		notice = ''
+		jsondata = convertCometDataToJson(cometdata)
+		useJsonEditor = true
 	}
 
 	async function handleClick() {
@@ -35,6 +42,7 @@
 	<button on:click|preventDefault={handleConvertToFieldEditor}>use field editor</button>
 	<textarea bind:value={jsondata} />
 {:else}
+	<button on:click|preventDefault={handleConvertToJsonEditor}>use json editor</button>
 	{#each cometdata.values as field}
 		{#if field.type === 'string'}
 			<TextInput bind:value={field.value} label={field.key} />
