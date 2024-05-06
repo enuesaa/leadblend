@@ -2,10 +2,12 @@ import adapter from '@sveltejs/adapter-static'
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 
 /** @type {import('@sveltejs/kit').Config} */
-const config = {
+export default {
 	preprocess: [
-		// https://github.com/sveltejs/vite-plugin-svelte/issues/607#issuecomment-1479111062
 		vitePreprocess({
+			/**
+			 * @see https://github.com/sveltejs/vite-plugin-svelte/issues/607#issuecomment-1479111062
+			 */
 			style: {
 				css: {
 					postcss: true,
@@ -25,5 +27,3 @@ const config = {
 		},
 	},
 }
-
-export default config

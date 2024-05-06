@@ -1,6 +1,7 @@
-/** @type {import('tailwindcss').Config} */
+import { type Config } from 'tailwindcss'
+
 export default {
-	content: ['./{routes,lib}/**/*.{html,js,svelte,ts}', 'app.html'],
+	content: ['routes/**/*.svelte', 'lib/components/**/*.svelte', 'app.html'],
 	theme: {
 		colors: {
 			white: '#fafafa',
@@ -14,6 +15,4 @@ export default {
 			zenkaku: ['Zen Kaku Gothic New', 'sans-serif'],
 		},
 	},
-	darkMode: 'class',
-	plugins: [],
-}
+} satisfies Config

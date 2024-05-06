@@ -2,7 +2,7 @@
 	import { listComets } from '$lib/graphql/comet'
 	import CometCard from './CometCard.svelte'
 	import CometCreateCard from './CometCreateCard.svelte'
-	import { cometVisible, showComet } from '$lib/store/comet'
+	import { cometVisible } from '$lib/store/comet'
 
 	const comets = listComets()
 </script>
@@ -15,7 +15,7 @@
 		<CometCreateCard />
 	</section>
 {:else}
-	<section on:click|stopPropagation={showComet} />
+	<section />
 {/if}
 
 <style lang="postcss">

@@ -4,7 +4,7 @@ import { createMutation, createQuery, useQueryClient } from '@tanstack/svelte-qu
 
 export const client = new Client({
 	url: PUBLIC_GRAPHQL_ENDPOINT,
-	exchanges: [fetchExchange]
+	exchanges: [fetchExchange],
 })
 
 const calcCacheKey = (query: string, variables: Record<string, any>): string[] => {
@@ -34,7 +34,7 @@ export const get = <T>(query: string, options: Partial<GetOptions> = {}) => {
 			}
 			return {}
 		},
-		initialData: initialData
+		initialData: initialData,
 	})
 
 	return creation
@@ -60,7 +60,7 @@ export const mutate = <T extends Vars>(query: string, options: Partial<MutateOpt
 				return res.data[usekey]
 			}
 			return {}
-		}
+		},
 	})
 
 	return creation
