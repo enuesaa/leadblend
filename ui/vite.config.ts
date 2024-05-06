@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { defineConfig } from 'vite'
 import { sveltekit } from '@sveltejs/kit/vite'
 import path from 'node:path'
@@ -11,5 +12,10 @@ export default defineConfig({
 	},
 	optimizeDeps: {
 		exclude: ['@urql/svelte'],
+	},
+	test: {
+		include: [
+      'lib/**/*.test.ts',
+    ],
 	},
 })
