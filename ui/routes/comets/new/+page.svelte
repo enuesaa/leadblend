@@ -12,20 +12,15 @@
 
 	let useJsonEditor = false
 	let jsondata: string = '{}'
-	let cometdata: CometObject = {type: 'object', values: []}
+	let cometdata: CometObject = {type: 'object', key: '', values: []}
 
-	function toggleEditor() {
-		cometdata = convertCometData(jsondata)
+	function handleConvertToFieldEditor() {
+		[cometdata, notice] = convertCometData(jsondata)
 		useJsonEditor = !useJsonEditor
 	}
 
-	let fielda: string = ''
 	async function handleClick() {
-		const data: any = {}
-		if (fielda !== '') {
-			data.a = fielda
-		}
-		await $createComet.mutateAsync({ data: JSON.stringify(data) })
+		await $createComet.mutateAsync({ data: jsondata })
 		goto('/')
 	}
 </script>
@@ -36,18 +31,23 @@
 	{notice}
 </div>
 
-<button on:click|preventDefault={toggleEditor}>toggle editor</button>
-
 {#if useJsonEditor}
+	<button on:click|preventDefault={handleConvertToFieldEditor}>use field editor</button>
 	<textarea bind:value={jsondata} />
 {:else}
 	{#each cometdata.values as field}
 		{#if field.type === 'string'}
-			<TextInput bind:value={field.value} />
+			<TextInput bind:value={field.value} label={field.key} />
 		{:else if field.type === 'number'}
-			<input type="number" bind:value={field.value} />
+			<label>
+				{field.key}
+				<input type="number" bind:value={field.value} />
+			</label>
 		{:else if field.type === 'boolean'}
-			<input type="checkbox" bind:checked={field.value} />
+			<label>
+				{field.key}
+				<input type="checkbox" bind:checked={field.value} />
+			</label>
 		{/if}
 	{/each}
 {/if}

@@ -1,6 +1,7 @@
-export const convertCometData = (jsondata: string): CometObject => {
+export const convertCometData = (jsondata: string): [CometObject, string] => {
   const data: CometObject = {
     type: 'object',
+    key: '',
     values: [],
   }
 
@@ -10,6 +11,7 @@ export const convertCometData = (jsondata: string): CometObject => {
       if (typeof value === 'string') {
         data.values.push({
           type: 'string',
+          key,
           value,
         })
         continue
@@ -17,6 +19,7 @@ export const convertCometData = (jsondata: string): CometObject => {
       if (typeof value === 'number') {
         data.values.push({
           type: 'number',
+          key,
           value,
         })
         continue
@@ -24,6 +27,7 @@ export const convertCometData = (jsondata: string): CometObject => {
       if (typeof value === 'boolean') {
         data.values.push({
           type: 'boolean',
+          key,
           value,
         })
         continue
@@ -31,6 +35,7 @@ export const convertCometData = (jsondata: string): CometObject => {
       if (value === null) {
         data.values.push({
           type: 'null',
+          key,
           value,
         })
         continue
@@ -42,18 +47,22 @@ export const convertCometData = (jsondata: string): CometObject => {
       // todo
       continue
     }
-  } catch (err) {}
+  } catch (err) {
+    return [data, 'invalid json format']
+  }
 
-  return data
+  return [data, '']
 }
 
 export type CometObject = {
   type: 'object'
+  key: string
   values: (CometValue|CometObject|CometArray)[]
 }
 
 type CometArray = {
   type: 'array'
+  key: string
   values: (CometValue|CometObject|CometArray)[]
 }
 
@@ -61,17 +70,21 @@ type CometValue = CometNumber|CometBoolean|CometNull|CometString
 
 type CometNumber = {
   type: 'number'
+  key: string
   value: number
 }
 type CometBoolean = {
   type: 'boolean'
+  key: string
   value: boolean
 }
 type CometNull = {
   type: 'null'
+  key: string
   value: null
 }
 type CometString = {
   type: 'string'
+  key: string
   value: string
 }
