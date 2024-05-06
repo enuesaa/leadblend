@@ -1,3 +1,5 @@
+import type { CometObject } from './types'
+
 export const convertCometData = (jsondata: string): [CometObject, string] => {
   const data: CometObject = {
     type: 'object',
@@ -52,39 +54,4 @@ export const convertCometData = (jsondata: string): [CometObject, string] => {
   }
 
   return [data, '']
-}
-
-export type CometObject = {
-  type: 'object'
-  key: string
-  values: (CometValue|CometObject|CometArray)[]
-}
-
-type CometArray = {
-  type: 'array'
-  key: string
-  values: (CometValue|CometObject|CometArray)[]
-}
-
-type CometValue = CometNumber|CometBoolean|CometNull|CometString
-
-type CometNumber = {
-  type: 'number'
-  key: string
-  value: number
-}
-type CometBoolean = {
-  type: 'boolean'
-  key: string
-  value: boolean
-}
-type CometNull = {
-  type: 'null'
-  key: string
-  value: null
-}
-type CometString = {
-  type: 'string'
-  key: string
-  value: string
 }

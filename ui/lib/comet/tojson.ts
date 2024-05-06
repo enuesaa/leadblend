@@ -1,4 +1,4 @@
-import { type CometObject } from './data'
+import { type CometObject } from './types'
 
 export const convertCometDataToJson = (cometdata: CometObject): string => {
   const jsondata: any = {}
