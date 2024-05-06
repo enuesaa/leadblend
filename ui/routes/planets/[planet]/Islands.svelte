@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { listIslands } from '$lib/graphql/island'
 	import type { Planet } from '$lib/graphql/types'
+	import IslandCard from './IslandCard.svelte'
 
 	export let planet: Planet
 
@@ -9,7 +10,7 @@
 
 <section class="pt-3">
 	{#each $islands.data ?? [] as island}
-		<a href={`/planets/${planet.name}/islands/${island.id}`}>{island.title}</a>
+		<IslandCard {island} planetName={planet.name} />
 	{/each}
 </section>
 

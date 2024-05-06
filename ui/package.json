@@ -7,7 +7,7 @@
 		"node": ">=20.11"
 	},
 	"scripts": {
-		"dev": "svelte-kit sync && vite dev --port 3001",
+		"dev": "rm -rf .svelte-kit && svelte-kit sync && vite dev --port 3001",
 		"build": "vite build",
 		"preview": "vite preview --port 3001",
 		"format": "prettier '**/*.{svelte,js,ts,mjs,json}' --write",
