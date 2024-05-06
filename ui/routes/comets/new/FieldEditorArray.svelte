@@ -1,16 +1,16 @@
 <script lang="ts">
-	import { type CometObject } from '$lib/comet/types'
-	import FieldEditorArray from './FieldEditorArray.svelte'
+	import { type CometArray } from '$lib/comet/types'
+	import FieldEditor from './FieldEditor.svelte'
 	import FieldEditorValue from './FieldEditorValue.svelte'
 
-	export let data: CometObject
+	export let data: CometArray
 </script>
 
 {#each data.values as item}
 	{#if item.type === 'object'}
-		<svelte:self bind:data={item} />
+		<FieldEditor bind:data={item} />
 	{:else if item.type === 'array'}
-		<FieldEditorArray bind:data={item} />
+		<svelte:self bind:data={item} />
 	{:else}
 		<FieldEditorValue bind:data={item} />
 	{/if}
