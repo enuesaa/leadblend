@@ -14,12 +14,12 @@
 	const createComet = useCreateComet()
 
 	let notice: string = ''
-	let data: CometObject = {type: 'object', key: '', values: []}
+	let data: CometObject = { type: 'object', key: '', values: [] }
 	let jsondata: string = '{}'
 	let useJsonEditor = false
 
 	function handleSwitchToFieldEditor() {
-		[data, notice] = convertCometData(jsondata)
+		;[data, notice] = convertCometData(jsondata)
 		useJsonEditor = false
 	}
 	function handleSwitchToJsonEditor() {
@@ -36,18 +36,18 @@
 
 <PageTitle title="New Comet" />
 
-<SubTitle title='Data'>
+<SubTitle title="Data">
 	{#if useJsonEditor}
-		<SwitchEditorButton label='Use Field Editor' handle={handleSwitchToFieldEditor} />
+		<SwitchEditorButton label="Use Field Editor" handle={handleSwitchToFieldEditor} />
 	{:else}
-		<SwitchEditorButton label='Use JSON Editor' handle={handleSwitchToJsonEditor} />		
+		<SwitchEditorButton label="Use JSON Editor" handle={handleSwitchToJsonEditor} />
 	{/if}
 </SubTitle>
 
 {#if useJsonEditor}
 	<JsonEditor bind:data={jsondata} />
 {:else}
-	<FieldEditor bind:data={data} />
+	<FieldEditor bind:data />
 {/if}
 
 <div>

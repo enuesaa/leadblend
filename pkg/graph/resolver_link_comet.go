@@ -5,9 +5,10 @@ import (
 )
 
 type resolverLinkCometArgs struct {
-	Id string
+	Id       string
 	IslandId string
 }
+
 func (r *Resolver) LinkComet(args resolverLinkCometArgs) (*bool, error) {
 	stoneSrv := service.NewStoneService(r.repos)
 

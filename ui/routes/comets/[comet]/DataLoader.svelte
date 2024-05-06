@@ -9,7 +9,7 @@
 
 	export let cometId: string
 	const comet = getComet(cometId)
-	let data: CometObject = {type: 'object', key: '', values: []}
+	let data: CometObject = { type: 'object', key: '', values: [] }
 
 	$: [data] = convertCometData($comet.data?.data ?? '{}')
 </script>
@@ -17,7 +17,7 @@
 {#if $comet.data !== undefined}
 	<SubTitle title="data" />
 	{#if $comet.data.data !== undefined}
-		<FieldEditor data={data} />
+		<FieldEditor {data} />
 	{/if}
 
 	<SubTitle title="pattern_id" />

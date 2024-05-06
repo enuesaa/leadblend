@@ -6,8 +6,9 @@
 	<a href={`/planets/${planetName}`}>
 		<h2 class="text-3xl font-zenkaku font-bold mx-3">{planetName}</h2>
 	</a>
-	<a href={`/planets/${planetName}`}>islands</a>
-	<a href={`/planets/${planetName}/islands/new`}>new</a>
+	<a href={`/planets/${planetName}`}>Islands</a>
+	<a href={`/planets/${planetName}/islands/new`}>New Island</a>
+	<a href={`/planets/${planetName}/configure`}>Configure</a>
 </nav>
 
 <style lang="postcss">

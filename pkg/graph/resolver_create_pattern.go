@@ -6,21 +6,21 @@ import (
 )
 
 type resolverCreatePatternArgs struct {
-	Title string
+	Title  string
 	Traits []resolverCreatePatternTrait
 }
 type resolverCreatePatternTrait struct {
-	Path string
-	Type string
+	Path         string
+	Type         string
 	DefaultValue string
-	Required bool
+	Required     bool
 }
 
 func (r *Resolver) CreatePattern(args resolverCreatePatternArgs) (*string, error) {
 	patternSrv := service.NewPatternService(r.repos)
 
 	params := dbq.CreatePatternParams{
-		Title:    args.Title,
+		Title: args.Title,
 	}
 	id, err := patternSrv.Create(params)
 	if err != nil {
@@ -29,11 +29,11 @@ func (r *Resolver) CreatePattern(args resolverCreatePatternArgs) (*string, error
 
 	for _, t := range args.Traits {
 		patternSrv.AddTrait(dbq.CreateTraitParams{
-			PatternID: id,
-			Path: t.Path,
-			Type: t.Type,
+			PatternID:    id,
+			Path:         t.Path,
+			Type:         t.Type,
 			DefaultValue: t.DefaultValue,
-			Required: t.Required,
+			Required:     t.Required,
 		})
 	}
 

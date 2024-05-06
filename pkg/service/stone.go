@@ -56,7 +56,7 @@ func (srv *StoneService) Link(id string, islandId string) error {
 	}
 
 	params := dbq.UpdateStoneParams{
-		ID: id,
+		ID:       id,
 		IslandID: nstr(islandId),
 	}
 	return query.UpdateStone(ctx(), params)

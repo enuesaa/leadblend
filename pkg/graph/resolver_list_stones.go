@@ -5,6 +5,7 @@ import "github.com/enuesaa/leadblend/pkg/service"
 type resolverStonesArgs struct {
 	IslandId string
 }
+
 func (r *Resolver) ListStones(args resolverStonesArgs) ([]*Stone, error) {
 	list := make([]*Stone, 0)
 

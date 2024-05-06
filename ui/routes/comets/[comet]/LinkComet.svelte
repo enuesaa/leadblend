@@ -39,7 +39,7 @@
 			{/each}
 		</select>
 	</label>
-	<Button {handleClick} label="OK" />	
+	<Button {handleClick} label="OK" />
 </section>
 
 <style lang="postcss">

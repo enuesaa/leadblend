@@ -46,7 +46,7 @@ func (srv *PatternService) ListWithTrait() ([]PatternTrait, error) {
 	for _, p := range patterns {
 		pt := PatternTrait{
 			Pattern: p,
-			Traits: make([]dbq.Trait, 0),
+			Traits:  make([]dbq.Trait, 0),
 		}
 		for _, t := range traits {
 			if t.PatternID == p.ID {
@@ -75,7 +75,7 @@ func (srv *PatternService) GetWithTrait(id string) (PatternTrait, error) {
 	}
 	pt := PatternTrait{
 		Pattern: pattern,
-		Traits: traits,
+		Traits:  traits,
 	}
 	return pt, nil
 }
@@ -106,7 +106,6 @@ func (srv *PatternService) Evaluate(stoneId string) error {
 	}
 	data := stone.Data
 
-
 	var jsondata datatestdata
 	if err := json.Unmarshal([]byte(data), &jsondata); err != nil {
 		// ignore for debugging
@@ -128,7 +127,7 @@ func (srv *PatternService) Evaluate(stoneId string) error {
 	if matched != "" {
 		err := query.UpdateStonePatternId(ctx(), dbq.UpdateStonePatternIdParams{
 			PatternID: nstr(matched),
-			ID: stoneId,
+			ID:        stoneId,
 		})
 		if err != nil {
 			return err
@@ -142,6 +141,7 @@ type datatestdata struct {
 	B string `json:"b"`
 	C string `json:"c"`
 }
+
 func isTraitsMatch(traits []dbq.Trait, data datatestdata) bool {
 	for _, trait := range traits {
 		if trait.Path == "$.a" {
