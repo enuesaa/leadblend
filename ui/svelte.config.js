@@ -4,6 +4,7 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	preprocess: [
+		// https://github.com/sveltejs/vite-plugin-svelte/issues/607#issuecomment-1479111062
 		vitePreprocess({
 			style: {
 				css: {

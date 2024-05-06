@@ -2,25 +2,19 @@
 	import { goto } from '$app/navigation'
 	import Button from '$lib/components/Button.svelte'
 	import PageTitle from '$lib/components/PageTitle.svelte'
+	import SubTitle from '$lib/components/SubTitle.svelte'
 	import { useDeleteIsland } from '$lib/graphql/island'
+	import DeleteIsland from './DeleteIsland.svelte'
 	import Stones from './Stones.svelte'
 
 	export let planetName: string
 	export let islandId: string
-
-	const deleteIsland = useDeleteIsland()
-
-	async function handleClick() {
-		await $deleteIsland.mutateAsync({ id: islandId })
-		goto(`/planets/${planetName}`)
-	}
 </script>
 
 <PageTitle title={planetName} />
-island: {islandId}
 
-<Stones {islandId} {planetName} />
+<SubTitle title="IslandId" />
+{islandId}
 
-<div>
-	<Button {handleClick} label="Delete" />
-</div>
+<Stones {planetName} {islandId} />
+<DeleteIsland {planetName} {islandId} />

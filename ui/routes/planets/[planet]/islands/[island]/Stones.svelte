@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { listStones } from '$lib/graphql/stone'
-	import DeleteStone from './DeleteStone.svelte'
+	import Stone from './Stone.svelte'
 	export let islandId: string
 	export let planetName: string
 
@@ -8,7 +8,5 @@
 </script>
 
 {#each $stones.data ?? [] as stone}
-	<div>{stone.id}</div>
-	<code>{stone.data}</code>
-	<DeleteStone stoneId={stone.id} {islandId} {planetName} />
+	<Stone {stone} {planetName} {islandId} />
 {/each}
