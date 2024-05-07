@@ -11,7 +11,8 @@
 
 <style lang="postcss">
 	input {
-		@apply w-full bg-graywhite block m-2 p-2 font-normal rounded text-black;
-		@apply outline-none;
+		@apply w-full bg-gray block m-2 p-2;
+		@apply outline-none rounded text-black text-xl font-zenkaku font-bold;
+		@apply hover:bg-graywhite;
 	}
 </style>

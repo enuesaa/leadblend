@@ -9,7 +9,7 @@
 
 <style lang="postcss">
 	button {
-		border: solid 1px #1a1a1a;
-		@apply rounded-lg p-2 m-1 ml-3;
+		@apply rounded-lg p-2 m-1 ml-3 bg-graywhite text-black font-semibold;
+		@apply hover:bg-gray;
 	}
 </style>

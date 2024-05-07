@@ -28,7 +28,7 @@
 		@apply border-blackgray block w-3/4 p-3 rounded-lg ml-2 my-1;
 	}
 	input {
-		@apply bg-graywhite block mt-1 p-2 font-normal rounded text-black;
+		@apply bg-gray block mt-1 p-2 font-normal rounded text-black;
 		@apply outline-none;
 	}
 </style>

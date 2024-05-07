@@ -20,7 +20,9 @@
 
 <style lang="postcss">
 	section {
-		box-shadow: 0 0.5px 0.5px rgba(0, 0, 0, 0.3);
-		@apply p-3 pt-3 flex gap-3 bg-grayblack;
+		background-image: radial-gradient(rgba(0,0,0,0.2) 20%, rgba(0,0,0,0) 0%);
+		background-size: 6px 6px;
+		box-shadow: 0 0 2px rgba(255, 255, 255, 0.3) inset;
+		@apply p-3 pt-3 flex gap-3;
 	}
 </style>

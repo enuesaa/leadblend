@@ -5,7 +5,7 @@
 	const space = getCurrentSpace()
 </script>
 
-<header>
+<header class="mx-auto px-8 py-1 bg-blackgrayer">
 	<div class="flex">
 		<a href="/" class="w-52 text-center">
 			<h1 class="font-zenkaku text-2xl font-bold">
@@ -18,10 +18,3 @@
 		<a href="/patterns" class="inline-block w-20 font-zenkaku text-lg font-bold text-center">Patterns</a>
 	</div>
 </header>
-
-<style lang="postcss">
-	header {
-		box-shadow: 0 0.5px 0.5px rgba(0, 0, 0, 0.3);
-		@apply mx-auto px-8 py-1;
-	}
-</style>

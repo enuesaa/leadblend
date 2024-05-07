@@ -10,7 +10,7 @@
 
 <style lang="postcss">
 	a {
-		border: solid 1px;
-		@apply p-2 rounded-lg w-40 h-40 bg-gray border-gray overflow-hidden;
+		border: solid 1px rgba(255, 255, 255, 0.1);
+		@apply p-2 rounded-lg w-40 h-40 bg-grayblack overflow-hidden;
 	}
 </style>

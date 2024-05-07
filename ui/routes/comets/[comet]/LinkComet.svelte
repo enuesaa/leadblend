@@ -50,6 +50,6 @@
 		@apply ml-2;
 	}
 	select {
-		@apply w-28 bg-graywhite block m-2 p-2 font-normal rounded text-black outline-none;
+		@apply w-28 block m-2 p-2 font-normal rounded text-black outline-none;
 	}
 </style>

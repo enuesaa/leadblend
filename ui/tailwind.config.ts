@@ -4,12 +4,13 @@ export default {
 	content: ['routes/**/*.svelte', 'lib/components/**/*.svelte', 'app.html'],
 	theme: {
 		colors: {
-			white: '#fafafa',
 			black: '#1a1a1a',
-			blackgray: '#3a3a3a',
-			gray: '#cccccc',
-			graywhite: '#dddddd',
-			grayblack: '#aaaaaa',
+			blackgrayer: '#212121',
+			blackgray: '#2a2a2a',
+			gray: '#999999',
+			graywhite: '#aaaaaa',
+			grayblack: '#3a3a3a',
+			white: '#cccccc',
 		},
 		fontFamily: {
 			zenkaku: ['Zen Kaku Gothic New', 'sans-serif'],
