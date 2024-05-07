@@ -29,6 +29,7 @@ type Island struct {
 type Pattern struct {
 	ID       string
 	Title    string
+	Color    sql.NullString
 	Priority sql.NullInt64
 	Created  sql.NullTime
 	Updated  sql.NullTime

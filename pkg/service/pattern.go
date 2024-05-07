@@ -80,8 +80,13 @@ func (srv *PatternService) GetWithTrait(id string) (PatternTrait, error) {
 	return pt, nil
 }
 
-func (srv *PatternService) Create(params dbq.CreatePatternParams) (string, error) {
+func (srv *PatternService) Create(title string, priority int64, color string) (string, error) {
 	query := srv.repos.DB.Query()
+	params := dbq.CreatePatternParams{
+		Title: title,
+		Priority: nint64(priority),
+		Color: nstr(color),
+	}
 	params.ID = ulid.Make().String()
 	if _, err := query.CreatePattern(ctx(), params); err != nil {
 		return "", nil

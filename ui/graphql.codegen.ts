@@ -9,6 +9,6 @@ export default {
 		},
 	},
 	hooks: {
-		afterAllFileWrite: ['prettier --write'],
+		afterAllFileWrite: ['pnpm format'],
 	},
 } satisfies CodegenConfig

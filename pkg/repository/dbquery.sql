@@ -30,7 +30,7 @@ SELECT * FROM patterns;
 -- name: GetPattern :one
 SELECT * FROM patterns WHERE id = ?;
 -- name: CreatePattern :one
-INSERT INTO patterns (id, title, priority) VALUES (?, ?, ?) RETURNING *;
+INSERT INTO patterns (id, title, priority, color) VALUES (?, ?, ?, ?) RETURNING *;
 -- name: DeletePattern :exec
 DELETE FROM patterns WHERE id = ?;
 

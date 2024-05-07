@@ -5,6 +5,7 @@ const listQuery = `query {
   listPatterns {
     id
     title
+    color
     traits {
       defaultValue
       path
@@ -18,8 +19,8 @@ export const listPatterns = () => get<Pattern[]>(listQuery, {
 	initialData: [],
 })
 
-const createQuery = `mutation ($title: String!, $traits: [TraitInput!]!) {
-  createPattern(title: $title, traits: $traits)
+const createQuery = `mutation ($title: String!, $color: String, $traits: [TraitInput!]!) {
+  createPattern(title: $title, color: $color, traits: $traits)
 }`
 export const useCreatePattern = () => mutate<MutationCreatePatternArgs>(createQuery, {
 	usekey: 'createPattern',

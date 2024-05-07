@@ -67,21 +67,28 @@ func (q *Queries) CreateIsland(ctx context.Context, arg CreateIslandParams) (Isl
 }
 
 const createPattern = `-- name: CreatePattern :one
-INSERT INTO patterns (id, title, priority) VALUES (?, ?, ?) RETURNING id, title, priority, created, updated
+INSERT INTO patterns (id, title, priority, color) VALUES (?, ?, ?, ?) RETURNING id, title, color, priority, created, updated
 `
 
 type CreatePatternParams struct {
 	ID       string
 	Title    string
 	Priority sql.NullInt64
+	Color    sql.NullString
 }
 
 func (q *Queries) CreatePattern(ctx context.Context, arg CreatePatternParams) (Pattern, error) {
-	row := q.db.QueryRowContext(ctx, createPattern, arg.ID, arg.Title, arg.Priority)
+	row := q.db.QueryRowContext(ctx, createPattern,
+		arg.ID,
+		arg.Title,
+		arg.Priority,
+		arg.Color,
+	)
 	var i Pattern
 	err := row.Scan(
 		&i.ID,
 		&i.Title,
+		&i.Color,
 		&i.Priority,
 		&i.Created,
 		&i.Updated,
@@ -302,7 +309,7 @@ func (q *Queries) GetIsland(ctx context.Context, id string) (Island, error) {
 }
 
 const getPattern = `-- name: GetPattern :one
-SELECT id, title, priority, created, updated FROM patterns WHERE id = ?
+SELECT id, title, color, priority, created, updated FROM patterns WHERE id = ?
 `
 
 func (q *Queries) GetPattern(ctx context.Context, id string) (Pattern, error) {
@@ -311,6 +318,7 @@ func (q *Queries) GetPattern(ctx context.Context, id string) (Pattern, error) {
 	err := row.Scan(
 		&i.ID,
 		&i.Title,
+		&i.Color,
 		&i.Priority,
 		&i.Created,
 		&i.Updated,
@@ -581,7 +589,7 @@ func (q *Queries) ListIslandsByTitle(ctx context.Context, title string) ([]Islan
 }
 
 const listPatterns = `-- name: ListPatterns :many
-SELECT id, title, priority, created, updated FROM patterns
+SELECT id, title, color, priority, created, updated FROM patterns
 `
 
 func (q *Queries) ListPatterns(ctx context.Context) ([]Pattern, error) {
@@ -596,6 +604,7 @@ func (q *Queries) ListPatterns(ctx context.Context) ([]Pattern, error) {
 		if err := rows.Scan(
 			&i.ID,
 			&i.Title,
+			&i.Color,
 			&i.Priority,
 			&i.Created,
 			&i.Updated,

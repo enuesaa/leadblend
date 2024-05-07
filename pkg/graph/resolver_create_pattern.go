@@ -7,6 +7,7 @@ import (
 
 type resolverCreatePatternArgs struct {
 	Title  string
+	Color  *string
 	Traits []resolverCreatePatternTrait
 }
 type resolverCreatePatternTrait struct {
@@ -19,10 +20,7 @@ type resolverCreatePatternTrait struct {
 func (r *Resolver) CreatePattern(args resolverCreatePatternArgs) (*string, error) {
 	patternSrv := service.NewPatternService(r.repos)
 
-	params := dbq.CreatePatternParams{
-		Title: args.Title,
-	}
-	id, err := patternSrv.Create(params)
+	id, err := patternSrv.Create(args.Title, 0, *args.Color)
 	if err != nil {
 		return nil, err
 	}

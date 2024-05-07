@@ -16,7 +16,7 @@
 			{ path: '$.b', type: 'string', defaultValue: 'b', required: true },
 			{ path: '$.c', type: 'string', defaultValue: 'c', required: true },
 		] satisfies TraitInput[]
-		await $createPattern.mutateAsync({ title, traits })
+		await $createPattern.mutateAsync({ title, traits, color: '#1a1a1a' })
 		goto('/')
 	}
 </script>

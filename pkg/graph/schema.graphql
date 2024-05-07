@@ -46,6 +46,7 @@ type Comet {
 type Pattern {
   id: ID!
   title: String!
+  color: String
   traits: [Trait!]!
 }
 type Trait {
@@ -71,7 +72,7 @@ type Mutation {
   createComet(data: String!): String
   linkComet(id: ID!, islandId: String!): Boolean
   deleteComet(id: ID!): Boolean
-  createPattern(title: String!, traits: [TraitInput!]!): String
+  createPattern(title: String!, color: String, traits: [TraitInput!]!): String
 }
 
 type Subscription {

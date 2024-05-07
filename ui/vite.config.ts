@@ -14,8 +14,6 @@ export default defineConfig({
 		exclude: ['@urql/svelte'],
 	},
 	test: {
-		include: [
-      'lib/**/*.test.ts',
-    ],
+		include: ['lib/**/*.test.ts'],
 	},
 })

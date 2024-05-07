@@ -16,6 +16,12 @@ func (p *Pattern) Id() graphql.ID {
 func (p *Pattern) Title() string {
 	return p.record.Title
 }
+func (p *Pattern) Color() *string {
+	if p.record.Color.String == "" {
+		return nil
+	}
+	return &p.record.Color.String
+}
 func (p *Pattern) Traits() []*Trait {
 	list := make([]*Trait, 0)
 	for _, p := range p.traits {
