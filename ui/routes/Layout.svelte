@@ -1,11 +1,22 @@
 <script lang="ts">
+	import Comets from './Comets.svelte'
 	import SideMenu from './SideMenu.svelte'
+	import { hideComet } from '$lib/store/comet'
+
+	export let comet: boolean = true
+	export let sidebar: boolean = true
+	$: if (!comet) {
+		hideComet()
+	}
 </script>
 
+<Comets />
 <main>
-	<div class="left">
-		<SideMenu />
-	</div>
+	{#if sidebar}
+		<div class="left">
+			<SideMenu />
+		</div>
+	{/if}
 	<div class="right">
 		<slot />
 	</div>

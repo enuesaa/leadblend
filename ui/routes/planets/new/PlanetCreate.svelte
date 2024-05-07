@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation'
 	import Button from '$lib/components/Button.svelte'
 	import TextInput from '$lib/components/TextInput.svelte'
 	import { useCreatePlanet } from '$lib/graphql/planet'
@@ -11,6 +12,7 @@
 	async function handleClick() {
 		const data = { name, comment }
 		await $createPlanet.mutateAsync(data)
+		goto('/')
 	}
 </script>
 
