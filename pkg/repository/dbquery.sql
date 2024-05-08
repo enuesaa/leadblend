@@ -6,6 +6,8 @@ SELECT * FROM planets WHERE id = ?;
 SELECT * FROM planets WHERE name = ?;
 -- name: CreatePlanet :one
 INSERT INTO planets (id, name, comment) VALUES (?, ?, ?) RETURNING *;
+-- name: UpdatePlanetName :exec
+UPDATE planets SET name = sqlc.arg(new_name) WHERE name = sqlc.arg(name);
 -- name: DeletePlanet :exec
 DELETE FROM planets WHERE name = ?;
 

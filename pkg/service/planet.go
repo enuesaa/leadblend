@@ -40,6 +40,11 @@ func (srv *PlanetService) Create(params dbq.CreatePlanetParams) (string, error) 
 	return params.ID, nil
 }
 
+func (srv *PlanetService) Rename(params dbq.UpdatePlanetNameParams) error {
+	query := srv.repos.DB.Query()
+	return query.UpdatePlanetName(ctx(), params)
+}
+
 func (srv *PlanetService) DeleteByName(name string) error {
 	query := srv.repos.DB.Query()
 	return query.DeletePlanet(ctx(), name)

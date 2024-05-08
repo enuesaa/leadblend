@@ -48,6 +48,7 @@ export type Mutation = {
   deletePlanet?: Maybe<Scalars['Boolean']['output']>;
   deleteStone?: Maybe<Scalars['Boolean']['output']>;
   linkComet?: Maybe<Scalars['Boolean']['output']>;
+  renamePlanet?: Maybe<Scalars['Boolean']['output']>;
 };
 
 
@@ -105,6 +106,12 @@ export type MutationDeleteStoneArgs = {
 export type MutationLinkCometArgs = {
   id: Scalars['ID']['input'];
   islandId: Scalars['String']['input'];
+};
+
+
+export type MutationRenamePlanetArgs = {
+  name: Scalars['String']['input'];
+  newName: Scalars['String']['input'];
 };
 
 export type Pattern = {
@@ -206,6 +213,7 @@ export type TraitInput = {
   type: Scalars['String']['input'];
 };
 
-export type _Service = {__typename?: '_Service';
+export type _Service = {
+  __typename?: '_Service';
   sdl: Scalars['String']['output'];
 };

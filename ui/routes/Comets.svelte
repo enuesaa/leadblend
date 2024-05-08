@@ -20,7 +20,7 @@
 
 <style lang="postcss">
 	section {
-		background-image: radial-gradient(rgba(0,0,0,0.2) 20%, rgba(0,0,0,0) 0%);
+		background-image: radial-gradient(rgba(0, 0, 0, 0.2) 20%, rgba(0, 0, 0, 0) 0%);
 		background-size: 6px 6px;
 		box-shadow: 0 0 2px rgba(255, 255, 255, 0.3) inset;
 	}

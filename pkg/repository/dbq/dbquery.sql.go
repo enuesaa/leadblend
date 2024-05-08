@@ -839,6 +839,20 @@ func (q *Queries) ListTraitsByPatternIds(ctx context.Context, patternIds []strin
 	return items, nil
 }
 
+const updatePlanetName = `-- name: UpdatePlanetName :exec
+UPDATE planets SET name = ?1 WHERE name = ?2
+`
+
+type UpdatePlanetNameParams struct {
+	NewName string
+	Name    string
+}
+
+func (q *Queries) UpdatePlanetName(ctx context.Context, arg UpdatePlanetNameParams) error {
+	_, err := q.db.ExecContext(ctx, updatePlanetName, arg.NewName, arg.Name)
+	return err
+}
+
 const updateStone = `-- name: UpdateStone :exec
 UPDATE stones SET island_id = ? WHERE id = ?
 `
