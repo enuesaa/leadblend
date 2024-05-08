@@ -18,7 +18,7 @@
 			<slot />
 		</div>
 	{:else}
-		<div class="rightSidebarHidden">
+		<div class="sidebarHidden">
 			<slot />
 		</div>
 	{/if}
@@ -37,7 +37,7 @@
 		box-shadow: 0 0 2px rgba(255, 255, 255, 0.3) inset;
 		@apply flex-auto pt-2 pl-7;
 	}
-	.rightSidebarHidden {
+	.sidebarHidden {
 		@apply flex-auto pt-3 pl-7 max-w-4xl mx-auto;
 	}
 </style>
