@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { getCurrentSpace } from '$lib/graphql/space'
-	import HeaderCometToggle from './HeaderCometToggle.svelte'
 
 	const space = getCurrentSpace()
 </script>
@@ -14,7 +13,6 @@
 		</a>
 
 		<div class="flex-auto"></div>
-		<HeaderCometToggle />
 		<a href="/patterns" class="inline-block w-20 font-zenkaku text-lg font-bold text-center">Patterns</a>
 	</div>
 </header>
