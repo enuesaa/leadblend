@@ -13,12 +13,15 @@
 	let traits: TraitInput[] = []
 
 	function handleAddTrait() {
-		traits = [...traits, {
-			defaultValue: '',
-			path: '$',
-			required: true,
-			type: 'string',
-		}]
+		traits = [
+			...traits,
+			{
+				defaultValue: '',
+				path: '$',
+				required: true,
+				type: 'string',
+			},
+		]
 	}
 
 	async function handleClick() {
@@ -32,9 +35,9 @@
 
 <div class="m-3">
 	{#each traits.flat() as trait, i}
-		<TraitForm bind:trait={trait} remove={() => traits = traits.splice(i, 1)} />
+		<TraitForm bind:trait remove={() => (traits = traits.splice(i, 1))} />
 	{/each}
-	<Button handleClick={handleAddTrait} label='add trait' />
+	<Button handleClick={handleAddTrait} label="add trait" />
 </div>
 
 <Button {handleClick} label="Create" />

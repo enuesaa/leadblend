@@ -8,7 +8,7 @@
 </script>
 
 <section>
-	<TextInput bind:value={trait.path} label='path' />
+	<TextInput bind:value={trait.path} label="path" />
 	<label>
 		type
 		<select bind:value={trait.type}>
@@ -20,15 +20,15 @@
 			<option value="null">null</option>
 		</select>
 	</label>
-	<TextInput bind:value={trait.defaultValue} label='defaultValue' />
+	<TextInput bind:value={trait.defaultValue} label="defaultValue" />
 
 	<label>
 		required
-		<input type="checkbox" bind:value={trait.required}/>
+		<input type="checkbox" bind:value={trait.required} />
 	</label>
 
 	<div>
-		<Button handleClick={remove} label='remove' />
+		<Button handleClick={remove} label="remove" />
 	</div>
 </section>
 

@@ -14,14 +14,16 @@ const listQuery = `query {
     }
   }
 }`
-export const listPatterns = () => get<Pattern[]>(listQuery, {
-	usekey: 'listPatterns',
-	initialData: [],
-})
+export const listPatterns = () =>
+	get<Pattern[]>(listQuery, {
+		usekey: 'listPatterns',
+		initialData: [],
+	})
 
 const createQuery = `mutation ($title: String!, $color: String, $traits: [TraitInput!]!) {
   createPattern(title: $title, color: $color, traits: $traits)
 }`
-export const useCreatePattern = () => mutate<MutationCreatePatternArgs>(createQuery, {
-	usekey: 'createPattern',
-})
+export const useCreatePattern = () =>
+	mutate<MutationCreatePatternArgs>(createQuery, {
+		usekey: 'createPattern',
+	})

@@ -9,10 +9,11 @@ const listQuery = `query {
   }
 }`
 
-export const listPlanets = () => get<Planet[]>(listQuery, {
-	usekey: 'listPlanets',
-	initialData: [],
-})
+export const listPlanets = () =>
+	get<Planet[]>(listQuery, {
+		usekey: 'listPlanets',
+		initialData: [],
+	})
 
 const getQuery = `query ($name: String!) {
 	getPlanet(name: $name) {
@@ -22,28 +23,32 @@ const getQuery = `query ($name: String!) {
 	}
 }`
 
-export const getPlanet = (name: string) => get<Planet>(getQuery, {
-	vars: {name},
-	usekey: 'getPlanet',
-})
+export const getPlanet = (name: string) =>
+	get<Planet>(getQuery, {
+		vars: { name },
+		usekey: 'getPlanet',
+	})
 
 const createQuery = `mutation ($name: String!, $comment: String!) {
   createPlanet(name: $name, comment: $comment)
 }`
-export const useCreatePlanet = () => mutate<MutationCreatePlanetArgs>(createQuery, {
-	usekey: 'createPlanet',
-})
+export const useCreatePlanet = () =>
+	mutate<MutationCreatePlanetArgs>(createQuery, {
+		usekey: 'createPlanet',
+	})
 
 const renameQuery = `mutation ($name: String!, $newName: String!) {
   renamePlanet(name: $name, newName: $newName)
 }`
-export const useRenamePlanet = () => mutate<MutationRenamePlanetArgs>(renameQuery, {
-	usekey: 'renamePlanet',
-})
+export const useRenamePlanet = () =>
+	mutate<MutationRenamePlanetArgs>(renameQuery, {
+		usekey: 'renamePlanet',
+	})
 
 const deleteQuery = `mutation ($name: String!) {
   deletePlanet(name: $name)
 }`
-export const useDeletePlanet = () => mutate<MutationDeletePlanetArgs>(deleteQuery, {
-	usekey: 'deletePlanet',
-})
+export const useDeletePlanet = () =>
+	mutate<MutationDeletePlanetArgs>(deleteQuery, {
+		usekey: 'deletePlanet',
+	})

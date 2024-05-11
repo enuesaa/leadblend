@@ -9,15 +9,17 @@ const listQuery = `query ($islandId: ID!) {
     patternId
   }
 }`
-export const listStones = (islandId: string) => get<Stone[]>(listQuery, {
-	vars: {islandId},
-	usekey: 'listStones',
-	initialData: [],
-})
+export const listStones = (islandId: string) =>
+	get<Stone[]>(listQuery, {
+		vars: { islandId },
+		usekey: 'listStones',
+		initialData: [],
+	})
 
 const deleteQuery = `mutation ($id: ID!) {
   deleteStone(id: $id)
 }`
-export const useDeleteStone = () => mutate<MutationDeleteStoneArgs>(deleteQuery, {
-	usekey: 'deleteStone',
-})
+export const useDeleteStone = () =>
+	mutate<MutationDeleteStoneArgs>(deleteQuery, {
+		usekey: 'deleteStone',
+	})

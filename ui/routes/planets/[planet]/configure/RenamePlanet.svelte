@@ -16,6 +16,6 @@
 
 <section class="my-6 p-4 bg-grayblack w-fit rounded-lg">
 	<h6 class="text-lg font-bold mb-2">Rename Planet</h6>
-	<TextInput bind:value={newPlanetName} label='New Name' />
+	<TextInput bind:value={newPlanetName} label="New Name" />
 	<Button {handleClick} label="Rename" />
 </section>

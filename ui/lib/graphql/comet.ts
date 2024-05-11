@@ -8,10 +8,11 @@ const listQuery = `query {
     data
   }
 }`
-export const listComets = () => get<Comet[]>(listQuery, {
-	usekey: 'listComets',
-	initialData: [],
-})
+export const listComets = () =>
+	get<Comet[]>(listQuery, {
+		usekey: 'listComets',
+		initialData: [],
+	})
 
 const getQuery = `query ($id: ID!) {
   getComet(id: $id) {
@@ -20,28 +21,32 @@ const getQuery = `query ($id: ID!) {
     data
   }
 }`
-export const getComet = (id: string) => get<Comet>(getQuery, {
-	vars: { id },
-	usekey: 'getComet',
-})
+export const getComet = (id: string) =>
+	get<Comet>(getQuery, {
+		vars: { id },
+		usekey: 'getComet',
+	})
 
 const createQuery = `mutation ($data: String!) {
 	createComet(data: $data)
 }`
-export const useCreateComet = () => mutate<MutationCreateCometArgs>(createQuery, {
-	usekey: 'createComet',
-})
+export const useCreateComet = () =>
+	mutate<MutationCreateCometArgs>(createQuery, {
+		usekey: 'createComet',
+	})
 
 const linkQuery = `mutation ($id: ID!, $islandId: String!) {
 	linkComet(id: $id, islandId: $islandId)
 }`
-export const useLinkComet = () => mutate<MutationLinkCometArgs>(linkQuery, {
-	usekey: 'linkComet',
-})
+export const useLinkComet = () =>
+	mutate<MutationLinkCometArgs>(linkQuery, {
+		usekey: 'linkComet',
+	})
 
 const deleteQuery = `mutation ($id: ID!) {
   deleteComet(id: $id)
 }`
-export const useDeleteComet = () => mutate<MutationDeleteCometArgs>(deleteQuery, {
-	usekey: 'deleteComet',
-})
+export const useDeleteComet = () =>
+	mutate<MutationDeleteCometArgs>(deleteQuery, {
+		usekey: 'deleteComet',
+	})

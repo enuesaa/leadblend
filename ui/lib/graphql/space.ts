@@ -7,6 +7,7 @@ const getCurrentSpaceQuery = `query {
   }
 }`
 
-export const getCurrentSpace = () => get<Space>(getCurrentSpaceQuery, {
-	usekey: 'getCurrentSpace',
-})
+export const getCurrentSpace = () =>
+	get<Space>(getCurrentSpaceQuery, {
+		usekey: 'getCurrentSpace',
+	})

@@ -8,3 +8,7 @@
 .leadblend
 
 *.db
+
+ui/node_modules
+ui/.svelte-kit
+ui/dist
