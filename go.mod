@@ -3,13 +3,13 @@ module github.com/enuesaa/leadblend
 go 1.22.0
 
 require (
-	github.com/99designs/gqlgen v0.17.45
+	github.com/99designs/gqlgen v0.17.46
 	github.com/gorilla/websocket v1.5.1
 	github.com/graph-gophers/graphql-go v1.5.0
 	github.com/labstack/echo/v4 v4.12.0
 	github.com/oklog/ulid/v2 v2.1.0
 	github.com/spf13/cobra v1.8.0
-	modernc.org/sqlite v1.29.8
+	modernc.org/sqlite v1.29.9
 )
 
 require (
@@ -26,13 +26,13 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasttemplate v1.2.2 // indirect
-	golang.org/x/crypto v0.22.0 // indirect
-	golang.org/x/net v0.24.0 // indirect
-	golang.org/x/sys v0.19.0 // indirect
-	golang.org/x/text v0.14.0 // indirect
+	golang.org/x/crypto v0.23.0 // indirect
+	golang.org/x/net v0.25.0 // indirect
+	golang.org/x/sys v0.20.0 // indirect
+	golang.org/x/text v0.15.0 // indirect
 	golang.org/x/time v0.5.0 // indirect
 	modernc.org/gc/v3 v3.0.0-20240304020402-f0dba7c97c2b // indirect
-	modernc.org/libc v1.50.4 // indirect
+	modernc.org/libc v1.50.5 // indirect
 	modernc.org/mathutil v1.6.0 // indirect
 	modernc.org/memory v1.8.0 // indirect
 	modernc.org/strutil v1.2.0 // indirect
