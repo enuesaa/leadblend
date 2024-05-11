@@ -10,7 +10,7 @@
 <style lang="postcss">
 	button {
 		border: solid 1px;
-		@apply p-1 px-2 border-blackgray rounded-lg ml-3 mb-5 inline-block;
-		@apply text-base font-zenkaku font-bold;
+		@apply p-1 px-2 border-gray rounded-lg ml-3 mb-5 inline-block;
+		@apply text-base font-zenkaku font-medium;
 	}
 </style>

@@ -15,7 +15,6 @@
 </script>
 
 {#if $comet.data !== undefined}
-	<SubTitle title="data" />
 	{#if $comet.data?.data !== undefined}
 		<FieldEditor {data} />
 	{/if}

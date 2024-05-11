@@ -13,7 +13,7 @@
 
 	<div class="absolute bottom-0 right-0">
 		{#each $stones.data ?? [] as _}
-			<span class="inline-block w-5 h-5 bg-black mr-1" />
+			<span class="inline-block w-5 h-5 bg-gray mr-1" />
 		{/each}
 	</div>
 </a>

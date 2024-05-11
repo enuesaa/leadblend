@@ -36,13 +36,11 @@
 
 <PageTitle title="New Comet" />
 
-<SubTitle title="Data">
-	{#if useJsonEditor}
-		<SwitchEditorButton label="Use Field Editor" handle={handleSwitchToFieldEditor} />
-	{:else}
-		<SwitchEditorButton label="Use JSON Editor" handle={handleSwitchToJsonEditor} />
-	{/if}
-</SubTitle>
+{#if useJsonEditor}
+	<SwitchEditorButton label="Use Field Editor" handle={handleSwitchToFieldEditor} />
+{:else}
+	<SwitchEditorButton label="Use JSON Editor" handle={handleSwitchToJsonEditor} />
+{/if}
 
 {#if useJsonEditor}
 	<JsonEditor bind:data={jsondata} />
