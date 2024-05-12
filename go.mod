@@ -1,6 +1,6 @@
 module github.com/enuesaa/leadblend
 
-go 1.22.0
+go 1.22.3
 
 require (
 	github.com/99designs/gqlgen v0.17.46
